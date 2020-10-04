@@ -1,12 +1,17 @@
 <resources>
-    <string name="app_name">Service-Novigrad</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="app_name">Service Novigrad</string>
+    <!-- Strings related to login and register -->
+    <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="prompt_branch_id">Branch ID (Optional)</string>
+    <string name="prompt_first_name">First Name</string>
+    <string name="prompt_last_name">Last Name</string>
+    <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="action_register">Register</string>
+    <string name="action_submit">Submit</string>
 </resources>

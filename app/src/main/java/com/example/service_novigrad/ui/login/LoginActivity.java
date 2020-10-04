@@ -21,10 +21,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.login.LoginViewModel;
 import com.example.service_novigrad.ui.login.LoginViewModelFactory;
+import com.example.service_novigrad.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final Button registerButton = findViewById(R.id.register);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -117,6 +120,14 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), RegisterActivity.class));
+            }
+        });
+
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
