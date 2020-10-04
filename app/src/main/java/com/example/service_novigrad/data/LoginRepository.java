@@ -1,6 +1,9 @@
 package com.example.service_novigrad.data;
 
 import com.example.service_novigrad.data.model.LoggedInUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
+
 
 /**
  * Class that requests authentication and user information from the remote data source and
