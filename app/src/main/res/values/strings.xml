@@ -14,4 +14,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="action_register">Register</string>
     <string name="action_submit">Submit</string>
+    <string name="customer">Customer</string>
+    <string name="employee">Employee</string>
 </resources>

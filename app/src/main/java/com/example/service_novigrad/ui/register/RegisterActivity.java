@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity{
         final EditText branchIDEditText = findViewById(R.id.branchid);
         final Button submitButton = findViewById(R.id.submit);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() { //this submits the information the user inputs and stores it in the firebase database
             public void onClick(View view) {
                 finish();
             }
