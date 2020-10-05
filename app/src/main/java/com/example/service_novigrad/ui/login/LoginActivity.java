@@ -1,7 +1,9 @@
 package com.example.service_novigrad.ui.login;
+import com.example.service_novigrad.accounts.CustomerAccount;
 
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -11,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -24,9 +27,20 @@ import android.widget.Toast;
 import android.content.Intent;
 
 import com.example.service_novigrad.R;
+import com.example.service_novigrad.accounts.EmployeeAccount;
 import com.example.service_novigrad.ui.login.LoginViewModel;
 import com.example.service_novigrad.ui.login.LoginViewModelFactory;
 import com.example.service_novigrad.ui.register.RegisterActivity;
+import com.example.service_novigrad.ui.welcome.WelcomeActivity;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -114,10 +128,61 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+            public void onClick( final View view) {
+//                loadingProgressBar.setVisibility(View.VISIBLE);
+//                loginViewModel.login(usernameEditText.getText().toString(),
+//                        passwordEditText.getText().toString());
+
+
+                //Checks the Customer Accounts =====================================================================================================================
+                DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts");
+//                final ArrayList<CustomerAccount> customersUsers = new ArrayList<CustomerAccount>();
+                accountsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Iterable<DataSnapshot> children = snapshot.getChildren();
+                        for (DataSnapshot child: children){
+                            CustomerAccount temp = child.getValue(CustomerAccount.class);
+                            if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
+                                startActivity(new Intent(view.getContext(), RegisterActivity.class));
+                                break;
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                //Checks the Employee Accounts ====================================================================================================================
+                accountsReference = FirebaseDatabase.getInstance().getReference().child("Employee Accounts");
+//                ArrayList<EmployeeAccount> employees = new ArrayList<EmployeeAccount>();
+                accountsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Iterable<DataSnapshot> children = snapshot.getChildren();
+                        for(DataSnapshot child: children){
+                            EmployeeAccount temp = child.getValue(EmployeeAccount.class);
+                             if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
+                                startActivity(new Intent(view.getContext(), RegisterActivity.class));
+                                break;
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+
             }
         });
 
