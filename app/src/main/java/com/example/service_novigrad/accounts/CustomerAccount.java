@@ -1,3 +1,5 @@
+package com.example.service_novigrad.accounts;
+
 class CustomerAccount extends Account{
 
     //Constructor
