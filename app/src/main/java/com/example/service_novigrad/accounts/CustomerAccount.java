@@ -1,6 +1,6 @@
 package com.example.service_novigrad.accounts;
 
-class CustomerAccount extends Account{
+public class CustomerAccount extends Account{
 
     //Constructor
     public CustomerAccount(String username, String password, String firstName, String lastName){
