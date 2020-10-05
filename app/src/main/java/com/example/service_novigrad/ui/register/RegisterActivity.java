@@ -27,6 +27,7 @@ import android.content.Intent;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.accounts.CustomerAccount;
+import com.example.service_novigrad.accounts.EmployeeAccount;
 import com.example.service_novigrad.ui.login.LoginViewModel;
 import com.example.service_novigrad.ui.login.LoginViewModelFactory;
 import com.google.firebase.database.DatabaseReference;
@@ -53,12 +54,13 @@ public class RegisterActivity extends AppCompatActivity{
 
         submitButton.setOnClickListener(new View.OnClickListener() { //this submits the information the user inputs and stores it in the firebase database
             public void onClick(View view) {
-                String firstName, lastName, username, password, branchID;
+                String firstName, lastName, username, password;
+                int branchID;
                 firstName = firstNameEditText.getText().toString();
                 lastName = lastNameEditText.getText().toString();
                 username = usernameEditText.getText().toString();
                 password = passwordEditText.getText().toString();
-                branchID = branchIDEditText.getText().toString();
+                branchID = Integer.parseInt(branchIDEditText.getText().toString());
 
 //                int checkedID = accountTypeRadioGroup.getCheckedRadioButtonId();// finds the item id that is checked by the radio group
 //                RadioButton checkedRadioButton = (RadioButton) findViewById(checkedID);//using the id found above to find the exact radio button
@@ -68,33 +70,19 @@ public class RegisterActivity extends AppCompatActivity{
                 if (employeeAccountTypeRadioButton.isChecked()){
 
                     //Create references that take the form similar to a json file this is a template basically to show the format and how stuff will be shown
-                    DatabaseReference newEmployeeUsername = database.getReference("Employee Accounts/"+ username);
-                    DatabaseReference newEmployeeFirstName = database.getReference("Employee Accounts/"+ username+"/first name");
-                    DatabaseReference newEmployeeLastName = database.getReference("Employee Accounts/"+ username+"/last name");
-                    DatabaseReference newEmployeePassword = database.getReference("Employee Accounts/"+ username+"/password");
-                    DatabaseReference newEmployeeBranchID = database.getReference("Employee Accounts/"+ username+"/branch id");
+                    DatabaseReference newEmployeeAccount = database.getReference("Employee Accounts/");
 
-                    //Set the values into the "template"(references) we created
-                    newEmployeeUsername.setValue(username);
-                    newEmployeeFirstName.setValue(firstName);
-                    newEmployeeLastName.setValue(lastName);
-                    newEmployeePassword.setValue(password);
-                    newEmployeeBranchID.setValue(branchID);
+
+                    EmployeeAccount newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID);
+                    newEmployeeAccount.push().setValue(newEmployee);
+
 
                 }else if (customerAccountTypeRadioButton.isChecked()){
                     DatabaseReference newCustomerAccount = database.getReference("Customer Accounts/");
-                    DatabaseReference newCustomerUsername = database.getReference("Customer Accounts/"+ username);
-                    DatabaseReference newCustomerFirstName = database.getReference("Customer Accounts/"+username +"/first name");
-                    DatabaseReference newCustomerLastName = database.getReference("Customer Accounts/"+ username +"/last name");
-                    DatabaseReference newCustomerPassword = database.getReference("Customer Accounts/"+ username +"/password");
 
 
-                    newCustomerUsername.setValue(username);
-                    newCustomerFirstName.setValue(firstName);
-                    newCustomerLastName.setValue(lastName);
-                    newCustomerPassword.setValue(password);
-//                    CustomerAccount newCustomer = new CustomerAccount(username,password,firstName,lastName);
-
+                    CustomerAccount newCustomer = new CustomerAccount(username,password,firstName,lastName);
+                    newCustomerAccount.push().setValue(newCustomer);
 
                 }
                 finish();
