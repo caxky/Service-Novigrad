@@ -5,6 +5,9 @@ public class EmployeeAccount extends Account {
     private int branchID;
 
     //Constructor
+    public EmployeeAccount(){
+
+    }
     public EmployeeAccount(String username, String password, String firstName, String lastName, int branchID){
         this.accountType = 1;
         this.username = username;

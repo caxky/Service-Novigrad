@@ -3,6 +3,9 @@ package com.example.service_novigrad.accounts;
 public class CustomerAccount extends Account{
 
     //Constructor
+    public CustomerAccount(){
+
+    }
     public CustomerAccount(String username, String password, String firstName, String lastName){
         this.accountType = 0;
         this.username = username;
