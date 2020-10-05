@@ -16,4 +16,7 @@
     <string name="action_submit">Submit</string>
     <string name="customer">Customer</string>
     <string name="employee">Employee</string>
+
+    <!-- Strings related to welcome screen -->
+    <string name="welcome_banner">Welcome user,</string>
 </resources>
