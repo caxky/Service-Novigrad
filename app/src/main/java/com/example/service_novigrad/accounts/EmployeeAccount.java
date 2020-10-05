@@ -1,3 +1,5 @@
+package com.example.service_novigrad.accounts;
+
 public class EmployeeAccount extends Account {
     //Instance Variables
     private int branchID;

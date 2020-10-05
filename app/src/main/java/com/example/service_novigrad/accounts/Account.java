@@ -1,3 +1,5 @@
+package com.example.service_novigrad.accounts;
+
 public abstract class Account{
     //Instance Variables
     protected String username;

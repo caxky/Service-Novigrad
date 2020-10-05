@@ -1,3 +1,5 @@
+package com.example.service_novigrad.accounts;
+
 public class AdminAccount extends Account{
     //Constructor
     public AdminAccount(){
