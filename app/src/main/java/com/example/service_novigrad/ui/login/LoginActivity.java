@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                         for (DataSnapshot child: children){
                             CustomerAccount temp = child.getValue(CustomerAccount.class);
                             if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
-                                startActivity(new Intent(view.getContext(), RegisterActivity.class));
+                                startActivity(new Intent(view.getContext(), WelcomeActivity.class));
                                 break;
                             }
 
@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                         for(DataSnapshot child: children){
                             EmployeeAccount temp = child.getValue(EmployeeAccount.class);
                              if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
-                                startActivity(new Intent(view.getContext(), RegisterActivity.class));
+                                startActivity(new Intent(view.getContext(), WelcomeActivity.class));
                                 break;
                             }
                         }
