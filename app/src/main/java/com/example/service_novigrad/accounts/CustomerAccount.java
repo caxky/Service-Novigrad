@@ -6,6 +6,7 @@ public class CustomerAccount extends Account{
     public CustomerAccount(){
 
     }
+
     public CustomerAccount(String username, String password, String firstName, String lastName){
         this.accountType = 0;
         this.username = username;
@@ -15,6 +16,10 @@ public class CustomerAccount extends Account{
     }
 
     //Class Methods
+    public boolean checkIfFilled(){//check if there is a valid value in all
+        return (username.equals("") || password.equals("") || firstName.equals("") || lastName.equals(""));
+    }
+
     public void searchBranch(){}
 
     public void purchaseService(){}
