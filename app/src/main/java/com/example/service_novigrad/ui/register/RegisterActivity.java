@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-<<<<<<< HEAD
+
         editTextFirstName = findViewById(R.id.firstname);
         editTextLastName = findViewById(R.id.lastname);
         editTextUsername = findViewById(R.id.username);
@@ -69,17 +69,7 @@ public class RegisterActivity extends AppCompatActivity{
         editTextBranchID.addTextChangedListener(registerTextWatcher);
         employeeAccountTypeRadioButton.addTextChangedListener(registerTextWatcher);
         customerAccountTypeRadioButton.addTextChangedListener(registerTextWatcher);
-=======
-        //Find the objects in the xml files
-        final EditText firstNameEditText = findViewById(R.id.firstname);
-        final EditText lastNameEditText = findViewById(R.id.lastname);
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final EditText branchIDEditText = findViewById(R.id.branchid);
-        final RadioButton employeeAccountTypeRadioButton = findViewById(R.id.employee);
-        final RadioButton customerAccountTypeRadioButton = findViewById(R.id.customer);
-        final Button submitButton = findViewById(R.id.submit);
->>>>>>> b40a7b6934193f45557a24a3479007e47d6578cf
+
 
 
 
@@ -89,18 +79,13 @@ public class RegisterActivity extends AppCompatActivity{
                 //initialize and fill in the values of the data we found from the users
                 String firstName, lastName, username, password;
                 int branchID;
-<<<<<<< HEAD
+
                 firstName = editTextFirstName.getText().toString();
                 lastName = editTextLastName.getText().toString();
                 username = editTextUsername.getText().toString();
                 password = editTextPassword.getText().toString();
                 branchID = Integer.parseInt(editTextBranchID.getText().toString());
-=======
-                firstName = firstNameEditText.getText().toString();
-                lastName = lastNameEditText.getText().toString();
-                username = usernameEditText.getText().toString();
-                password = passwordEditText.getText().toString();
->>>>>>> b40a7b6934193f45557a24a3479007e47d6578cf
+
 
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance(); //creates an instance so you can read and write to it
@@ -109,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity{
 
                 if (employeeAccountTypeRadioButton.isChecked()){
 
-                    branchID = Integer.parseInt(branchIDEditText.getText().toString());
+                    branchID = Integer.parseInt(editTextBranchID.getText().toString());
                     //Create references that take the form similar to a json file this is a template basically to show the format and how stuff will be shown
                     DatabaseReference newEmployeeAccount = database.getReference("Employee Accounts/");
 
