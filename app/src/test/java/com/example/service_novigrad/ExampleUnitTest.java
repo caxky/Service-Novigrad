@@ -1,5 +1,8 @@
 package com.example.service_novigrad;
 
+import com.example.service_novigrad.accounts.CustomerAccount;
+import com.example.service_novigrad.accounts.EmployeeAccount;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
