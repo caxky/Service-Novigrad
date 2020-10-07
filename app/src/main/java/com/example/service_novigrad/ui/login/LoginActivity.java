@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                 //Checks the Customer Accounts =====================================================================================================================
                 DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts");
 //                final ArrayList<CustomerAccount> customersUsers = new ArrayList<CustomerAccount>();
-                accountsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                accountsReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Iterable<DataSnapshot> children = snapshot.getChildren();
