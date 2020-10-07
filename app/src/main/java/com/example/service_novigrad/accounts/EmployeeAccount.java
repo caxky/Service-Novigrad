@@ -8,13 +8,14 @@ public class EmployeeAccount extends Account {
     public EmployeeAccount(){
 
     }
-    public EmployeeAccount(String username, String password, String firstName, String lastName, int branchID){
+    public EmployeeAccount(String username, String password, String firstName, String lastName, int branchID, long accountID){
         this.accountType = 1;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.branchID = branchID;
+        this.accountID = accountID;
     }
 
     //Class methods
