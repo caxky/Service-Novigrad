@@ -47,6 +47,7 @@
                 android:enabled = "false"/>
 
             <EditText
+<<<<<<< HEAD
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -71,6 +72,30 @@
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
                 android:enabled = "false"/>
+=======
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/prompt_username"
+                    android:inputType="text" />
+
+            <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/prompt_password"
+                    android:inputType="textPassword" />
+>>>>>>> b40a7b6934193f45557a24a3479007e47d6578cf
 
             <EditText
                 android:id="@+id/branchid"

@@ -18,6 +18,9 @@ public class EmployeeAccount extends Account {
     }
 
     //Class methods
+    public boolean checkIfFilled(){//check if there is a valid value in all
+        return (username.equals("") || password.equals("") || firstName.equals("") || lastName.equals(""));
+    }
     public void selectServices(){}
 
     public void setWorkingHours(){}
