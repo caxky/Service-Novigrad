@@ -2,6 +2,7 @@ package com.example.service_novigrad.ui.register;
 import com.example.service_novigrad.*;
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -30,8 +31,11 @@ import com.example.service_novigrad.accounts.CustomerAccount;
 import com.example.service_novigrad.accounts.EmployeeAccount;
 import com.example.service_novigrad.ui.login.LoginViewModel;
 import com.example.service_novigrad.ui.login.LoginViewModelFactory;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity{
     //Declaring Variables
@@ -44,7 +48,10 @@ public class RegisterActivity extends AppCompatActivity{
     private RadioButton employeeAccountTypeRadioButton;
     private RadioButton customerAccountTypeRadioButton;
     private RadioGroup radioGroup;
+    private DataSnapshot accountSnapshot;
+    private long accountID;
 
+//    private long amountOfEmployees, amountOfCustomers;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,42 +83,61 @@ public class RegisterActivity extends AppCompatActivity{
         buttonSubmit.setOnClickListener(new View.OnClickListener() { //this submits the information the user inputs and stores it in the firebase database
             public void onClick(View view) {
 
-                //initialize and fill in the values of the data we found from the users
-                String firstName, lastName, username, password;
-                int branchID;
+//                DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts");
+                DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference();
+                accountsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                firstName = editTextFirstName.getText().toString();
-                lastName = editTextLastName.getText().toString();
-                username = editTextUsername.getText().toString();
-                password = editTextPassword.getText().toString();
-                branchID = Integer.parseInt(editTextBranchID.getText().toString());
+                        accountID = snapshot.child("Customer Accounts").getChildrenCount()+1+ snapshot.child("Employee Accounts").getChildrenCount();
+                        //initialize and fill in the values of the data we found from the users
+                        String firstName, lastName, username, password;
+                        int branchID;
 
+                        firstName = editTextFirstName.getText().toString();
+                        lastName = editTextLastName.getText().toString();
+                        username = editTextUsername.getText().toString();
+                        password = editTextPassword.getText().toString();
+                        branchID = -1;
+                        if (!editTextBranchID.getText().toString().isEmpty()){
+                            branchID = Integer.parseInt(editTextBranchID.getText().toString());
+                        }
+                        FirebaseDatabase database = FirebaseDatabase.getInstance(); //creates an instance so you can read and write to it
 
+                        if (employeeAccountTypeRadioButton.isChecked()){
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance(); //creates an instance so you can read and write to it
-
-
-
-                if (employeeAccountTypeRadioButton.isChecked()){
-
-                    branchID = Integer.parseInt(editTextBranchID.getText().toString());
-                    //Create references that take the form similar to a json file this is a template basically to show the format and how stuff will be shown
-                    DatabaseReference newEmployeeAccount = database.getReference("Employee Accounts/");
-
-
-                    EmployeeAccount newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID);
-                    newEmployeeAccount.push().setValue(newEmployee);
-
-
-                }else if (customerAccountTypeRadioButton.isChecked()){
-                    DatabaseReference newCustomerAccount = database.getReference("Customer Accounts/");
+                            //Create references that take the form similar to a json file this is a template basically to show the format and how stuff will be shown
+                            DatabaseReference newEmployeeAccount = database.getReference("Employee Accounts/");
 
 
-                    CustomerAccount newCustomer = new CustomerAccount(username,password,firstName,lastName);
+                            EmployeeAccount newEmployee;
+                            newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID, accountID);
+                            newEmployeeAccount.push().setValue(newEmployee);
 
-                    newCustomerAccount.push().setValue(newCustomer);
 
-                }
+                        }else if (customerAccountTypeRadioButton.isChecked()){
+                            DatabaseReference newCustomerAccount = database.getReference("Customer Accounts/");
+
+
+                            CustomerAccount newCustomer = new CustomerAccount(username,password,firstName,lastName, accountID);
+
+                            newCustomerAccount.push().setValue(newCustomer);
+
+                        }
+
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+
 
                 finish();
 
