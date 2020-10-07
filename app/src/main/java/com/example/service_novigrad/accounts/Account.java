@@ -6,7 +6,7 @@ public abstract class Account{
     protected String password;
     protected String firstName;
     protected String lastName;
-    protected int accountID;
+    protected long accountID;
     protected int accountType;
 
     //Setter methods
@@ -22,6 +22,7 @@ public abstract class Account{
     public void setLastName(String newLastName){
         this.lastName = newLastName;
     }
+    public void setAccountID(long newAccountID){this.accountID = newAccountID;}
 
     //Getter methods
     public String getUsername(){
@@ -36,4 +37,5 @@ public abstract class Account{
     public String getLastName(){
         return this.lastName;
     }
+    public long getAccountID(){return this.accountID;}
 }
