@@ -62,9 +62,11 @@
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:enabled="false"
                 android:hint="@string/prompt_first_name"
                 android:inputType="textPersonName"
-                android:enabled = "false"/>
+
+                />
 
             <EditText
                 android:id="@+id/lastname"
@@ -75,9 +77,10 @@
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:enabled="false"
                 android:hint="@string/prompt_last_name"
                 android:inputType="textPersonName"
-                android:enabled = "false"/>
+            />
 
             <EditText
 
@@ -89,9 +92,10 @@
                 android:layout_marginEnd="24dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:enabled="false"
                 android:hint="@string/prompt_username"
                 android:inputType="text"
-                android:enabled = "false"/>
+                />
 
             <EditText
                 android:id="@+id/password"
@@ -102,9 +106,10 @@
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:enabled="false"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
-                android:enabled = "false"/>
+                 />
 
 
             <EditText
@@ -116,9 +121,14 @@
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/prompt_branch_id"
+                android:enabled="false"
+                android:hint="Branch ID (For Employees)"
                 android:inputType="number"
+<<<<<<< HEAD
+                />
+=======
                 android:enabled = "false"/>
+>>>>>>> e7a58711ef3636966e6551832a2e8ccd07b85484
 
         </LinearLayout>
 
@@ -138,6 +148,7 @@
                 android:layout_marginRight="48dp"
                 android:layout_marginBottom="120dp"
                 android:enabled="false"
+                android:onClick="clickSubmitButton"
                 android:text="@string/action_submit" />
         </LinearLayout>
 
