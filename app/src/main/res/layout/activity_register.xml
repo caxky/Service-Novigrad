@@ -20,6 +20,39 @@
             android:layout_weight="0.5"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/accountTypeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:alpha="1"
+                android:text="Are you an employee or customer?"
+                android:textColor="#000000"
+                android:visibility="visible" />
+
+            <RadioGroup
+                android:id="@+id/accountType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:id="@+id/customer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/customer" />
+
+                <RadioButton
+                    android:id="@+id/employee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/employee" />
+            </RadioGroup>
+
             <EditText
                 android:id="@+id/firstname"
                 android:layout_width="match_parent"
@@ -86,39 +119,6 @@
                 android:hint="@string/prompt_branch_id"
                 android:inputType="number"
                 android:enabled = "false"/>
-
-            <TextView
-                android:id="@+id/accountTypeTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:alpha="1"
-                android:text="Are you an employee or customer?"
-                android:textColor="#000000"
-                android:visibility="visible" />
-
-            <RadioGroup
-                android:id="@+id/accountType"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <RadioButton
-                    android:id="@+id/customer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/customer" />
-
-                <RadioButton
-                    android:id="@+id/employee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/employee" />
-            </RadioGroup>
 
         </LinearLayout>
 
