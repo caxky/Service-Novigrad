@@ -45,6 +45,7 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    public static String userName, password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( final View view) {
@@ -146,6 +149,8 @@ public class LoginActivity extends AppCompatActivity {
                             CustomerAccount temp = child.getValue(CustomerAccount.class);
                             if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
                                 startActivity(new Intent(view.getContext(), WelcomeActivity.class));
+                                userName = usernameEditText.getText().toString();
+                                password = passwordEditText.getText().toString();
                                 break;
                             }
 
@@ -160,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                 //Checks the Employee Accounts ====================================================================================================================
                 accountsReference = FirebaseDatabase.getInstance().getReference().child("Employee Accounts");
 //                ArrayList<EmployeeAccount> employees = new ArrayList<EmployeeAccount>();
-                accountsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                accountsReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Iterable<DataSnapshot> children = snapshot.getChildren();
@@ -168,6 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                             EmployeeAccount temp = child.getValue(EmployeeAccount.class);
                              if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
                                 startActivity(new Intent(view.getContext(), WelcomeActivity.class));
+                                userName = usernameEditText.getText().toString();
                                 break;
                             }
                         }
