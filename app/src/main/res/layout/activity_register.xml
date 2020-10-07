@@ -30,7 +30,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/prompt_first_name"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:enabled = "false"/>
 
             <EditText
                 android:id="@+id/lastname"
@@ -42,7 +43,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/prompt_last_name"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:enabled = "false"/>
 
             <EditText
                 android:id="@+id/username"
@@ -54,7 +56,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/prompt_username"
-                android:inputType="text" />
+                android:inputType="text"
+                android:enabled = "false"/>
 
             <EditText
                 android:id="@+id/password"
@@ -66,7 +69,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/prompt_password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:enabled = "false"/>
 
             <EditText
                 android:id="@+id/branchid"
@@ -78,7 +82,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/prompt_branch_id"
-                android:inputType="number" />
+                android:inputType="number"
+                android:enabled = "false"/>
 
             <TextView
                 android:id="@+id/accountTypeTitle"
@@ -130,6 +135,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="48dp"
                 android:layout_marginBottom="120dp"
+                android:enabled="false"
                 android:text="@string/action_submit" />
         </LinearLayout>
 

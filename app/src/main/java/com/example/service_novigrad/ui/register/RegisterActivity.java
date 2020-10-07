@@ -34,33 +34,52 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity{
-
-
+    private EditText editTextUsername;
+    private EditText editTextPassword;
+    private EditText editTextFirstName;
+    private EditText editTextLastName;
+    private EditText editTextBranchID;
+    private Button buttonSubmit;
+    private RadioButton employeeAccountTypeRadioButton;
+    private RadioButton customerAccountTypeRadioButton;
+    private RadioGroup radioGroup;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final EditText firstNameEditText = findViewById(R.id.firstname);
-        final EditText lastNameEditText = findViewById(R.id.lastname);
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final EditText branchIDEditText = findViewById(R.id.branchid);
+        editTextFirstName = findViewById(R.id.firstname);
+        editTextLastName = findViewById(R.id.lastname);
+        editTextUsername = findViewById(R.id.username);
+        editTextPassword = findViewById(R.id.password);
+        editTextBranchID = findViewById(R.id.branchid);
 //        final RadioGroup accountTypeRadioGroup =  findViewById(R.id.accountType);
-        final RadioButton employeeAccountTypeRadioButton = findViewById(R.id.employee);
-        final RadioButton customerAccountTypeRadioButton = findViewById(R.id.customer);
-        final Button submitButton = findViewById(R.id.submit);
+        employeeAccountTypeRadioButton = findViewById(R.id.employee);
+        customerAccountTypeRadioButton = findViewById(R.id.customer);
+        buttonSubmit = findViewById(R.id.submit);
+        radioGroup = (RadioGroup) findViewById(R.id.accountType);
 
-        submitButton.setOnClickListener(new View.OnClickListener() { //this submits the information the user inputs and stores it in the firebase database
+
+        editTextUsername.addTextChangedListener(registerTextWatcher);
+        editTextPassword.addTextChangedListener(registerTextWatcher);
+        editTextFirstName.addTextChangedListener(registerTextWatcher);
+        editTextLastName.addTextChangedListener(registerTextWatcher);
+        editTextBranchID.addTextChangedListener(registerTextWatcher);
+        employeeAccountTypeRadioButton.addTextChangedListener(registerTextWatcher);
+        customerAccountTypeRadioButton.addTextChangedListener(registerTextWatcher);
+
+
+
+        buttonSubmit.setOnClickListener(new View.OnClickListener() { //this submits the information the user inputs and stores it in the firebase database
             public void onClick(View view) {
                 String firstName, lastName, username, password;
                 int branchID;
-                firstName = firstNameEditText.getText().toString();
-                lastName = lastNameEditText.getText().toString();
-                username = usernameEditText.getText().toString();
-                password = passwordEditText.getText().toString();
-                branchID = Integer.parseInt(branchIDEditText.getText().toString());
+                firstName = editTextFirstName.getText().toString();
+                lastName = editTextLastName.getText().toString();
+                username = editTextUsername.getText().toString();
+                password = editTextPassword.getText().toString();
+                branchID = Integer.parseInt(editTextBranchID.getText().toString());
 
 //                int checkedID = accountTypeRadioGroup.getCheckedRadioButtonId();// finds the item id that is checked by the radio group
 //                RadioButton checkedRadioButton = (RadioButton) findViewById(checkedID);//using the id found above to find the exact radio button
@@ -92,9 +111,58 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
-
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                editTextUsername.setEnabled(true);
+                editTextPassword.setEnabled(true);
+                editTextFirstName.setEnabled(true);
+                editTextLastName.setEnabled(true);
+                editTextBranchID.setEnabled(employeeAccountTypeRadioButton.isChecked());
+            }
+        });
     }
 
+    private TextWatcher registerTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            /*String usernameInput = editTextUsername.getText().toString().trim();
+            String passwordInput = editTextPassword.getText().toString().trim();
+            String firstNameInput = editTextFirstName.getText().toString().trim();
+            String lastNameInput = editTextLastName.getText().toString().trim();
+            int BranchIDInput = editTextBranchID.getId();
+
+            if(employeeAccountTypeRadioButton.isChecked()){
+                buttonSubmit.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty() && !firstNameInput.isEmpty() && !lastNameInput.isEmpty() && BranchIDInput >= 0 && BranchIDInput <= 999 && passwordInput.length() > 5);
+            }
+            else if(customerAccountTypeRadioButton.isChecked()){
+                buttonSubmit.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty() && !firstNameInput.isEmpty() && !lastNameInput.isEmpty() && passwordInput.length() > 5);
+            }*/
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String usernameInput = editTextUsername.getText().toString().trim();
+            String passwordInput = editTextPassword.getText().toString().trim();
+            String firstNameInput = editTextFirstName.getText().toString().trim();
+            String lastNameInput = editTextLastName.getText().toString().trim();
+            String BranchIDInput = editTextBranchID.getText().toString().trim();
+
+
+            if(employeeAccountTypeRadioButton.isChecked()){
+                buttonSubmit.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty() && !firstNameInput.isEmpty() && !lastNameInput.isEmpty() && BranchIDInput.length()==3 && passwordInput.length() > 5);
+            }
+            else if(customerAccountTypeRadioButton.isChecked()){
+                buttonSubmit.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty() && !firstNameInput.isEmpty() && !lastNameInput.isEmpty() && passwordInput.length() > 5);
+            }
+        }
+    };
 
 }
 
