@@ -124,7 +124,11 @@
                 android:enabled="false"
                 android:hint="Branch ID (For Employees)"
                 android:inputType="number"
+<<<<<<< HEAD
                 />
+=======
+                android:enabled = "false"/>
+>>>>>>> e7a58711ef3636966e6551832a2e8ccd07b85484
 
         </LinearLayout>
 
