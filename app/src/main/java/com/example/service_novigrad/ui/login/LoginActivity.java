@@ -45,7 +45,7 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
-    public static String userName, password;
+    public static String userName, password; //made a class variable to be able to access later in welcome screen so we can get the account type
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,18 +133,16 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick( final View view) {
-//                loadingProgressBar.setVisibility(View.VISIBLE);
-//                loginViewModel.login(usernameEditText.getText().toString(),
-//                        passwordEditText.getText().toString());
 
 
                 //Checks the Customer Accounts =====================================================================================================================
                 DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts");
-//                final ArrayList<CustomerAccount> customersUsers = new ArrayList<CustomerAccount>();
                 accountsReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Iterable<DataSnapshot> children = snapshot.getChildren();
+                        Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the customer accounts
+
+                        //iterates through the iterable to find if any customer account fits the description
                         for (DataSnapshot child: children){
                             CustomerAccount temp = child.getValue(CustomerAccount.class);
                             if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
@@ -168,7 +166,9 @@ public class LoginActivity extends AppCompatActivity {
                 accountsReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Iterable<DataSnapshot> children = snapshot.getChildren();
+                        Iterable<DataSnapshot> children = snapshot.getChildren();//gets an iterable of the employees accounts
+
+                        //iterates through the iterable to find if any employee account fits the description
                         for(DataSnapshot child: children){
                             EmployeeAccount temp = child.getValue(EmployeeAccount.class);
                              if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){

@@ -93,15 +93,15 @@ public class RegisterActivity extends AppCompatActivity{
                         //initialize and fill in the values of the data we found from the users
                         String firstName, lastName, username, password;
                         int branchID;
-
                         firstName = editTextFirstName.getText().toString();
                         lastName = editTextLastName.getText().toString();
                         username = editTextUsername.getText().toString();
                         password = editTextPassword.getText().toString();
                         branchID = -1;
-                        if (!editTextBranchID.getText().toString().isEmpty()){
+                        if (!editTextBranchID.getText().toString().isEmpty()){//in case that nothing is entered when filling in customer account info and an error occurs
                             branchID = Integer.parseInt(editTextBranchID.getText().toString());
                         }
+                        
                         FirebaseDatabase database = FirebaseDatabase.getInstance(); //creates an instance so you can read and write to it
 
                         if (employeeAccountTypeRadioButton.isChecked()){
@@ -111,17 +111,21 @@ public class RegisterActivity extends AppCompatActivity{
 
 
                             EmployeeAccount newEmployee;
+
+                            //create an instance of the account with the values that was entered by the user
                             newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID, accountID);
 
+                            //writes the account into the database
                             newEmployeeAccount.push().setValue(newEmployee);
 
 
                         }else if (customerAccountTypeRadioButton.isChecked()){
                             DatabaseReference newCustomerAccount = database.getReference("Customer Accounts/");
 
-
+                            //create an instance of the account with the values that was entered by the user
                             CustomerAccount newCustomer = new CustomerAccount(username,password,firstName,lastName, accountID);
 
+                            //writes the account into the database
                             newCustomerAccount.push().setValue(newCustomer);
 
                         }
