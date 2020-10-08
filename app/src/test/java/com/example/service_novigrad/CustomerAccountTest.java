@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class CustomerAccountTest {
     @Test
     public void createCustomerAccount(){
-        CustomerAccount testAccount = new CustomerAccount("test", "test", "test", "test");
+        CustomerAccount testAccount = new CustomerAccount("test", "test", "test", "test", 123);
 
         assertEquals("test", testAccount.getUsername());
     }
