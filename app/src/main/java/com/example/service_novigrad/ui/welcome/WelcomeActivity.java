@@ -38,23 +38,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class WelcomeActivity extends AppCompatActivity {
-    DataSnapshot parentDataSnapshot, userDataSnapShot;
-    CustomerAccount currentCustomerAccount;
-    EmployeeAccount currentEmployeeAccount;
 
-    public void searchAndSetCustomerUsernameAndAccountID(DatabaseReference accountsReference, final String userName, final String password, final TextView usernameTitleTextView, final TextView accountIDTextView){
+    // Searches for the account in the database, finds the account type and set the username and accountID accordingly onto the textview in welcome activity
+    public void searchAndSetUsernameAndAccountID(DatabaseReference accountsReference, final String userName, final String password, final TextView usernameTitleTextView, final TextView accountIDTextView){
         accountsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot> children = snapshot.getChildren();
+                Iterable<DataSnapshot> children = snapshot.getChildren();// gets iterable of customer accounts
 
+                // iterates through customer accounts and check if the user is in this type of account if yes set the accounttype and username textview
                 for (DataSnapshot child: children){
-                    CustomerAccount temp = child.getValue(CustomerAccount.class);;
-
-
+                    CustomerAccount temp = child.getValue(CustomerAccount.class);
                     if(temp.getUsername().equals(userName)&&temp.getPassword().equals(password)){
                         usernameTitleTextView.setText(userName);
-                        accountIDTextView.setText(Long.toString(temp.getAccountID()));
+                        accountIDTextView.setText("Customer");
                         break;
                     }
 
@@ -70,15 +67,16 @@ public class WelcomeActivity extends AppCompatActivity {
         accountsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot> children = snapshot.getChildren();
+                Iterable<DataSnapshot> children = snapshot.getChildren();// gets iterable of employee accounts
 
+                // iterates through employee accounts and check if the user is in this type of account if yes set the accounttype and username textview
                 for (DataSnapshot child: children){
                     EmployeeAccount temp = child.getValue(EmployeeAccount.class);;
 
 
                     if(temp.getUsername().equals(userName)&&temp.getPassword().equals(password)){
                         usernameTitleTextView.setText(userName);
-                        accountIDTextView.setText(Long.toString(temp.getAccountID()));
+                        accountIDTextView.setText("Employee");
                         break;
                     }
 
@@ -97,14 +95,16 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_screen);
+
+        //Variables needed for the
         String userName = LoginActivity.userName;
         String password = LoginActivity.password;
         TextView usernameTitleTextView = findViewById(R.id.username);
         TextView accountIDTextView = findViewById(R.id.accountID);
 
-        //Sets the UserName and the AccountID onto the welcome screen
-        DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts");
-        searchAndSetCustomerUsernameAndAccountID(accountsReference,userName, password,usernameTitleTextView, accountIDTextView);
+        //Sets the UserName and the account type onto the welcome screen
+        DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts"); //give the reference(location) to the customer accounts in the db
+        searchAndSetUsernameAndAccountID(accountsReference,userName, password,usernameTitleTextView, accountIDTextView);
 
 
 
