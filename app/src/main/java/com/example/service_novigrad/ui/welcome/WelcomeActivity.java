@@ -63,6 +63,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
 
         });
+        //if nothing is found in customer account type we switch to find it in employee accounts
         accountsReference = FirebaseDatabase.getInstance().getReference().child("Employee Accounts");
         accountsReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,7 +91,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
 
-    boolean isCustomer;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
