@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity{
     private DataSnapshot accountSnapshot;
     private long accountID;
 
-//    private long amountOfEmployees, amountOfCustomers;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity{
         editTextUsername = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
         editTextBranchID = findViewById(R.id.branchid);
-//        final RadioGroup accountTypeRadioGroup =  findViewById(R.id.accountType);
         employeeAccountTypeRadioButton = findViewById(R.id.employee);
         customerAccountTypeRadioButton = findViewById(R.id.customer);
         buttonSubmit = findViewById(R.id.submit);
@@ -83,7 +81,6 @@ public class RegisterActivity extends AppCompatActivity{
         buttonSubmit.setOnClickListener(new View.OnClickListener() { //this submits the information the user inputs and stores it in the firebase database
             public void onClick(View view) {
 
-//                DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts");
                 DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference();
                 accountsReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -101,9 +98,10 @@ public class RegisterActivity extends AppCompatActivity{
                         if (!editTextBranchID.getText().toString().isEmpty()){//in case that nothing is entered when filling in customer account info and an error occurs
                             branchID = Integer.parseInt(editTextBranchID.getText().toString());
                         }
-                        
+
                         FirebaseDatabase database = FirebaseDatabase.getInstance(); //creates an instance so you can read and write to it
 
+                        // Checks which account type is checked and writes the according account type to the database which is set at different locations
                         if (employeeAccountTypeRadioButton.isChecked()){
 
                             //Create references that take the form similar to a json file this is a template basically to show the format and how stuff will be shown
