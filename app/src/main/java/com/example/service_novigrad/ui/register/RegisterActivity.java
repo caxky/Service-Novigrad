@@ -112,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity{
 
                             EmployeeAccount newEmployee;
                             newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID, accountID);
+
                             newEmployeeAccount.push().setValue(newEmployee);
 
 

@@ -174,6 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                              if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
                                 startActivity(new Intent(view.getContext(), WelcomeActivity.class));
                                 userName = usernameEditText.getText().toString();
+                                password = passwordEditText.getText().toString();
                                 break;
                             }
                         }

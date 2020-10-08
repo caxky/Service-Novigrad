@@ -42,27 +42,16 @@ public class WelcomeActivity extends AppCompatActivity {
     CustomerAccount currentCustomerAccount;
     EmployeeAccount currentEmployeeAccount;
 
-
-
-    boolean isCustomer;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_screen);
-        final String userName = LoginActivity.userName;
-        final String password = LoginActivity.password;
-        final TextView usernameTitleTextView = findViewById(R.id.username);
-        final TextView accountIDTextView = findViewById(R.id.accountID);
-
-
-        DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts");
-        final ArrayList<CustomerAccount> customersUsers = new ArrayList<CustomerAccount>();
+    public void searchAndSetCustomerUsernameAndAccountID(DatabaseReference accountsReference, final String userName, final String password, final TextView usernameTitleTextView, final TextView accountIDTextView){
         accountsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterable<DataSnapshot> children = snapshot.getChildren();
+
                 for (DataSnapshot child: children){
-                    CustomerAccount temp = child.getValue(CustomerAccount.class);
+                    CustomerAccount temp = child.getValue(CustomerAccount.class);;
+
+
                     if(temp.getUsername().equals(userName)&&temp.getPassword().equals(password)){
                         usernameTitleTextView.setText(userName);
                         accountIDTextView.setText(Long.toString(temp.getAccountID()));
@@ -77,14 +66,49 @@ public class WelcomeActivity extends AppCompatActivity {
             }
 
         });
+        accountsReference = FirebaseDatabase.getInstance().getReference().child("Employee Accounts");
+        accountsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
 
-//        if (isCustomer){
-//            currentCustomerAccount = userDataSnapShot.getValue(CustomerAccount.class);
-//            usernameTitleTextView.setText(currentCustomerAccount.getUsername());
-//        }else {
-//            Account account  = userDataSnapShot.getValue(Account.class);
-//            usernameTitleTextView.setText(currentEmployeeAccount.getUsername());
-//        }
+                for (DataSnapshot child: children){
+                    EmployeeAccount temp = child.getValue(EmployeeAccount.class);;
+
+
+                    if(temp.getUsername().equals(userName)&&temp.getPassword().equals(password)){
+                        usernameTitleTextView.setText(userName);
+                        accountIDTextView.setText(Long.toString(temp.getAccountID()));
+                        break;
+                    }
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    boolean isCustomer;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.welcome_screen);
+        String userName = LoginActivity.userName;
+        String password = LoginActivity.password;
+        TextView usernameTitleTextView = findViewById(R.id.username);
+        TextView accountIDTextView = findViewById(R.id.accountID);
+
+        //Sets the UserName and the AccountID onto the welcome screen
+        DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts");
+        searchAndSetCustomerUsernameAndAccountID(accountsReference,userName, password,usernameTitleTextView, accountIDTextView);
+
+
+
+
 
 
     }
