@@ -28,6 +28,8 @@ import android.content.Intent;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.accounts.EmployeeAccount;
+import com.example.service_novigrad.ui.admin.AdminPanelActivity;
+import com.example.service_novigrad.ui.admin.AdminServices;
 import com.example.service_novigrad.ui.login.LoginViewModel;
 import com.example.service_novigrad.ui.login.LoginViewModelFactory;
 import com.example.service_novigrad.ui.register.RegisterActivity;
@@ -59,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.register);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        final Button servicesTestButton = findViewById(R.id.servicesTestButton); //REMOVE THIS LATER
 
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -199,6 +203,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), RegisterActivity.class));
             }
+        });
+
+        servicesTestButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent i = new Intent(view.getContext(), AdminPanelActivity.class);
+                startActivity(i);
+            }
+
         });
 
     }

@@ -20,4 +20,10 @@
     <!-- Strings related to welcome screen -->
     <string name="welcome_banner">Welcome user,</string>
     <string name="TEST_USERNAME">TEST_USERNAME</string>
+
+    <!-- Strings related to admin -->
+    <string name="admin_panel_welcome">Service Novigrad Admin Panel</string>
+    <string name="manage_accounts">Manage Accounts</string>
+    <string name="manage_services">Manage Services</string>
+    <string name="title_activity_service_list">ServiceList</string>
 </resources>
