@@ -26,4 +26,11 @@
     <string name="manage_accounts">Manage Accounts</string>
     <string name="manage_services">Manage Services</string>
     <string name="title_activity_service_list">ServiceList</string>
+
+    <!-- Strings related to services -->
+    <string name="drivers_license">Driver\'s License</string>
+    <string name="health_card">Health Card</string>
+    <string name="photo_id">Photo ID</string>
+    <string name="service_name">Enter service name</string>
+    <string name="add_service">Add service</string>
 </resources>

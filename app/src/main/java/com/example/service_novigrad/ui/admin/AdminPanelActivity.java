@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.service_novigrad.R;
-import com.example.service_novigrad.ui.register.RegisterActivity;
 
 public class AdminPanelActivity extends AppCompatActivity {
 

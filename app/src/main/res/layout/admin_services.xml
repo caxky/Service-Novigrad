@@ -14,57 +14,65 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/servicesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:padding="4dp"
-            android:layout_marginBottom="100dp">
+            android:padding="4dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:orientation="horizontal">
+            android:layout_height="160dp"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RadioGroup
+                android:id="@+id/servicesRadioGroup"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/insertButton"
+                <RadioButton
+                    android:id="@+id/photoIDButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    android:text="insert" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/deleteText"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:inputType="number" />
-
-                <Button
-                    android:id="@+id/deleteButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="40dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="delete" />
-            </LinearLayout>
+                    android:text="@string/photo_id" />
+
+                <RadioButton
+                    android:id="@+id/healthCardButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/health_card" />
+
+                <RadioButton
+                    android:id="@+id/driversLicenseButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/drivers_license" />
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/serviceName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="@string/service_name"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/insertButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="10dp"
+                android:enabled="false"
+                android:text="@string/add_service" />
 
 
         </LinearLayout>

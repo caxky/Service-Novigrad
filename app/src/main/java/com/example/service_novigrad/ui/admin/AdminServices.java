@@ -5,9 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.services.ServiceItem;
@@ -19,12 +24,19 @@ public class AdminServices extends AppCompatActivity {
     private ArrayList<ServiceItem> list;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ServicesAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    private EditText serviceName;
+
     private Button insertService;
-    private Button deleteService;
-    private EditText indexDelete;
+
+    private RadioGroup servicesGroup;
+    private RadioButton healthCardButton;
+    private RadioButton photoIDButton;
+    private RadioButton driversLicenseButton;
+
+    private String serviceTypeString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +47,11 @@ public class AdminServices extends AppCompatActivity {
         buildRecyclerView();
 
         insertService = findViewById(R.id.insertButton);
-        deleteService = findViewById(R.id.deleteButton);
-        indexDelete = findViewById(R.id.deleteText);
+        serviceName = findViewById(R.id.serviceName);
+        servicesGroup = (RadioGroup) findViewById(R.id.servicesRadioGroup);
+        healthCardButton = findViewById(R.id.healthCardButton);
+        photoIDButton = findViewById(R.id.photoIDButton);
+        driversLicenseButton = findViewById(R.id.driversLicenseButton);
 
 
         insertService.setOnClickListener(new View.OnClickListener(){
@@ -47,19 +62,28 @@ public class AdminServices extends AppCompatActivity {
             }
         });
 
-        deleteService.setOnClickListener(new View.OnClickListener() {
+        servicesGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onClick(View v) {
-                int pos = Integer.parseInt(indexDelete.getText().toString());
-                removeItem(pos);
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int id = group.getCheckedRadioButtonId();
+                insertService.setEnabled(true);
+
+                if (id == healthCardButton.getId())
+                    serviceTypeString = "Health Card Service"; //Health Card Service
+                else if (id == photoIDButton.getId())
+                    serviceTypeString = "Photo ID Service"; //Photo ID Service
+                else if (id == driversLicenseButton.getId())
+                    serviceTypeString = "Driver's License Service"; //Driver's License Service
+
             }
         });
 
-
     }
 
+
     public void insertItem(int pos){
-        list.add(new ServiceItem(R.drawable.gear, "New Item At Position" + pos, "Edit here"));
+        list.add(new ServiceItem(R.drawable.gear, serviceName.getText().toString(), serviceTypeString));
         mAdapter.notifyItemInserted(pos);
     }
 
@@ -70,9 +94,7 @@ public class AdminServices extends AppCompatActivity {
 
     public void createList(){
         list = new ArrayList<>();
-        list.add(new ServiceItem(R.drawable.gear, "Line 1", "Line 2"));
-        list.add(new ServiceItem(R.drawable.gear, "Line 3", "Line 4"));
-        list.add(new ServiceItem(R.drawable.gear, "Line 5", "Line 6"));
+        //list.add(new ServiceItem(R.drawable.gear, "Line 1", "Line 2"));
     }
 
     public void buildRecyclerView(){
@@ -83,5 +105,18 @@ public class AdminServices extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnServiceClickListener(new ServicesAdapter.OnServiceClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+                list.get(pos).changeText1("Clicked");
+                mAdapter.notifyItemChanged(pos);
+            }
+
+            @Override
+            public void onDeleteClick(int pos) {
+                removeItem(pos);
+            }
+        });
     }
 }

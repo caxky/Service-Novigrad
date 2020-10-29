@@ -5,21 +5,27 @@ public class ServiceItem {
     private String mText1;
     private String mText2;
 
-    public ServiceItem(int imageResource, String text1, String text2) {
+    public ServiceItem(int imageResource, String serviceName, String serviceType) {
         mImageResource = imageResource;
-        mText1 = text1;
-        mText2 = text2;
+        mText1 = serviceName;
+        mText2 = serviceType;
+
+    }
+
+    public void changeText1(String text){
+        mText1 = text;
     }
 
     public int getImageResource() {
         return mImageResource;
     }
 
-    public String getText1(){
+    public String getServiceName(){
         return mText1;
     }
 
-    public String getText2(){
+    public String getServiceType(){
         return mText2;
     }
+
 }
