@@ -17,20 +17,14 @@ public class ServiceItemActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String srType = intent.getStringExtra(AdminServices.EXTRA_TEXT2);
-        if(srType.equals("Photo ID Service")){
-            setContentView(R.layout.default_photoid);
-        }
-        else if(srType.equals("Health Card Service")){
-            setContentView(R.layout.default_healthcard);
-        }
-        else{
-            setContentView(R.layout.default_driverslicense);
-        }
+        setContentView(R.layout.default_services);
 
         String srName = intent.getStringExtra(AdminServices.EXTRA_TEXT);
+        String srType = intent.getStringExtra(AdminServices.EXTRA_TEXT2);
         TextView textViewServiceName = (TextView) findViewById(R.id.textViewServiceName);
+        TextView textViewServiceType = (TextView) findViewById(R.id.textViewServiceType);
         textViewServiceName.setText(srName);
+        textViewServiceType.setText(srType);
 
     }
 }

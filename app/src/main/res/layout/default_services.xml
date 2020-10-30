@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Health Card"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <ImageView
@@ -157,6 +156,63 @@
                 android:layout_weight="1"
                 android:text="Issuing Authority" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkBoxHeight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Height" />
+
+            <CheckBox
+                android:id="@+id/checkBoxWeight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Weight" />
+
+            <CheckBox
+                android:id="@+id/checkBoxBloodType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Blood Type" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkBoxHairColour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Hair Colour" />
+
+            <CheckBox
+                android:id="@+id/checkBoxEyeColour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Eye Colour" />
+
+            <CheckBox
+                android:id="@+id/checkBoxClass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Class" />
         </LinearLayout>
 
         <TextView
