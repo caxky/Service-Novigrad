@@ -36,6 +36,11 @@
             android:name=".ui.admin.AdminServices"
             android:label="@string/app_name" />
 
+        <activity
+            android:name=".ui.services.ServiceItemActivity"
+            android:parentActivityName=".ui.admin.AdminServices"
+            android:label="@string/app_name" />
+
     </application>
 
 </manifest>

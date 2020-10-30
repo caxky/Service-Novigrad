@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,11 +17,15 @@ import android.widget.RadioGroup;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.services.ServiceItem;
+import com.example.service_novigrad.ui.services.ServiceItemActivity;
 import com.example.service_novigrad.ui.services.ServicesAdapter;
 
 import java.util.ArrayList;
 
 public class AdminServices extends AppCompatActivity {
+    public static final String EXTRA_TEXT = "com.example.service_novigrad.example.EXTRA_TEXT";
+    public static final String EXTRA_TEXT2 = "com.example.service_novigrad.example.EXTRA_TEXT2";
+
     private ArrayList<ServiceItem> list;
 
     private RecyclerView mRecyclerView;
@@ -109,8 +114,15 @@ public class AdminServices extends AppCompatActivity {
         mAdapter.setOnServiceClickListener(new ServicesAdapter.OnServiceClickListener() {
             @Override
             public void onItemClick(int pos) {
+                String text = list.get(pos).getServiceName();
+                String text2 = list.get(pos).getServiceType();
                 list.get(pos).changeText1("Clicked");
                 mAdapter.notifyItemChanged(pos);
+
+                Intent intent = new Intent(getBaseContext(), ServiceItemActivity.class);
+                intent.putExtra(EXTRA_TEXT,text);
+                intent.putExtra(EXTRA_TEXT2,text2);
+                startActivity(intent);
             }
 
             @Override
