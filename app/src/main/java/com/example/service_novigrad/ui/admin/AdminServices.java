@@ -72,7 +72,9 @@ public class AdminServices extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int id = group.getCheckedRadioButtonId();
-                insertService.setEnabled(true);
+                serviceName.setError("Service name must be between 1 and 15 characters");
+                //Insert Service has been relocated to the text watcher.
+                //insertService.setEnabled(true);
 
                 if (id == healthCardButton.getId())
                     serviceTypeString = "Health Card Service"; //Health Card Service
@@ -84,6 +86,30 @@ public class AdminServices extends AppCompatActivity {
             }
         });
 
+        //Checks if the service name is in the proper format.
+        serviceName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            if(serviceName.getText().toString().length() <= 0 || serviceName.getText().toString().length() > 16){
+                serviceName.setError("Service name must be between 1 and 15 characters");
+                insertService.setEnabled(false);
+            }
+            else{
+                serviceName.setError(null);
+                insertService.setEnabled(true);
+            }
+            }
+        });
     }
 
 
