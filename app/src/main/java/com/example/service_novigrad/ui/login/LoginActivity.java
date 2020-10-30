@@ -190,8 +190,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
-
-
+                // Check for Admin Accounts ===========================================================================================================================
+                if (usernameEditText.getText().toString().equals("admin") && passwordEditText.getText().toString().equals("admin")){
+                    startActivity(new Intent(view.getContext(), AdminPanelActivity.class));
+                }
 
 
 
