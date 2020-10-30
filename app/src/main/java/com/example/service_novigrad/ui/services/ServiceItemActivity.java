@@ -69,7 +69,6 @@ public class ServiceItemActivity extends AppCompatActivity {
         attachments = new ArrayList<String>();
 
         apply = findViewById(R.id.applySelectedServices);
-        apply.setEnabled(false);
 
 
     }
