@@ -72,7 +72,7 @@ public class AdminServices extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int id = group.getCheckedRadioButtonId();
-                serviceName.setError("Service name must be between 1 and 15 characters");
+                serviceName.setError("Service name must be between 1 and 13 characters");
                 //Insert Service has been relocated to the text watcher.
                 //insertService.setEnabled(true);
 
@@ -100,8 +100,8 @@ public class AdminServices extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-            if(serviceName.getText().toString().length() <= 0 || serviceName.getText().toString().length() > 16){
-                serviceName.setError("Service name must be between 1 and 15 characters");
+            if(serviceName.getText().toString().length() <= 0 || serviceName.getText().toString().length() > 13){
+                serviceName.setError("Service name must be between 1 and 13 characters");
                 insertService.setEnabled(false);
             }
             else{
