@@ -21,8 +21,7 @@ public class ServiceItemActivity extends AppCompatActivity {
 
     private CheckBox firstName, lastName, maidenName, gender, nationality, POB, expiryDate, issueDate, DOB, signature, address, issuingAuthority, height, weight, bloodType, hairColour, eyeColour, classID, proofOfStatus, birthCertificate, driversLicense, photoOfCustomer, SIN, proofOfResidence;
     private Button apply;
-    private ArrayList<String> fields;
-    private ArrayList<String> attachments;
+
 
     private TextView textViewServiceName;
     private TextView textViewServiceType;
@@ -71,8 +70,6 @@ public class ServiceItemActivity extends AppCompatActivity {
         SIN = findViewById(R.id.checkBoxSocialSecurity);
         proofOfResidence = findViewById(R.id.checkBoxProofOfResidence);
 
-        fields = new ArrayList<String>();
-        attachments = new ArrayList<String>();
 
         apply = findViewById(R.id.applySelectedServices);
         apply.setOnClickListener(new View.OnClickListener() {

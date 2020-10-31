@@ -139,7 +139,7 @@ public class AdminServices extends AppCompatActivity {
 
     public void createList(){
         list = new ArrayList<>();
-        //list.add(new ServiceItem(R.drawable.gear, "Line 1", "Line 2"));
+
     }
 
     public void buildRecyclerView(){
@@ -172,11 +172,5 @@ public class AdminServices extends AppCompatActivity {
         });
     }
 
-    /*
-    Getters of firebase ID corresponding to the item when it was pushed, used to update the field
-    and attachments of the services in the server (implemented in ServiceItem class)
-    */
-    public String getCurrentServiceID() {
-        return currentServiceID;
-    }
+
 }
