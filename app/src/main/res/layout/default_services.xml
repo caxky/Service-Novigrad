@@ -248,12 +248,12 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/checkBoxPassport"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:onClick="onAttachmentCheckBoxClicked"
-                android:layout_weight="1"
-                android:text="Passport" />
+                    android:id="@+id/checkBoxProofOfStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="onAttachmentCheckBoxClicked"
+                    android:text="Proof of Status" />
 
             <CheckBox
                 android:id="@+id/checkBoxBirthCertificate"
@@ -280,12 +280,12 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/checkBoxCitizenshipCard"
-                android:layout_width="match_parent"
-                android:onClick="onAttachmentCheckBoxClicked"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Citizenship Card" />
+                    android:id="@+id/checkBoxPhotoOfCustomer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="onAttachmentCheckBoxClicked"
+                    android:text="Photo of Customer" />
 
             <CheckBox
                 android:id="@+id/checkBoxSocialSecurity"
@@ -296,12 +296,12 @@
                 android:text="SIN" />
 
             <CheckBox
-                android:id="@+id/checkBoxHealthInsurance"
-                android:layout_width="match_parent"
-                android:onClick="onAttachmentCheckBoxClicked"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Health Insurance" />
+                    android:id="@+id/checkBoxProofOfResidence"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="onAttachmentCheckBoxClicked"
+                    android:text="Proof of Residence" />
 
         </LinearLayout>
 
