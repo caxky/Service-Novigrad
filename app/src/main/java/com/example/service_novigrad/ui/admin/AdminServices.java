@@ -19,10 +19,14 @@ import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.services.ServiceItem;
 import com.example.service_novigrad.ui.services.ServiceItemActivity;
 import com.example.service_novigrad.ui.services.ServicesAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class AdminServices extends AppCompatActivity {
+
+
     public static final String EXTRA_TEXT = "com.example.service_novigrad.example.EXTRA_TEXT";
     public static final String EXTRA_TEXT2 = "com.example.service_novigrad.example.EXTRA_TEXT2";
 
@@ -42,7 +46,8 @@ public class AdminServices extends AppCompatActivity {
     private RadioButton driversLicenseButton;
 
     private String serviceTypeString;
-
+    private String currentServiceID;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,9 +117,15 @@ public class AdminServices extends AppCompatActivity {
         });
     }
 
-
+    //insert the item into the recycle list and push the item into the firebase server
     public void insertItem(int pos){
-        list.add(new ServiceItem(R.drawable.gear, serviceName.getText().toString(), serviceTypeString));
+        currentService = new ServiceItem(R.drawable.gear, serviceName.getText().toString(), serviceTypeString);
+
+        DatabaseReference servicesReference = FirebaseDatabase.getInstance().getReference("Services");
+        currentServiceID = servicesReference.push().getKey();
+        servicesReference.child(currentServiceID).setValue(currentService);
+
+        list.add(currentService);
         mAdapter.notifyItemInserted(pos);
     }
 
@@ -148,6 +159,7 @@ public class AdminServices extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), ServiceItemActivity.class);
                 intent.putExtra(EXTRA_TEXT,text);
                 intent.putExtra(EXTRA_TEXT2,text2);
+                intent.putExtra("serviceID",currentServiceID);
                 startActivity(intent);
             }
 
@@ -156,5 +168,13 @@ public class AdminServices extends AppCompatActivity {
                 removeItem(pos);
             }
         });
+    }
+
+    /*
+    Getters of firebase ID corresponding to the item when it was pushed, used to update the field
+    and attachments of the services in the server (implemented in ServiceItem class)
+    */
+    public String getCurrentServiceID() {
+        return currentServiceID;
     }
 }
