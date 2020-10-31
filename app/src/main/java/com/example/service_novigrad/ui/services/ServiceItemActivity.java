@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,12 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.admin.AdminServices;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class ServiceItemActivity extends AppCompatActivity {
 
-    private CheckBox firstName, lastName, maidenName, gender, nationality, POB, expiryDate, issueDate, DOB, signature, address, issuingAuthority, height, weight, bloodType, hairColour, eyeColour, classID, passport, birthCertificate, driversLicense, citzenshipCard, SIN, healthInsurance;
+    private CheckBox firstName, lastName, maidenName, gender, nationality, POB, expiryDate, issueDate, DOB, signature, address, issuingAuthority, height, weight, bloodType, hairColour, eyeColour, classID, proofOfStatus, birthCertificate, driversLicense, photoOfCustomer, SIN, proofOfResidence;
     private Button apply;
     private ArrayList<String> fields;
     private ArrayList<String> attachments;
@@ -26,14 +27,19 @@ public class ServiceItemActivity extends AppCompatActivity {
     private TextView textViewServiceName;
     private TextView textViewServiceType;
 
+    private ServiceItem currentService;
+    private FieldsAndAttachments fieldsAndAttachments = new FieldsAndAttachments();
+
+    private String currentServiceID;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         setContentView(R.layout.default_services);
 
-        String srName = intent.getStringExtra(AdminServices.EXTRA_TEXT);
-        String srType = intent.getStringExtra(AdminServices.EXTRA_TEXT2);
+        final String srName = intent.getStringExtra(AdminServices.EXTRA_TEXT);
+        final String srType = intent.getStringExtra(AdminServices.EXTRA_TEXT2);
+        currentServiceID = intent.getStringExtra("serviceID");
         textViewServiceName = (TextView) findViewById(R.id.textViewServiceName);
         textViewServiceType = (TextView) findViewById(R.id.textViewServiceType);
         textViewServiceName.setText(srName);
@@ -58,18 +64,25 @@ public class ServiceItemActivity extends AppCompatActivity {
         eyeColour = findViewById(R.id.checkBoxEyeColour);
         classID = findViewById(R.id.checkBoxClass);
 
-        passport = findViewById(R.id.checkBoxPassport);
+        proofOfStatus = findViewById(R.id.checkBoxProofOfStatus);
         birthCertificate = findViewById(R.id.checkBoxBirthCertificate);
         driversLicense = findViewById(R.id.checkBoxDriversLicense);
-        citzenshipCard = findViewById(R.id.checkBoxCitizenshipCard);
+        photoOfCustomer = findViewById(R.id.checkBoxPhotoOfCustomer);
         SIN = findViewById(R.id.checkBoxSocialSecurity);
-        healthInsurance = findViewById(R.id.checkBoxHealthInsurance);
+        proofOfResidence = findViewById(R.id.checkBoxProofOfResidence);
 
         fields = new ArrayList<String>();
         attachments = new ArrayList<String>();
+        currentService = new ServiceItem(0,srName,srType); // the item to be pushed
 
         apply = findViewById(R.id.applySelectedServices);
-
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID).child("fieldsAndAttachments");
+                fieldAndAttachmentReference.setValue(fieldsAndAttachments);
+            }
+        });
 
     }
     public void onFieldCheckBoxClicked(View view) {
@@ -80,162 +93,162 @@ public class ServiceItemActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.checkBoxFirstName:
                 if (checked){
-                    fields.add("First Name");
+                    fieldsAndAttachments.setFirstName(true);
                 }
                 else{
-                    fields.remove("First Name");
+                    fieldsAndAttachments.setFirstName(false);
                 }
                 break;
 
             case R.id.checkBoxLastName:
                 if (checked){
-                    fields.add("Last Name");
+                    fieldsAndAttachments.setLastName(true);
                 }
                 else{
-                    fields.remove("Last Name");
+                    fieldsAndAttachments.setLastName(false);
                 }
                 break;
 
             case R.id.checkBoxMaidenName:
                 if (checked) {
-                    fields.add("Maiden Name");
+                    fieldsAndAttachments.setMaidenName(true);
                 }
                 else{
-                    fields.remove("Maiden Name");
+                    fieldsAndAttachments.setMaidenName(false);
                 }
                 break;
 
             case R.id.checkBoxGender:
                 if (checked) {
-                    fields.add("Gender");
+                    fieldsAndAttachments.setGender(true);
                 }
                 else{
-                    fields.remove("Gender");
+                    fieldsAndAttachments.setGender(false);
                 }
                 break;
             case R.id.checkBoxNationality:
                 if (checked) {
-                    fields.add("Nationality");
+                    fieldsAndAttachments.setNationality(true);
                 }
                 else{
-                    fields.remove("Nationality");
+                    fieldsAndAttachments.setNationality(false);
                 }
                 break;
 
             case R.id.checkBoxPlaceOfBirth:
                 if (checked) {
-                    fields.add("Place of Birth");
+                    fieldsAndAttachments.setPOB(true);
                 }
                 else{
-                    fields.remove("Place of Birth");
+                    fieldsAndAttachments.setPOB(false);
                 }
                 break;
 
             case R.id.checkBoxExpiryDate:
                 if (checked) {
-                    fields.add("Expiry Date");
+                    fieldsAndAttachments.setExpiryDate(true);
                 }
                 else{
-                    fields.remove("Expiry Date");
+                    fieldsAndAttachments.setExpiryDate(false);
                 }
                 break;
 
             case R.id.checkBoxIssueDate:
                 if (checked) {
-                    fields.add("Issue Date");
+                    fieldsAndAttachments.setIssueDate(true);
                 }
                 else{
-                    fields.remove("Issue Date");
+                    fieldsAndAttachments.setIssueDate(false);
                 }
                 break;
 
             case R.id.checkBoxDateOfBirth:
                 if (checked) {
-                    fields.add("Birth Date");
+                    fieldsAndAttachments.setDOB(true);
                 }
                 else{
-                    fields.remove("Birth Date");
+                    fieldsAndAttachments.setDOB(false);
                 }
                 break;
 
             case R.id.checkBoxSignature:
                 if (checked) {
-                    fields.add("Signature");
+                    fieldsAndAttachments.setSignature(true);
                 }
                 else{
-                    fields.remove("Signature");
+                    fieldsAndAttachments.setSignature(false);
                 }
                 break;
 
             case R.id.checkBoxAddress:
                 if (checked) {
-                    fields.add("Address");
+                    fieldsAndAttachments.setAddress(true);
                 }
                 else{
-                    fields.remove("Address");
+                    fieldsAndAttachments.setAddress(false);
                 }
                 break;
 
             case R.id.checkBoxIssuingAuthority:
                 if (checked) {
-                    fields.add("Issuing Authority");
+                    fieldsAndAttachments.setIssuingAuthority(true);
                 }
                 else{
-                    fields.remove("Issuing Authority");
+                    fieldsAndAttachments.setIssuingAuthority(false);
                 }
                 break;
 
             case R.id.checkBoxHeight:
                 if (checked) {
-                    fields.add("Height");
+                    fieldsAndAttachments.setHeight(true);
                 }
                 else{
-                    fields.remove("Height");
+                    fieldsAndAttachments.setHeight(false);
                 }
                 break;
 
             case R.id.checkBoxWeight:
                 if (checked) {
-                    fields.add("Weight");
+                    fieldsAndAttachments.setWeight(true);
                 }
                 else{
-                    fields.remove("Weight");
+                    fieldsAndAttachments.setWeight(false);
                 }
                 break;
 
             case R.id.checkBoxBloodType:
                 if (checked) {
-                    fields.add("Blood Type");
+                    fieldsAndAttachments.setBloodType(true);
                 }
                 else{
-                    fields.remove("Blood Type");
+                    fieldsAndAttachments.setBloodType(false);
                 }
                 break;
 
             case R.id.checkBoxHairColour:
                 if (checked) {
-                    fields.add("Hair Colour");
+                    fieldsAndAttachments.setHairColour(true);
                 }
                 else{
-                    fields.remove("Hair Colour");
+                    fieldsAndAttachments.setHairColour(false);
                 }
                 break;
 
             case R.id.checkBoxEyeColour:
                 if (checked) {
-                    fields.add("Eye Colour");
+                    fieldsAndAttachments.setEyeColour(true);
                 }
                 else{
-                    fields.remove("Eye Colour");
+                    fieldsAndAttachments.setEyeColour(false);
                 }
                 break;
 
             case R.id.checkBoxClass:
                 if (checked) {
-                    fields.add("Class");
+                    fieldsAndAttachments.setClassID(true);
                 }
                 else{
-                    fields.remove("Class");
+                    fieldsAndAttachments.setClassID(false);
                 }
                 break;
         }
@@ -245,51 +258,51 @@ public class ServiceItemActivity extends AppCompatActivity {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
         switch (view.getId()) {
-            case R.id.checkBoxPassport:
+            case R.id.checkBoxProofOfStatus:
                 if (checked) {
-                    attachments.add("Passport");
+                    fieldsAndAttachments.setProofOfStatus(true);
                 } else {
-                    attachments.remove("Passport");
+                    fieldsAndAttachments.setProofOfStatus(false);
                 }
                 break;
 
             case R.id.checkBoxBirthCertificate:
                 if (checked) {
-                    attachments.add("Birth Certificate");
+                    fieldsAndAttachments.setBirthCertificate(true);
                 } else {
-                    attachments.remove("Birth Certificate");
+                    fieldsAndAttachments.setBirthCertificate(false);
                 }
                 break;
 
             case R.id.checkBoxDriversLicense:
                 if (checked) {
-                    attachments.add("Driver's License");
+                    fieldsAndAttachments.setDriversLicense(true);
                 } else {
-                    attachments.remove("Driver's License");
+                    fieldsAndAttachments.setDriversLicense(false);
                 }
                 break;
 
-            case R.id.checkBoxCitizenshipCard:
+            case R.id.checkBoxPhotoOfCustomer:
                 if (checked) {
-                    attachments.add("Citizenship Card");
+                    fieldsAndAttachments.setPhotoOfCustomer(true);
                 } else {
-                    attachments.remove("Citizenship Card");
+                    fieldsAndAttachments.setPhotoOfCustomer(false);
                 }
                 break;
 
             case R.id.checkBoxSocialSecurity:
                 if (checked) {
-                    attachments.add("SIN");
+                    fieldsAndAttachments.setSIN(true);
                 } else {
-                    attachments.remove("SIN");
+                    fieldsAndAttachments.setSIN(false);
                 }
                 break;
 
-            case R.id.checkBoxHealthInsurance:
+            case R.id.checkBoxProofOfResidence:
                 if (checked) {
-                    attachments.add("Health Insurance");
+                    fieldsAndAttachments.setProofOfResidence(true);
                 } else {
-                    attachments.remove("Health Insurance");
+                    fieldsAndAttachments.setProofOfResidence(false);
                 }
                 break;
         }
