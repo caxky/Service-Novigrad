@@ -46,8 +46,9 @@ public class AdminServices extends AppCompatActivity {
     private RadioButton driversLicenseButton;
 
     private String serviceTypeString;
+
+    private ServiceItem currentService;
     private String currentServiceID;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
