@@ -130,6 +130,9 @@ public class AdminServices extends AppCompatActivity {
     }
 
     public void removeItem(int pos){
+        String serviceIDToDelete = list.get(pos).getServiceID();
+        DatabaseReference servicesDeleteReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceIDToDelete);
+        servicesDeleteReference.removeValue();
         list.remove(pos);
         mAdapter.notifyItemRemoved(pos);
     }
