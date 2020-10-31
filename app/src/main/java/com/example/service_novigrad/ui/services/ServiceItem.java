@@ -15,14 +15,16 @@ public class ServiceItem {
     private String mText2;
     private FieldsAndAttachments fieldsAndAttachments = new FieldsAndAttachments();
     private int mImageResource;
+    private String serviceID;
 
 //    private boolean firstName, lastName, maidenName, gender, nationality, POB, expiryDate, issueDate, DOB, signature, address, issuingAuthority, height, weight, bloodType, hairColour, eyeColour, classID, passport, birthCertificate, driversLicense, citzenshipCard, SIN, healthInsurance;
 
-    public ServiceItem(int imageResource, String serviceName, String serviceType) {
+    public ServiceItem(int imageResource, String serviceName, String serviceType, String serviceID) {
         mImageResource = imageResource;
         mText1 = serviceName;
         mText2 = serviceType;
         fieldsAndAttachments = new FieldsAndAttachments(serviceType);
+        this.serviceID = serviceID;
     }
 
 
@@ -34,6 +36,9 @@ public class ServiceItem {
     public int getImageResource() {
         return mImageResource;
     }
+
+    @Exclude
+    public String getServiceID(){ return serviceID;}
 
     public String getServiceName() { return mText1;}
 

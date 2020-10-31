@@ -120,10 +120,9 @@ public class AdminServices extends AppCompatActivity {
 
     //insert the item into the recycle list and push the item into the firebase server
     public void insertItem(int pos){
-        currentService = new ServiceItem(R.drawable.gear, serviceName.getText().toString(), serviceTypeString);
-
         DatabaseReference servicesReference = FirebaseDatabase.getInstance().getReference("Services");
         currentServiceID = servicesReference.push().getKey();
+        currentService = new ServiceItem(R.drawable.gear, serviceName.getText().toString(), serviceTypeString, currentServiceID);
         servicesReference.child(currentServiceID).setValue(currentService);
 
         list.add(currentService);
@@ -154,13 +153,12 @@ public class AdminServices extends AppCompatActivity {
             public void onItemClick(int pos) {
                 String text = list.get(pos).getServiceName();
                 String text2 = list.get(pos).getServiceType();
-                list.get(pos).changeText1("Clicked");
                 mAdapter.notifyItemChanged(pos);
 
                 Intent intent = new Intent(getBaseContext(), ServiceItemActivity.class);
                 intent.putExtra(EXTRA_TEXT,text);
                 intent.putExtra(EXTRA_TEXT2,text2);
-                intent.putExtra("serviceID",currentServiceID);
+                intent.putExtra("serviceID",list.get(pos).getServiceID());
                 startActivity(intent);
             }
 

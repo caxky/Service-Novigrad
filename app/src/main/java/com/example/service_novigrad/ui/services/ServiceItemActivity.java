@@ -73,7 +73,6 @@ public class ServiceItemActivity extends AppCompatActivity {
 
         fields = new ArrayList<String>();
         attachments = new ArrayList<String>();
-        currentService = new ServiceItem(0,srName,srType); // the item to be pushed
 
         apply = findViewById(R.id.applySelectedServices);
         apply.setOnClickListener(new View.OnClickListener() {
