@@ -1,5 +1,6 @@
 package com.example.service_novigrad.ui.admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +20,11 @@ import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.services.ServiceItem;
 import com.example.service_novigrad.ui.services.ServiceItemActivity;
 import com.example.service_novigrad.ui.services.ServicesAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -54,9 +58,7 @@ public class AdminServices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_services);
 
-        createList();
-        buildRecyclerView();
-
+        list = new ArrayList<>();
         insertService = findViewById(R.id.insertButton);
         serviceName = findViewById(R.id.serviceName);
         servicesGroup = (RadioGroup) findViewById(R.id.servicesRadioGroup);
@@ -64,12 +66,16 @@ public class AdminServices extends AppCompatActivity {
         photoIDButton = findViewById(R.id.photoIDButton);
         driversLicenseButton = findViewById(R.id.driversLicenseButton);
 
+        createList();
+        buildRecyclerView();
+
 
         insertService.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 int pos = list.size();
                 insertItem(pos);
+
             }
         });
 
@@ -138,7 +144,24 @@ public class AdminServices extends AppCompatActivity {
     }
 
     public void createList(){
-        list = new ArrayList<>();
+
+        DatabaseReference servicesReference = FirebaseDatabase.getInstance().getReference("Services");
+        servicesReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
+                for (DataSnapshot child: children){
+                    ServiceItem temp = child.getValue(ServiceItem.class);
+                    list.add(temp);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        servicesReference.addListenerForSingleValueEvent(valueEventListener);
 
     }
 

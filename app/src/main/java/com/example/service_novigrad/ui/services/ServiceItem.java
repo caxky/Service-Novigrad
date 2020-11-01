@@ -11,42 +11,46 @@ import java.util.List;
 @IgnoreExtraProperties
 public class ServiceItem {
 
-    private String mText1;
-    private String mText2;
+    private String serviceName;
+    private String serviceType;
     private FieldsAndAttachments fieldsAndAttachments = new FieldsAndAttachments();
-    private int mImageResource;
+    private int imageResource;
     private String serviceID;
 
 //    private boolean firstName, lastName, maidenName, gender, nationality, POB, expiryDate, issueDate, DOB, signature, address, issuingAuthority, height, weight, bloodType, hairColour, eyeColour, classID, passport, birthCertificate, driversLicense, citzenshipCard, SIN, healthInsurance;
-
+    public ServiceItem(){
+    }
+    public ServiceItem(String serviceName, String serviceType, String serviceID, FieldsAndAttachments fieldsAndAttachments){
+        this.serviceName = serviceName;
+        this.serviceType = serviceType;
+        this.fieldsAndAttachments = fieldsAndAttachments;
+    }
     public ServiceItem(int imageResource, String serviceName, String serviceType, String serviceID) {
-        mImageResource = imageResource;
-        mText1 = serviceName;
-        mText2 = serviceType;
+        this.imageResource = imageResource;
+        this.serviceName = serviceName;
+        this.serviceType = serviceType;
         fieldsAndAttachments = new FieldsAndAttachments(serviceType);
         this.serviceID = serviceID;
     }
 
 
     public void changeText1(String text) {
-        mText1 = text;
+        serviceName = text;
     }
 
-    @Exclude
+
     public int getImageResource() {
-        return mImageResource;
+        return imageResource;
     }
 
-    @Exclude
-    public String getServiceID(){ return serviceID;}
+    public String getServiceName() { return serviceName;}
 
-    public String getServiceName() { return mText1;}
-
-    public String getServiceType() { return mText2;}
+    public String getServiceType() { return serviceType;}
 
     public FieldsAndAttachments getFieldsAndAttachments() {
         return fieldsAndAttachments;
     }
 
+    public String getServiceID(){ return serviceID;}
 
 }
