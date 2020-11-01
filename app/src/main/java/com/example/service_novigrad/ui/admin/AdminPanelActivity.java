@@ -31,7 +31,7 @@ public class AdminPanelActivity extends AppCompatActivity {
 
         accountsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), AdminServices.class));
+                startActivity(new Intent(view.getContext(), AdminAccounts.class));
             }
         });
     }

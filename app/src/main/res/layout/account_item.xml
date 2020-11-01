@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    app:cardCornerRadius="4dp">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+      <ImageView
+          android:id="@+id/accountImageView"
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          android:padding="2dp" />
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+          <TextView
+              android:id="@+id/accountName"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Line 1"
+              android:textColor="@android:color/black"
+              android:textSize="20sp"
+              android:textStyle="bold" />
+
+          <TextView
+              android:id="@+id/accountID"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:layout_weight="1"
+              android:text="Line 3"
+              android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/accountUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Line 2"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/accountType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="Line 4"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/accountBranchID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="Line 5"
+                android:textSize="12sp" />
+
+          </LinearLayout>
+        </LinearLayout>
+
+      </LinearLayout>
+
+      <Space
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_weight="1" />
+
+      <LinearLayout
+          android:layout_width="60dp"
+          android:layout_height="match_parent"
+          android:gravity="right"
+          android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/accountDeleteButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/trash" />
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

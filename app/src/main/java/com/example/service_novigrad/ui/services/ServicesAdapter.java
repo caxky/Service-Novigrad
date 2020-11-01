@@ -36,10 +36,10 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView, final OnServiceClickListener listener) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.imageView);
-            mTextView1 = itemView.findViewById(R.id.textView1);
-            mTextView2 = itemView.findViewById(R.id.textView2);
-            mDeleteButton = itemView.findViewById(R.id.deleteButton2);
+            mImageView = itemView.findViewById(R.id.serviceImageView);
+            mTextView1 = itemView.findViewById(R.id.serviceName);
+            mTextView2 = itemView.findViewById(R.id.serviceType);
+            mDeleteButton = itemView.findViewById(R.id.serviceDeleteButton);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
