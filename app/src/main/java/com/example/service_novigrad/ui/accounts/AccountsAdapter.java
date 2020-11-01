@@ -16,14 +16,14 @@ import java.util.ArrayList;
 
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
     private ArrayList<AccountItem> aList;
-    private OnServiceClickListener aListener;
+    private OnAccountClickListener aListener;
 
-    public interface OnServiceClickListener {
+    public interface OnAccountClickListener {
         void onItemClick(int pos);
         void onDeleteClick(int pos);
     }
 
-    public void setOnServiceClickListener(AccountsAdapter.OnServiceClickListener listener) {
+    public void setOnAccountClickListener(AccountsAdapter.OnAccountClickListener listener) {
         aListener = listener;
     }
 
@@ -36,7 +36,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
         public TextView aAccountBranchID;
         public ImageButton aDeleteButton;
 
-        public ViewHolder(@NonNull View itemView, final AccountsAdapter.OnServiceClickListener listener) {
+        public ViewHolder(@NonNull View itemView, final AccountsAdapter.OnAccountClickListener listener) {
             super(itemView);
             aImageView = itemView.findViewById(R.id.accountImageView);
             aAccountName = itemView.findViewById(R.id.accountName);

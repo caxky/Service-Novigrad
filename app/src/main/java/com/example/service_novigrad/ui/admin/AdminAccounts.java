@@ -5,16 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.accounts.AccountItem;
 import com.example.service_novigrad.ui.accounts.AccountsAdapter;
 import com.example.service_novigrad.ui.services.ServiceItem;
-import com.example.service_novigrad.ui.services.ServicesAdapter;
 
 import java.util.ArrayList;
 
@@ -23,14 +18,9 @@ public class AdminAccounts extends AppCompatActivity {
 
     private ArrayList<AccountItem> list;
 
-    private RecyclerView mRecyclerView;
-    private AccountsAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-    private String serviceTypeString;
-
-    private ServiceItem currentService;
-    private String currentServiceID;
+    private RecyclerView aRecyclerView;
+    private AccountsAdapter aAdapter;
+    private RecyclerView.LayoutManager aLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +31,11 @@ public class AdminAccounts extends AppCompatActivity {
         buildRecyclerView();
     }
 
+    public void removeItem(int pos) {
+        list.remove(pos);
+        aAdapter.notifyItemRemoved(pos);
+    }
+
     public void createList() { //format for AccountItem is (int imageResource, int accountID, String firstName, String lastName, String username, OPTIONAL [int branchID])
         list = new ArrayList<>();
         list.add(new AccountItem(R.drawable.user_icon, 1, "test", "account", "TesterMan123"));
@@ -49,11 +44,24 @@ public class AdminAccounts extends AppCompatActivity {
     }
 
     public void buildRecyclerView() {
-        mRecyclerView = findViewById(R.id.accountRecyclerView);
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new AccountsAdapter(list);
+        aRecyclerView = findViewById(R.id.accountRecyclerView);
+        aLayoutManager = new LinearLayoutManager(this);
+        aAdapter = new AccountsAdapter(list);
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        aRecyclerView.setLayoutManager(aLayoutManager);
+        aRecyclerView.setAdapter(aAdapter);
+
+
+        aAdapter.setOnAccountClickListener(new AccountsAdapter.OnAccountClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+
+            }
+
+            @Override
+            public void onDeleteClick(int pos) {
+                removeItem(pos);
+            }
+        });
     }
 }
