@@ -62,8 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         final Button registerButton = findViewById(R.id.register);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
-        final Button servicesTestButton = findViewById(R.id.servicesTestButton); //REMOVE THIS LATER
-
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -205,14 +203,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(view.getContext(), RegisterActivity.class));
             }
-        });
-
-        servicesTestButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                Intent i = new Intent(view.getContext(), AdminPanelActivity.class);
-                startActivity(i);
-            }
-
         });
 
     }
