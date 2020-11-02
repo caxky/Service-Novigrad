@@ -34,11 +34,6 @@ public class ServiceItem {
     }
 
 
-    public void changeText1(String text) {
-        serviceName = text;
-    }
-
-
     public int getImageResource() {
         return imageResource;
     }
