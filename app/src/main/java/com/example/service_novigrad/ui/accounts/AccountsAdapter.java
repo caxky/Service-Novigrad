@@ -94,15 +94,15 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
 
         holder.aImageView.setImageResource(currentItem.getImageResource());
         holder.aAccountName.setText(currentItem.getName());
-        holder.aAccountID.setText(Integer.toString(currentItem.getAccountID()));
-        holder.aAccountUsername.setText(currentItem.getUsername());
+        holder.aAccountID.setText(String.format("ID: %s", Integer.toString(currentItem.getAccountID())));
+        holder.aAccountUsername.setText(String.format("User: %s", currentItem.getUsername()));
 
         if (currentItem.getAccountType() == 0){
             holder.aAccountType.setText("Customer");
             holder.aAccountBranchID.setText("");
         } else if (currentItem.getAccountType() == 1) {
             holder.aAccountType.setText("Employee");
-            holder.aAccountBranchID.setText(Integer.toString(currentItem.getBranchID()));
+            holder.aAccountBranchID.setText(String.format("Branch ID: %s", Integer.toString(currentItem.getBranchID())));
         } else {
             holder.aAccountType.setText("ACCOUNT TYPE ERROR");
         }

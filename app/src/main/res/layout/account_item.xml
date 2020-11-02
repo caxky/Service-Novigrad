@@ -48,6 +48,15 @@
               android:layout_weight="1"
               android:text="Line 3"
               android:textSize="12sp" />
+
+          <TextView
+              android:id="@+id/accountType"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:layout_weight="1"
+              android:text="Line 4"
+              android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,15 +75,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Line 2"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/accountType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="Line 4"
                 android:textSize="12sp" />
 
             <TextView
