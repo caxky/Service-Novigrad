@@ -75,13 +75,14 @@ public class ServiceItemActivity extends AppCompatActivity {
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //when apply is
+                //when apply is pressed update the service's field and attachment in teh server
                 DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID).child("fieldsAndAttachments");
                 fieldAndAttachmentReference.setValue(fieldsAndAttachments);
             }
         });
 
     }
+
     public void onFieldCheckBoxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();

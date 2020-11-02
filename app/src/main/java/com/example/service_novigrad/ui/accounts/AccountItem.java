@@ -4,6 +4,7 @@ package com.example.service_novigrad.ui.accounts;
 import com.example.service_novigrad.accounts.CustomerAccount;
 import com.example.service_novigrad.accounts.EmployeeAccount;
 
+
 public class AccountItem {
 
     private int aImageResource;

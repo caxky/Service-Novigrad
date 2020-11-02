@@ -126,26 +126,41 @@ public class AdminServices extends AppCompatActivity {
 
     //insert the item into the recycle list and push the item into the firebase server
     public void insertItem(int pos){
+        //first create the path/reference its going to take
         DatabaseReference servicesReference = FirebaseDatabase.getInstance().getReference("Services");
+
+        //get the key
         currentServiceID = servicesReference.push().getKey();
+
+        //prepare the variable to be pushed
         currentService = new ServiceItem(R.drawable.gear, serviceName.getText().toString(), serviceTypeString, currentServiceID);
+
+        //write the var
         servicesReference.child(currentServiceID).setValue(currentService);
 
+        //also add to the recycle view
         list.add(currentService);
         mAdapter.notifyItemInserted(pos);
     }
 
     public void removeItem(int pos){
+        //get the key from the serviceItem
         String serviceIDToDelete = list.get(pos).getServiceID();
+
+        //get reference and delete it from the server
         DatabaseReference servicesDeleteReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceIDToDelete);
         servicesDeleteReference.removeValue();
+
+        //add to list to show on recycle view
         list.remove(pos);
         mAdapter.notifyItemRemoved(pos);
     }
 
     public void createList(){
-
+        // get the reference of where the preexisting services are
         DatabaseReference servicesReference = FirebaseDatabase.getInstance().getReference("Services");
+
+        //read the services and add them into the list to show them
         servicesReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -161,7 +176,6 @@ public class AdminServices extends AppCompatActivity {
 
             }
         });
-//        servicesReference.addListenerForSingleValueEvent(valueEventListener);
 
     }
 
@@ -174,6 +188,7 @@ public class AdminServices extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+        //when
         mAdapter.setOnServiceClickListener(new ServicesAdapter.OnServiceClickListener() {
             @Override
             public void onItemClick(int pos) {

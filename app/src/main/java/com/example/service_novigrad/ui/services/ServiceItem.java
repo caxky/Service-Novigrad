@@ -17,7 +17,6 @@ public class ServiceItem {
     private int imageResource;
     private String serviceID;
 
-//    private boolean firstName, lastName, maidenName, gender, nationality, POB, expiryDate, issueDate, DOB, signature, address, issuingAuthority, height, weight, bloodType, hairColour, eyeColour, classID, passport, birthCertificate, driversLicense, citzenshipCard, SIN, healthInsurance;
     public ServiceItem(){
     }
     public ServiceItem(String serviceName, String serviceType, String serviceID, FieldsAndAttachments fieldsAndAttachments){
