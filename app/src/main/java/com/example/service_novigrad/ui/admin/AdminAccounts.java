@@ -1,5 +1,6 @@
 package com.example.service_novigrad.ui.admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,9 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.service_novigrad.R;
+import com.example.service_novigrad.accounts.CustomerAccount;
+import com.example.service_novigrad.accounts.EmployeeAccount;
 import com.example.service_novigrad.ui.accounts.AccountItem;
 import com.example.service_novigrad.ui.accounts.AccountsAdapter;
 import com.example.service_novigrad.ui.services.ServiceItem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -32,15 +40,64 @@ public class AdminAccounts extends AppCompatActivity {
     }
 
     public void removeItem(int pos) {
+        //first get the key aka location in the server of the account that we are deleting
+        String accountKeyToDelete = list.get(pos).getAccountKey();
+
+        //find the account type
+        int accountType = list.get(pos).getAccountType();
+
+        DatabaseReference accountReference;
+
+        //delete depending on the type of account
+        if (accountType == 0){
+            accountReference = FirebaseDatabase.getInstance().getReference("Customer Accounts").child(accountKeyToDelete);
+            accountReference.removeValue();
+        }else if (accountType == 1){
+            accountReference = FirebaseDatabase.getInstance().getReference("Employee Accounts").child(accountKeyToDelete);
+            accountReference.removeValue();
+        }
+
+        //remove the account in the recycle view list
         list.remove(pos);
         aAdapter.notifyItemRemoved(pos);
     }
 
     public void createList() { //format for AccountItem is (int imageResource, int accountID, String firstName, String lastName, String username, OPTIONAL [int branchID])
         list = new ArrayList<>();
-        list.add(new AccountItem(R.drawable.user_icon, 1, "test", "account", "TesterMan123"));
-        list.add(new AccountItem(R.drawable.user_icon, 2, "joe", "mama", "JoeMama23"));
-        list.add(new AccountItem(R.drawable.user_icon, 3, "employee", "account", "eeee333", 354));
+        //Reads the preexisting Customer Accounts from the server and add them to the list
+        DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference("Customer Accounts");
+        accountsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
+                for (DataSnapshot child: children){
+                    CustomerAccount tempCustomer = child.getValue(CustomerAccount.class);
+                    list.add(new AccountItem(R.drawable.user_icon, tempCustomer));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+
+        });
+
+        //Reads the preexisting Employee Accounts from the server and add them to the list
+        accountsReference = FirebaseDatabase.getInstance().getReference("Employee Accounts");
+        accountsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
+                for (DataSnapshot child: children){
+                    EmployeeAccount tempEmployee = child.getValue(EmployeeAccount.class);
+                    list.add(new AccountItem(R.drawable.user_icon, tempEmployee));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     public void buildRecyclerView() {

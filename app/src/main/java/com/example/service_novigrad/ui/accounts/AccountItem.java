@@ -1,6 +1,9 @@
 package com.example.service_novigrad.ui.accounts;
 
 
+import com.example.service_novigrad.accounts.CustomerAccount;
+import com.example.service_novigrad.accounts.EmployeeAccount;
+
 public class AccountItem {
 
     private int aImageResource;
@@ -9,22 +12,25 @@ public class AccountItem {
     private int aBranchID;
     private String aName;
     private String aUsername;
+    private String accountKey;
 
-    public AccountItem(int imageResource, int accountID, String firstName, String lastName, String username) {
+    public AccountItem(int imageResource, CustomerAccount customerAccount) {
         aImageResource = imageResource;
         aAccountType = 0;
-        aAccountID = accountID;
-        aName = firstName + " " + lastName;
-        aUsername = username;
+        aAccountID = (int)customerAccount.getAccountID();
+        aName = customerAccount.getFirstName() + " " + customerAccount.getLastName();
+        aUsername = customerAccount.getUsername();
+        accountKey = customerAccount.getAccountKey();
     }
 
-    public AccountItem(int imageResource, int accountID, String firstName, String lastName, String username, int branchID) {
+    public AccountItem(int imageResource, EmployeeAccount employeeAccount) {
         aImageResource = imageResource;
         aAccountType = 1;
-        aAccountID = accountID;
-        aBranchID = branchID;
-        aName = firstName + " " + lastName;
-        aUsername = username;
+        aAccountID = (int)employeeAccount.getAccountID();
+        aBranchID = employeeAccount.getBranchID();
+        aName = employeeAccount.getFirstName() + " " + employeeAccount.getLastName();
+        aUsername = employeeAccount.getUsername();
+        accountKey = employeeAccount.getAccountKey();
     }
 
     public int getImageResource() {
@@ -50,4 +56,6 @@ public class AccountItem {
     public String getUsername() {
         return aUsername;
     }
+
+    public String getAccountKey() {return accountKey; }
 }

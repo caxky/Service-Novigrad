@@ -75,6 +75,7 @@ public class ServiceItemActivity extends AppCompatActivity {
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //when apply is
                 DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID).child("fieldsAndAttachments");
                 fieldAndAttachmentReference.setValue(fieldsAndAttachments);
             }
