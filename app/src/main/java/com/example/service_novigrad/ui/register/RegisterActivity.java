@@ -110,21 +110,27 @@ public class RegisterActivity extends AppCompatActivity{
 
                             EmployeeAccount newEmployee;
 
+                            //get the account key by pushing into database
+                            String employeeAccountKey = newEmployeeAccount.push().getKey();
+
                             //create an instance of the account with the values that was entered by the user
-                            newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID, accountID);
+                            newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID, accountID,employeeAccountKey);
 
                             //writes the account into the database
-                            newEmployeeAccount.push().setValue(newEmployee);
+                            newEmployeeAccount.child(employeeAccountKey).setValue(newEmployee);
 
 
                         }else if (customerAccountTypeRadioButton.isChecked()){
                             DatabaseReference newCustomerAccount = database.getReference("Customer Accounts/");
 
+                            //get the account key by pushing into database
+                            String customerAccountKey = newCustomerAccount.push().getKey();
+
                             //create an instance of the account with the values that was entered by the user
-                            CustomerAccount newCustomer = new CustomerAccount(username,password,firstName,lastName, accountID);
+                            CustomerAccount newCustomer = new CustomerAccount(username,password,firstName,lastName, accountID, customerAccountKey);
 
                             //writes the account into the database
-                            newCustomerAccount.push().setValue(newCustomer);
+                            newCustomerAccount.child(customerAccountKey).setValue(newCustomer);
 
                         }
 

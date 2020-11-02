@@ -8,7 +8,7 @@ public class EmployeeAccount extends Account {
     public EmployeeAccount(){
 
     }
-    public EmployeeAccount(String username, String password, String firstName, String lastName, int branchID, long accountID){
+    public EmployeeAccount(String username, String password, String firstName, String lastName, int branchID, long accountID, String accountKey){
         this.accountType = 1;
         this.username = username;
         this.password = password;
@@ -16,6 +16,7 @@ public class EmployeeAccount extends Account {
         this.lastName = lastName;
         this.branchID = branchID;
         this.accountID = accountID;
+        this.accountKey = accountKey;
     }
 
     //Class methods

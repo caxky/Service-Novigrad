@@ -7,13 +7,23 @@ public class CustomerAccount extends Account{
 
     }
 
-    public CustomerAccount(String username, String password, String firstName, String lastName, long accountID){
+//    public CustomerAccount(String username, String password, String firstName, String lastName, long accountID){
+//        this.accountType = 0;
+//        this.username = username;
+//        this.password = password;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.accountID = accountID;
+//
+//    }
+    public CustomerAccount(String username, String password, String firstName, String lastName, long accountID, String accountKey){
         this.accountType = 0;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.accountID = accountID;
+        this.accountKey = accountKey;
     }
 
     //Class Methods
