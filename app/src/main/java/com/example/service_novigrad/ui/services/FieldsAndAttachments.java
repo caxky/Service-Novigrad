@@ -235,4 +235,6 @@ public class FieldsAndAttachments {
     public void setProofOfResidence(boolean proofOfResidence) {
         this.proofOfResidence = proofOfResidence;
     }
+
+
 }

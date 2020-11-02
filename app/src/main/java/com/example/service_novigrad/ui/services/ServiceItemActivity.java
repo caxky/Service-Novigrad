@@ -7,15 +7,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.admin.AdminServices;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
+import com.google.firebase.database.ValueEventListener;
 
 public class ServiceItemActivity extends AppCompatActivity {
 
@@ -27,7 +29,9 @@ public class ServiceItemActivity extends AppCompatActivity {
     private TextView textViewServiceType;
 
     private ServiceItem currentService;
-    private FieldsAndAttachments fieldsAndAttachments = new FieldsAndAttachments();
+    private FieldsAndAttachments currentFieldOfAttachment;
+
+    private FieldsAndAttachments newFieldsAndAttachments = new FieldsAndAttachments();
 
     private String currentServiceID;
     @Override
@@ -70,16 +74,141 @@ public class ServiceItemActivity extends AppCompatActivity {
         SIN = findViewById(R.id.checkBoxSocialSecurity);
         proofOfResidence = findViewById(R.id.checkBoxProofOfResidence);
 
+        initializeCheckboxes();
 
         apply = findViewById(R.id.applySelectedServices);
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 //when apply is pressed update the service's field and attachment in teh server
-                DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID).child("fieldsAndAttachments");
-                fieldAndAttachmentReference.setValue(fieldsAndAttachments);
+                final DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID).child("fieldsAndAttachments");
+                fieldAndAttachmentReference.setValue(newFieldsAndAttachments);
             }
         });
+
+    }
+    public void initializeCheckboxes(){
+        //initializes the checkboxes using preiviously filled fields
+        DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID);
+        fieldAndAttachmentReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //check all the previous fields and add / apply it to a new FieldsAndAttachment so we can add to it
+                currentService = snapshot.getValue(ServiceItem.class);
+                currentFieldOfAttachment= currentService.getFieldsAndAttachments();
+                if (currentFieldOfAttachment.isAddress()){
+                    address.setChecked(true);
+                    newFieldsAndAttachments.setAddress(true);
+                }
+                if(currentFieldOfAttachment.isBirthCertificate()){
+                    birthCertificate.setChecked(true);
+                    newFieldsAndAttachments.setBirthCertificate(true);
+                }
+                if (currentFieldOfAttachment.isBloodType()){
+                    bloodType.setChecked(true);
+                    newFieldsAndAttachments.setBloodType(true);
+                }
+                if (currentFieldOfAttachment.isClassID()){
+                    classID.setChecked(true);
+                    newFieldsAndAttachments.setClassID(true);
+                }
+                if (currentFieldOfAttachment.isDOB()){
+                    DOB.setChecked(true);
+                    newFieldsAndAttachments.setDOB(true);
+                }
+                if (currentFieldOfAttachment.isDriversLicense()){
+                    driversLicense.setChecked(true);
+                    newFieldsAndAttachments.setDriversLicense(true);
+                }
+                if (currentFieldOfAttachment.isExpiryDate()){
+                    expiryDate.setChecked(true);
+                    newFieldsAndAttachments.setExpiryDate(true);
+                }
+                if (currentFieldOfAttachment.isEyeColour()){
+                    eyeColour.setChecked(true);
+                    newFieldsAndAttachments.setEyeColour(true);
+                }
+                if (currentFieldOfAttachment.isFirstName()){
+                    firstName.setChecked(true);
+                    newFieldsAndAttachments.setFirstName(true);
+                }
+                if (currentFieldOfAttachment.isGender()){
+                    gender.setChecked(true);
+                    newFieldsAndAttachments.setGender(true);
+                }
+                if (currentFieldOfAttachment.isHairColour()){
+                    hairColour.setChecked(true);
+                    newFieldsAndAttachments.setHairColour(true);
+                }
+                if (currentFieldOfAttachment.isHeight()){
+                    height.setChecked(true);
+                    newFieldsAndAttachments.setHeight(true);
+                }
+                if (currentFieldOfAttachment.isIssueDate()){
+                    issueDate.setChecked(true);
+                    newFieldsAndAttachments.setIssueDate(true);
+                }
+                if (currentFieldOfAttachment.isIssuingAuthority()){
+                    issuingAuthority.setChecked(true);
+                    newFieldsAndAttachments.setIssuingAuthority(true);
+                }
+                if (currentFieldOfAttachment.isLastName()){
+                    lastName.setChecked(true);
+                    newFieldsAndAttachments.setLastName(true);
+                }
+                if (currentFieldOfAttachment.isMaidenName()){
+                    maidenName.setChecked(true);
+                    newFieldsAndAttachments.setMaidenName(true);
+                }
+                if (currentFieldOfAttachment.isNationality()){
+                    nationality.setChecked(true);
+                    newFieldsAndAttachments.setNationality(true);
+                }
+                if (currentFieldOfAttachment.isPhotoOfCustomer()){
+                    photoOfCustomer.setChecked(true);
+                    newFieldsAndAttachments.setPhotoOfCustomer(true);
+                }
+                if (currentFieldOfAttachment.isPOB()){
+                    POB.setChecked(true);
+                    newFieldsAndAttachments.setPOB(true);
+                }
+                if (currentFieldOfAttachment.isProofOfResidence()){
+                    proofOfResidence.setChecked(true);
+                    newFieldsAndAttachments.setProofOfResidence(true);
+                }
+                if (currentFieldOfAttachment.isProofOfStatus()){
+                    proofOfStatus.setChecked(true);
+                    newFieldsAndAttachments.setProofOfStatus(true);
+                }
+                if (currentFieldOfAttachment.isSignature()){
+                    signature.setChecked(true);
+                    newFieldsAndAttachments.setSignature(true);
+                }
+                if (currentFieldOfAttachment.isSIN()){
+                    SIN.setChecked(true);
+                    newFieldsAndAttachments.setSIN(true);
+                }
+                if (currentFieldOfAttachment.isWeight()){
+                    weight.setChecked(true);
+                    newFieldsAndAttachments.setWeight(true);
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+//        if (currentFieldOfAttachment.isAddress()){
+//            address.setChecked(true);
+//        }
+//        if(currentFieldOfAttachment.isBirthCertificate()){
+//            birthCertificate.setChecked(true);
+//        }
 
     }
 
@@ -91,162 +220,162 @@ public class ServiceItemActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.checkBoxFirstName:
                 if (checked){
-                    fieldsAndAttachments.setFirstName(true);
+                    newFieldsAndAttachments.setFirstName(true);
                 }
                 else{
-                    fieldsAndAttachments.setFirstName(false);
+                    newFieldsAndAttachments.setFirstName(false);
                 }
                 break;
 
             case R.id.checkBoxLastName:
                 if (checked){
-                    fieldsAndAttachments.setLastName(true);
+                    newFieldsAndAttachments.setLastName(true);
                 }
                 else{
-                    fieldsAndAttachments.setLastName(false);
+                    newFieldsAndAttachments.setLastName(false);
                 }
                 break;
 
             case R.id.checkBoxMaidenName:
                 if (checked) {
-                    fieldsAndAttachments.setMaidenName(true);
+                    newFieldsAndAttachments.setMaidenName(true);
                 }
                 else{
-                    fieldsAndAttachments.setMaidenName(false);
+                    newFieldsAndAttachments.setMaidenName(false);
                 }
                 break;
 
             case R.id.checkBoxGender:
                 if (checked) {
-                    fieldsAndAttachments.setGender(true);
+                    newFieldsAndAttachments.setGender(true);
                 }
                 else{
-                    fieldsAndAttachments.setGender(false);
+                    newFieldsAndAttachments.setGender(false);
                 }
                 break;
             case R.id.checkBoxNationality:
                 if (checked) {
-                    fieldsAndAttachments.setNationality(true);
+                    newFieldsAndAttachments.setNationality(true);
                 }
                 else{
-                    fieldsAndAttachments.setNationality(false);
+                    newFieldsAndAttachments.setNationality(false);
                 }
                 break;
 
             case R.id.checkBoxPlaceOfBirth:
                 if (checked) {
-                    fieldsAndAttachments.setPOB(true);
+                    newFieldsAndAttachments.setPOB(true);
                 }
                 else{
-                    fieldsAndAttachments.setPOB(false);
+                    newFieldsAndAttachments.setPOB(false);
                 }
                 break;
 
             case R.id.checkBoxExpiryDate:
                 if (checked) {
-                    fieldsAndAttachments.setExpiryDate(true);
+                    newFieldsAndAttachments.setExpiryDate(true);
                 }
                 else{
-                    fieldsAndAttachments.setExpiryDate(false);
+                    newFieldsAndAttachments.setExpiryDate(false);
                 }
                 break;
 
             case R.id.checkBoxIssueDate:
                 if (checked) {
-                    fieldsAndAttachments.setIssueDate(true);
+                    newFieldsAndAttachments.setIssueDate(true);
                 }
                 else{
-                    fieldsAndAttachments.setIssueDate(false);
+                    newFieldsAndAttachments.setIssueDate(false);
                 }
                 break;
 
             case R.id.checkBoxDateOfBirth:
                 if (checked) {
-                    fieldsAndAttachments.setDOB(true);
+                    newFieldsAndAttachments.setDOB(true);
                 }
                 else{
-                    fieldsAndAttachments.setDOB(false);
+                    newFieldsAndAttachments.setDOB(false);
                 }
                 break;
 
             case R.id.checkBoxSignature:
                 if (checked) {
-                    fieldsAndAttachments.setSignature(true);
+                    newFieldsAndAttachments.setSignature(true);
                 }
                 else{
-                    fieldsAndAttachments.setSignature(false);
+                    newFieldsAndAttachments.setSignature(false);
                 }
                 break;
 
             case R.id.checkBoxAddress:
                 if (checked) {
-                    fieldsAndAttachments.setAddress(true);
+                    newFieldsAndAttachments.setAddress(true);
                 }
                 else{
-                    fieldsAndAttachments.setAddress(false);
+                    newFieldsAndAttachments.setAddress(false);
                 }
                 break;
 
             case R.id.checkBoxIssuingAuthority:
                 if (checked) {
-                    fieldsAndAttachments.setIssuingAuthority(true);
+                    newFieldsAndAttachments.setIssuingAuthority(true);
                 }
                 else{
-                    fieldsAndAttachments.setIssuingAuthority(false);
+                    newFieldsAndAttachments.setIssuingAuthority(false);
                 }
                 break;
 
             case R.id.checkBoxHeight:
                 if (checked) {
-                    fieldsAndAttachments.setHeight(true);
+                    newFieldsAndAttachments.setHeight(true);
                 }
                 else{
-                    fieldsAndAttachments.setHeight(false);
+                    newFieldsAndAttachments.setHeight(false);
                 }
                 break;
 
             case R.id.checkBoxWeight:
                 if (checked) {
-                    fieldsAndAttachments.setWeight(true);
+                    newFieldsAndAttachments.setWeight(true);
                 }
                 else{
-                    fieldsAndAttachments.setWeight(false);
+                    newFieldsAndAttachments.setWeight(false);
                 }
                 break;
 
             case R.id.checkBoxBloodType:
                 if (checked) {
-                    fieldsAndAttachments.setBloodType(true);
+                    newFieldsAndAttachments.setBloodType(true);
                 }
                 else{
-                    fieldsAndAttachments.setBloodType(false);
+                    newFieldsAndAttachments.setBloodType(false);
                 }
                 break;
 
             case R.id.checkBoxHairColour:
                 if (checked) {
-                    fieldsAndAttachments.setHairColour(true);
+                    newFieldsAndAttachments.setHairColour(true);
                 }
                 else{
-                    fieldsAndAttachments.setHairColour(false);
+                    newFieldsAndAttachments.setHairColour(false);
                 }
                 break;
 
             case R.id.checkBoxEyeColour:
                 if (checked) {
-                    fieldsAndAttachments.setEyeColour(true);
+                    newFieldsAndAttachments.setEyeColour(true);
                 }
                 else{
-                    fieldsAndAttachments.setEyeColour(false);
+                    newFieldsAndAttachments.setEyeColour(false);
                 }
                 break;
 
             case R.id.checkBoxClass:
                 if (checked) {
-                    fieldsAndAttachments.setClassID(true);
+                    newFieldsAndAttachments.setClassID(true);
                 }
                 else{
-                    fieldsAndAttachments.setClassID(false);
+                    newFieldsAndAttachments.setClassID(false);
                 }
                 break;
         }
@@ -258,51 +387,53 @@ public class ServiceItemActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.checkBoxProofOfStatus:
                 if (checked) {
-                    fieldsAndAttachments.setProofOfStatus(true);
+                    newFieldsAndAttachments.setProofOfStatus(true);
                 } else {
-                    fieldsAndAttachments.setProofOfStatus(false);
+                    newFieldsAndAttachments.setProofOfStatus(false);
                 }
                 break;
 
             case R.id.checkBoxBirthCertificate:
                 if (checked) {
-                    fieldsAndAttachments.setBirthCertificate(true);
+                    newFieldsAndAttachments.setBirthCertificate(true);
                 } else {
-                    fieldsAndAttachments.setBirthCertificate(false);
+                    newFieldsAndAttachments.setBirthCertificate(false);
                 }
                 break;
 
             case R.id.checkBoxDriversLicense:
                 if (checked) {
-                    fieldsAndAttachments.setDriversLicense(true);
+                    newFieldsAndAttachments.setDriversLicense(true);
                 } else {
-                    fieldsAndAttachments.setDriversLicense(false);
+                    newFieldsAndAttachments.setDriversLicense(false);
                 }
                 break;
 
             case R.id.checkBoxPhotoOfCustomer:
                 if (checked) {
-                    fieldsAndAttachments.setPhotoOfCustomer(true);
+                    newFieldsAndAttachments.setPhotoOfCustomer(true);
                 } else {
-                    fieldsAndAttachments.setPhotoOfCustomer(false);
+                    newFieldsAndAttachments.setPhotoOfCustomer(false);
                 }
                 break;
 
             case R.id.checkBoxSocialSecurity:
                 if (checked) {
-                    fieldsAndAttachments.setSIN(true);
+                    newFieldsAndAttachments.setSIN(true);
                 } else {
-                    fieldsAndAttachments.setSIN(false);
+                    newFieldsAndAttachments.setSIN(false);
                 }
                 break;
 
             case R.id.checkBoxProofOfResidence:
                 if (checked) {
-                    fieldsAndAttachments.setProofOfResidence(true);
+                    newFieldsAndAttachments.setProofOfResidence(true);
                 } else {
-                    fieldsAndAttachments.setProofOfResidence(false);
+                    newFieldsAndAttachments.setProofOfResidence(false);
                 }
                 break;
         }
     }
+
+
 }
