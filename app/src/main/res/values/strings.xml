@@ -33,4 +33,10 @@
     <string name="photo_id">Photo ID</string>
     <string name="service_name">Enter service name</string>
     <string name="add_service">Add service</string>
+
+    <!-- Strings related to employee panel -->
+    <string name="add_services">Add Services</string>
+    <string name="remove_services">Remove Services</string>
+    <string name="edit_branch_info">Branch Info</string>
+    <string name="service_requests">Service Requests</string>
 </resources>

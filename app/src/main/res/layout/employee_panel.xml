@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.employee.EmployeePanel">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/employeeImage"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/user_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/employeeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EMPLOYEE_NAME_HERE" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/employeeEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="EMPLOYEE_EMAIL" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/employeePhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:phoneNumber="true"
+                        android:text="EMPLOYEE_PHONE" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/employeeAccountID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EMPLOYEE_ACC_ID" />
+
+                <TextView
+                    android:id="@+id/branchID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BRANCH_ID" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/branchIcon"
+                android:layout_width="150dp"
+                android:layout_height="90dp"
+                app:srcCompat="@drawable/branch" />
+
+            <TextView
+                android:id="@+id/branchInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Branch Information"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/employeeAddServicesButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/gear" />
+
+                    <TextView
+                        android:id="@+id/employeeAddServices"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|top"
+                        android:text="@string/add_services" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/employeeRemoveServicesButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/gear2" />
+
+                    <TextView
+                        android:id="@+id/employeeRemoveServices"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|top"
+                        android:text="@string/remove_services" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/employeeEditBranchInfoButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/info" />
+
+                    <TextView
+                        android:id="@+id/employeeBranchInfo"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|top"
+                        android:text="@string/edit_branch_info" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/employeeServiceRequestsButton"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/requests" />
+
+                    <TextView
+                        android:id="@+id/employeeViewRequests"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|top"
+                        android:text="@string/service_requests" />
+                </LinearLayout>
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+</RelativeLayout>
