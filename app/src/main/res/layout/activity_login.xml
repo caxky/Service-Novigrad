@@ -95,13 +95,6 @@
                 android:enabled="true"
                 android:text="@string/action_register" />
 
-            <Button
-                android:id="@+id/TESTBUTTON"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="go to employee panel" />
-
         </LinearLayout>
 
     </LinearLayout>
