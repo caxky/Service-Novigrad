@@ -26,13 +26,13 @@ public class EmployeePanel extends AppCompatActivity {
 
         addServicesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //startActivity(new Intent(view.getContext(), BranchInfo.class));
+                //startActivity(new Intent(view.getContext(), AddServices.class));
             }
         });
 
         removeServicesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //startActivity(new Intent(view.getContext(), BranchInfo.class));
+                //startActivity(new Intent(view.getContext(), RemoveServices.class));
             }
         });
 
