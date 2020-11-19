@@ -83,6 +83,7 @@ public class ServiceItemActivity extends AppCompatActivity {
                 //when apply is pressed update the service's field and attachment in teh server
                 final DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID).child("fieldsAndAttachments");
                 fieldAndAttachmentReference.setValue(newFieldsAndAttachments);
+                finish();
             }
         });
 
