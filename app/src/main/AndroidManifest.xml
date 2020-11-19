@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.employee.BranchInfo"></activity>
+        <activity android:name=".ui.employee.RemoveServices"></activity>
+        <activity android:name=".ui.employee.AddServices" />
+        <activity android:name=".ui.employee.BranchInfo" />
         <activity android:name=".ui.employee.ServiceRequests" />
         <activity android:name=".ui.employee.EmployeePanel" />
         <activity android:name=".ui.admin.AdminAccounts" />
