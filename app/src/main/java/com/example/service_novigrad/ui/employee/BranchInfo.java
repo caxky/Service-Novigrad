@@ -3,8 +3,15 @@ package com.example.service_novigrad.ui.employee;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -31,6 +38,10 @@ public class BranchInfo extends AppCompatActivity {
     private TextView sundayClosingHours;
     private ImageButton sundayClosingButton;
 
+    private TextView branchID;
+    private EditText editPhoneNumber;
+    private EditText editEmailAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +61,19 @@ public class BranchInfo extends AppCompatActivity {
         sundayOpeningHours = findViewById(R.id.sundayOpening);
         sundayClosingButton = findViewById(R.id.sundayClosingButton);
         sundayClosingHours = findViewById(R.id.sundayClosing);
+
+        branchID = findViewById(R.id.branchID);
+        editPhoneNumber = findViewById(R.id.branchPhone);
+        editEmailAddress = findViewById(R.id.branchEmailAddress);
+
+        final Button submitButton = findViewById(R.id.submitButton);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
         weekdayOpeningButton.setOnClickListener(new View.OnClickListener() {
 

@@ -50,17 +50,18 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextPhone"
+                    android:id="@+id/branchPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:ems="10"
+                    android:digits="0123456789+"
                     android:hint="Branch phone number"
                     android:inputType="phone" />
 
                 <EditText
-                    android:id="@+id/editTextTextEmailAddress"
+                    android:id="@+id/branchEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -289,7 +290,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/submitButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/action_submit" />

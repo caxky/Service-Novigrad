@@ -7,11 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.register.RegisterActivity;
 
 public class EmployeePanel extends AppCompatActivity {
+
+    private TextView employeeNameText;
+    private TextView employeeEmailText;
+    private TextView employeePhoneText;
+    private TextView employeeAccountIDText;
+    private TextView branchIDText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +30,22 @@ public class EmployeePanel extends AppCompatActivity {
         final ImageButton branchInfoButton = findViewById(R.id.employeeEditBranchInfoButton);
         final ImageButton serviceRequestsButton = findViewById(R.id.employeeServiceRequestsButton);
 
+        employeeNameText = findViewById(R.id.employeeName);
+        employeeEmailText = findViewById(R.id.employeeEmail);
+        employeePhoneText = findViewById(R.id.employeePhone);
+        employeeAccountIDText = findViewById(R.id.employeeAccountID);
+        branchIDText = findViewById(R.id.branchID);
+
 
         addServicesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //startActivity(new Intent(view.getContext(), AddServices.class));
+                startActivity(new Intent(view.getContext(), AddServices.class));
             }
         });
 
         removeServicesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //startActivity(new Intent(view.getContext(), RemoveServices.class));
+                startActivity(new Intent(view.getContext(), RemoveServices.class));
             }
         });
 
