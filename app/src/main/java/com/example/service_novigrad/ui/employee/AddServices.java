@@ -23,10 +23,10 @@ public class AddServices extends AppCompatActivity {
 
 
         serviceList = new ArrayList<>();
-        //add stuff here
+        //What you'll want to do here is access the database, itereate through it and fill up the array list.
         serviceList.add(new AddServicesItem(R.drawable.gear, "Service Name" , "Service Type"));
 
-        //
+
         mRecyclerView = findViewById(R.id.employeeAddRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -39,7 +39,7 @@ public class AddServices extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 changeItem(position, "Added!");
-                //add the serviceList.get(position) to the branch service
+                //This is when the thing is clicked, here add the position of that service and add the equivalent serivce to the branch.
             }
         });
 
