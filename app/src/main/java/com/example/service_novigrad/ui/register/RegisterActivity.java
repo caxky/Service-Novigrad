@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity{
     private RadioGroup radioGroup;
     private DataSnapshot accountSnapshot;
     private long accountID;
-
+    private int branchID;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity{
                         accountID = snapshot.child("Customer Accounts").getChildrenCount()+1+ snapshot.child("Employee Accounts").getChildrenCount();
                         //initialize and fill in the values of the data we found from the users
                         String firstName, lastName, username, password;
-                        int branchID;
+
                         firstName = editTextFirstName.getText().toString();
                         lastName = editTextLastName.getText().toString();
                         username = editTextUsername.getText().toString();
@@ -118,6 +118,31 @@ public class RegisterActivity extends AppCompatActivity{
 
                             //writes the account into the database
                             newEmployeeAccount.child(employeeAccountKey).setValue(newEmployee);
+
+                            //Checks if the branch exists if it doesn't add it
+                            final DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/");
+                            branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    boolean hasBranch = false;
+                                    Iterable<DataSnapshot> children = snapshot.getChildren();
+                                    for (DataSnapshot child: children) {
+                                        Branch temp = child.getValue(Branch.class);
+                                        if (branchID == temp.getBranchID()){
+                                            hasBranch = true;
+                                        }
+                                    }
+                                    if(!hasBranch){
+                                        String newBranchKey = branchReference.push().getKey();
+                                        Branch newBranch = new Branch(branchID, newBranchKey);
+                                        branchReference.child(newBranchKey).setValue(newBranch);
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
 
 
                         }else if (customerAccountTypeRadioButton.isChecked()){
