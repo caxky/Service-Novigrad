@@ -47,6 +47,7 @@
             android:src="@drawable/trash"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:padding="8dp"
             />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
