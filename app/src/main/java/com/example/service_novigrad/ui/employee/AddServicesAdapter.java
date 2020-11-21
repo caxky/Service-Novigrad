@@ -11,11 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service_novigrad.R;
+import com.example.service_novigrad.ui.services.ServiceItem;
 
 import java.util.ArrayList;
 
 public class AddServicesAdapter extends RecyclerView.Adapter<AddServicesAdapter.AddServicesViewHolder> {
-    private ArrayList<AddServicesItem> mlist;
+    private ArrayList<ServiceItem> mlist;
     private OnItemClickListener mListener;
 
     public interface  OnItemClickListener{
@@ -49,7 +50,7 @@ public class AddServicesAdapter extends RecyclerView.Adapter<AddServicesAdapter.
         }
     }
 
-    public AddServicesAdapter(ArrayList<AddServicesItem> list){
+    public AddServicesAdapter(ArrayList<ServiceItem> list){
         mlist = list;
     }
 
@@ -63,11 +64,11 @@ public class AddServicesAdapter extends RecyclerView.Adapter<AddServicesAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AddServicesViewHolder holder, int position) {
-        AddServicesItem currentItem = mlist.get(position);
+        ServiceItem currentItem = mlist.get(position);
 
-        holder.mImageView.setImageResource(currentItem.getmImageResource());
-        holder.empServiceName.setText(currentItem.getEmpServiceName());
-        holder.empServiceType.setText((currentItem.getEmpServiceType()));
+        holder.mImageView.setImageResource(currentItem.getImageResource());
+        holder.empServiceName.setText(currentItem.getServiceName());
+        holder.empServiceType.setText((currentItem.getServiceType()));
     }
 
     @Override

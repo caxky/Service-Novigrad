@@ -47,4 +47,7 @@ public class ServiceItem {
 
     public String getServiceID(){ return serviceID;}
 
+    public void changeText1(String text) {
+        serviceName = text;
+    }
 }
