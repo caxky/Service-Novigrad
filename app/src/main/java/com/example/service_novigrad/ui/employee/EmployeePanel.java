@@ -27,9 +27,13 @@ public class EmployeePanel extends AppCompatActivity {
     private TextView branchPhoneText;
     private TextView employeeAccountIDText;
     private TextView branchIDText;
-    private ArrayList<ServiceItem> serviceList = new ArrayList<>();;
+    private ArrayList<ServiceItem> serviceList = new ArrayList<>();
+    ;
     private String branchKey;
     private Intent newIntent;
+    private DatabaseReference servicesReference;
+    private ValueEventListener serviceListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,18 +52,38 @@ public class EmployeePanel extends AppCompatActivity {
 
         String firstName = getIntent().getStringExtra("employeeFirstName");
         String lastName = getIntent().getStringExtra("employeeLastName");
-        long accountID = getIntent().getLongExtra("employeeAccountID",-1);
-        final int branchID = getIntent().getIntExtra("branchID",-1);
+        long accountID = getIntent().getLongExtra("employeeAccountID", -1);
+        final int branchID = getIntent().getIntExtra("branchID", -1);
         branchKey = getIntent().getStringExtra("branchKey");
         // Set the info of the employee and branch
 
         String nameText, accountIDText, branchIDString;
-        nameText = "Employee Name: "+firstName +" "+ lastName;
+        nameText = "Employee Name: " + firstName + " " + lastName;
         accountIDText = "Employee Account ID: " + accountID;
         branchIDString = "Branch ID: " + branchID;
         employeeNameText.setText(nameText);
         employeeAccountIDText.setText(accountIDText);
         branchIDText.setText(branchIDString);
+
+        servicesReference = FirebaseDatabase.getInstance().getReference("Services");
+        serviceListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
+                for (DataSnapshot child : children) {
+                    ServiceItem temp = child.getValue(ServiceItem.class);
+                    serviceList.add(new ServiceItem(R.drawable.gear, temp.getServiceName(), temp.getServiceType(), temp.getServiceID()));
+                }
+                newIntent.putExtra("serviceList", serviceList);
+                newIntent.putExtra("branchKey", branchKey);
+                startActivity(newIntent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
 
 
         addServicesButton.setOnClickListener(new View.OnClickListener() {
@@ -67,35 +91,15 @@ public class EmployeePanel extends AppCompatActivity {
                 newIntent = new Intent(view.getContext(), AddServices.class);
                 // This is used to get the list of services that a branch can choose that is created by admin
                 // In addition after this the new activity is started
-                DatabaseReference servicesReference = FirebaseDatabase.getInstance().getReference("Services");
-                ValueEventListener serviceListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
-                        for (DataSnapshot child: children){
-                            ServiceItem temp = child.getValue(ServiceItem.class);
-                            serviceList.add(new ServiceItem(R.drawable.gear, temp.getServiceName(), temp.getServiceType(), temp.getServiceID()));
-                        }
-                        newIntent.putExtra("serviceList", serviceList);
-                        newIntent.putExtra("branchKey", branchKey);
-                        startActivity(newIntent);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                };
                 servicesReference.addListenerForSingleValueEvent(serviceListener);
-
-
 
             }
         });
 
         removeServicesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), RemoveServices.class));
+                newIntent = new Intent(view.getContext(), RemoveServices.class);
+                servicesReference.addListenerForSingleValueEvent(serviceListener);
             }
         });
 
