@@ -23,7 +23,7 @@ public class AddServices extends AppCompatActivity {
     private AddServicesAdapter mAdaptor;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<ServiceItem> serviceList;
-
+    private String branchKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,7 @@ public class AddServices extends AppCompatActivity {
 
 
         serviceList = (ArrayList<ServiceItem>) this.getIntent().getSerializableExtra("serviceList");
-
+        branchKey = this.getIntent().getStringExtra("branchKey");
 //        What you'll want to do here is access the database, itereate through it and fill up the array list.
 //        serviceList.add(new ServiceItem(R.drawable.gear, "Service Name" , "Service Type", "22ff"));
 
@@ -68,8 +68,10 @@ public class AddServices extends AppCompatActivity {
             public void onItemClick(int position) {
                 changeItem(position, "Added!");
                 //This is when the thing is clicked, here add the position of that service and add the equivalent serivce to the branch.
-                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/");
-
+                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services").child(String.valueOf(position));
+//                String branchServiceKey = branchReference.push().getKey();
+                branchReference.setValue(serviceList.get(position));
+                
             }
         });
 

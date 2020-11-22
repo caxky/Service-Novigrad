@@ -6,12 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.service_novigrad.R;
-import com.example.service_novigrad.ui.register.RegisterActivity;
+import com.example.service_novigrad.ui.register.Branch;
 import com.example.service_novigrad.ui.services.ServiceItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,11 +23,13 @@ import java.util.ArrayList;
 public class EmployeePanel extends AppCompatActivity {
 
     private TextView employeeNameText;
-    private TextView employeeEmailText;
-    private TextView employeePhoneText;
+    private TextView branchEmailText;
+    private TextView branchPhoneText;
     private TextView employeeAccountIDText;
     private TextView branchIDText;
     private ArrayList<ServiceItem> serviceList = new ArrayList<>();;
+    private String branchKey;
+    private Intent newIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +41,32 @@ public class EmployeePanel extends AppCompatActivity {
         final ImageButton serviceRequestsButton = findViewById(R.id.employeeServiceRequestsButton);
 
         employeeNameText = findViewById(R.id.employeeName);
-        employeeEmailText = findViewById(R.id.employeeEmail);
-        employeePhoneText = findViewById(R.id.employeePhone);
+        branchEmailText = findViewById(R.id.employeeEmail);
+        branchPhoneText = findViewById(R.id.employeePhone);
         employeeAccountIDText = findViewById(R.id.employeeAccountID);
         branchIDText = findViewById(R.id.branchID);
+
+        String firstName = getIntent().getStringExtra("employeeFirstName");
+        String lastName = getIntent().getStringExtra("employeeLastName");
+        long accountID = getIntent().getLongExtra("employeeAccountID",-1);
+        final int branchID = getIntent().getIntExtra("branchID",-1);
+        branchKey = getIntent().getStringExtra("branchKey");
+        // Set the info of the employee and branch
+
+        String nameText, accountIDText, branchIDString;
+        nameText = "Employee Name: "+firstName +" "+ lastName;
+        accountIDText = "Employee Account ID: " + accountID;
+        branchIDString = "Branch ID: " + branchID;
+        employeeNameText.setText(nameText);
+        employeeAccountIDText.setText(accountIDText);
+        branchIDText.setText(branchIDString);
 
 
         addServicesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View view) {
-
+                newIntent = new Intent(view.getContext(), AddServices.class);
+                // This is used to get the list of services that a branch can choose that is created by admin
+                // In addition after this the new activity is started
                 DatabaseReference servicesReference = FirebaseDatabase.getInstance().getReference("Services");
                 ValueEventListener serviceListener = new ValueEventListener() {
                     @Override
@@ -58,9 +76,9 @@ public class EmployeePanel extends AppCompatActivity {
                             ServiceItem temp = child.getValue(ServiceItem.class);
                             serviceList.add(new ServiceItem(R.drawable.gear, temp.getServiceName(), temp.getServiceType(), temp.getServiceID()));
                         }
-                        Intent intent = new Intent(view.getContext(), AddServices.class);
-                        intent.putExtra("serviceList", serviceList);
-                        startActivity(intent);
+                        newIntent.putExtra("serviceList", serviceList);
+                        newIntent.putExtra("branchKey", branchKey);
+                        startActivity(newIntent);
                     }
 
                     @Override
@@ -68,7 +86,7 @@ public class EmployeePanel extends AppCompatActivity {
 
                     }
                 };
-                servicesReference.addValueEventListener(serviceListener);
+                servicesReference.addListenerForSingleValueEvent(serviceListener);
 
 
 

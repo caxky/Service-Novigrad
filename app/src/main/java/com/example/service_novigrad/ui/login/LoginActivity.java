@@ -1,4 +1,5 @@
 package com.example.service_novigrad.ui.login;
+
 import com.example.service_novigrad.accounts.CustomerAccount;
 
 import android.app.Activity;
@@ -34,6 +35,7 @@ import com.example.service_novigrad.ui.employee.EmployeePanel;
 import com.example.service_novigrad.ui.employee.ServiceRequests;
 import com.example.service_novigrad.ui.login.LoginViewModel;
 import com.example.service_novigrad.ui.login.LoginViewModelFactory;
+import com.example.service_novigrad.ui.register.Branch;
 import com.example.service_novigrad.ui.register.RegisterActivity;
 import com.example.service_novigrad.ui.welcome.WelcomeActivity;
 import com.google.firebase.database.ChildEventListener;
@@ -140,10 +142,9 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick( final View view) {
+            public void onClick(final View view) {
 
 
                 //Checks the Customer Accounts =====================================================================================================================
@@ -154,9 +155,9 @@ public class LoginActivity extends AppCompatActivity {
                         Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the customer accounts
 
                         //iterates through the iterable to find if any customer account fits the description
-                        for (DataSnapshot child: children){
+                        for (DataSnapshot child : children) {
                             CustomerAccount temp = child.getValue(CustomerAccount.class);
-                            if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
+                            if (temp.getUsername().equals(usernameEditText.getText().toString()) && temp.getPassword().equals(passwordEditText.getText().toString())) {
                                 startActivity(new Intent(view.getContext(), WelcomeActivity.class));
                                 userName = usernameEditText.getText().toString();
                                 password = passwordEditText.getText().toString();
@@ -173,17 +174,41 @@ public class LoginActivity extends AppCompatActivity {
                 });
                 //Checks the Employee Accounts ====================================================================================================================
                 accountsReference = FirebaseDatabase.getInstance().getReference().child("Employee Accounts");
-//                ArrayList<EmployeeAccount> employees = new ArrayList<EmployeeAccount>();
+
                 accountsReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Iterable<DataSnapshot> children = snapshot.getChildren();//gets an iterable of the employees accounts
 
                         //iterates through the iterable to find if any employee account fits the description
-                        for(DataSnapshot child: children){
-                            EmployeeAccount temp = child.getValue(EmployeeAccount.class);
-                             if(temp.getUsername().equals(usernameEditText.getText().toString())&&temp.getPassword().equals(passwordEditText.getText().toString())){
-                                startActivity(new Intent(view.getContext(), WelcomeActivity.class));
+                        for (DataSnapshot child : children) {
+                            final EmployeeAccount temp = child.getValue(EmployeeAccount.class);
+                            if (temp.getUsername().equals(usernameEditText.getText().toString()) && temp.getPassword().equals(passwordEditText.getText().toString())) {
+                                DatabaseReference branchesReference = FirebaseDatabase.getInstance().getReference("Branches");
+                                branchesReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                         Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
+                                        for (DataSnapshot child: children){
+                                            Branch temp2 = child.getValue(Branch.class);
+                                            if (temp2.getBranchID() == temp.getBranchID()){
+                                                Intent intent = new Intent(view.getContext(), EmployeePanel.class);
+                                                intent.putExtra("employeeFirstName", temp.getFirstName());
+                                                intent.putExtra("employeeLastName", temp.getFirstName());
+                                                intent.putExtra("employeeAccountID", temp.getAccountID());
+                                                intent.putExtra("branchKey", temp2.getBranchFirebaseKey());
+                                                intent.putExtra("branchID", temp.getBranchID());
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
                                 userName = usernameEditText.getText().toString();
                                 password = passwordEditText.getText().toString();
                                 break;
@@ -197,11 +222,40 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
+//                accountsReference.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        Iterable<DataSnapshot> children = snapshot.getChildren();//gets an iterable of the employees accounts
+//
+//                        //iterates through the iterable to find if any employee account fits the description
+//                        for (DataSnapshot child : children) {
+//                            EmployeeAccount temp = child.getValue(EmployeeAccount.class);
+//                            if (temp.getUsername().equals(usernameEditText.getText().toString()) && temp.getPassword().equals(passwordEditText.getText().toString())) {
+//                                Intent intent = new Intent(view.getContext(), EmployeePanel.class);
+//                                intent.putExtra("employeeFirstName", temp.getFirstName());
+//                                intent.putExtra("employeeLastName", temp.getFirstName());
+//                                intent.putExtra("employeeAccountID", temp.getAccountID());
+//                                intent.putExtra("branchID", temp.getBranchID());
+//                                startActivity(intent);
+//                                userName = usernameEditText.getText().toString();
+//                                password = passwordEditText.getText().toString();
+//                                break;
+//                            }
+//                        }
+//
+//                    }
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+
+
+
                 // Check for Admin Accounts ===========================================================================================================================
-                if (usernameEditText.getText().toString().equals("admin") && passwordEditText.getText().toString().equals("admin")){
+                if (usernameEditText.getText().toString().equals("admin") && passwordEditText.getText().toString().equals("admin")) {
                     startActivity(new Intent(view.getContext(), AdminPanelActivity.class));
                 }
-
 
 
             }

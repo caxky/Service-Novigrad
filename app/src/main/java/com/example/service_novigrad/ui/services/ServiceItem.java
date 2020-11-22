@@ -3,6 +3,7 @@ package com.example.service_novigrad.ui.services;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.service_novigrad.R;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -24,6 +25,7 @@ public class ServiceItem implements Parcelable {
     public ServiceItem(){
     }
     public ServiceItem(String serviceName, String serviceType, String serviceID, FieldsAndAttachments fieldsAndAttachments){
+        this.imageResource = R.drawable.gear;
         this.serviceName = serviceName;
         this.serviceType = serviceType;
         this.fieldsAndAttachments = fieldsAndAttachments;
