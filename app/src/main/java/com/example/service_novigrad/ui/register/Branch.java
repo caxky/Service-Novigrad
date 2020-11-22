@@ -116,4 +116,7 @@ public class Branch {
         this.emailAddress = emailAddress;
     }
 
+    public void setBranchFirebaseKey(String branchFirebaseKey) {
+        this.branchFirebaseKey = branchFirebaseKey;
+    }
 }

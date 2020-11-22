@@ -50,12 +50,13 @@ public class EmployeePanel extends AppCompatActivity {
         employeeAccountIDText = findViewById(R.id.employeeAccountID);
         branchIDText = findViewById(R.id.branchID);
 
+        //all the info got from before sent when logging in
         String firstName = getIntent().getStringExtra("employeeFirstName");
         String lastName = getIntent().getStringExtra("employeeLastName");
         long accountID = getIntent().getLongExtra("employeeAccountID", -1);
         final int branchID = getIntent().getIntExtra("branchID", -1);
         branchKey = getIntent().getStringExtra("branchKey");
-        // Set the info of the employee and branch
+        // branch email and branch phone when changed 
 
         String nameText, accountIDText, branchIDString;
         nameText = "Employee Name: " + firstName + " " + lastName;
@@ -126,7 +127,11 @@ public class EmployeePanel extends AppCompatActivity {
 
         branchInfoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), BranchInfo.class));
+                newIntent = new Intent(view.getContext(), BranchInfo.class);
+                newIntent.putExtra("branchKey", branchKey);
+                newIntent.putExtra("branchID", branchID);
+                startActivity(newIntent);
+
             }
         });
 

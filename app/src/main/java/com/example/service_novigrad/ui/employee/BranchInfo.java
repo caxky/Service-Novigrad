@@ -1,5 +1,6 @@
 package com.example.service_novigrad.ui.employee;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
@@ -17,6 +18,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.service_novigrad.R;
+import com.example.service_novigrad.ui.register.Branch;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,6 +49,7 @@ public class BranchInfo extends AppCompatActivity {
     private EditText editPhoneNumber;
     private EditText editEmailAddress;
 
+    private String branchKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +76,13 @@ public class BranchInfo extends AppCompatActivity {
 
         final Button submitButton = findViewById(R.id.submitButton);
 
+        branchKey = getIntent().getStringExtra("branchKey");//grab the branch key sent by the employee panel
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 finish();
             }
         });
-
+        branchID.setText(getIntent().getStringExtra("branchID"));//set the branch id
 
         weekdayOpeningButton.setOnClickListener(new View.OnClickListener() {
 
@@ -218,5 +227,25 @@ public class BranchInfo extends AppCompatActivity {
                 timePickerDialog.show();
             }
         });
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey);
+
+                branchReference.child("emailAddress").setValue(editEmailAddress.getText().toString());
+                branchReference.child("phoneNumber").setValue(editPhoneNumber.getText().toString());
+
+                branchReference.child("saturdayClosingHours").setValue(saturdayClosingHours.getText().toString());
+                branchReference.child("saturdayOpeningHours").setValue(saturdayOpeningHours.getText().toString());
+
+                branchReference.child("sundayClosingHours").setValue(sundayClosingHours.getText().toString());
+                branchReference.child("sundayOpeningHours").setValue(sundayOpeningHours.getText().toString());
+
+                branchReference.child("weekdayClosingHours").setValue(weekdayClosingHours.getText().toString());
+                branchReference.child("weekdayOpeningHours").setValue(weekdayOpeningHours.getText().toString());
+
+            }
+        });
+
     }
 }
