@@ -29,6 +29,7 @@ public class ServiceItem implements Parcelable {
         this.serviceName = serviceName;
         this.serviceType = serviceType;
         this.fieldsAndAttachments = fieldsAndAttachments;
+        this.serviceID = serviceID;
     }
     public ServiceItem(int imageResource, String serviceName, String serviceType, String serviceID) {
         this.imageResource = imageResource;

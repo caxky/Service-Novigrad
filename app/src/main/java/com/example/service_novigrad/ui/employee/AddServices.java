@@ -66,12 +66,12 @@ public class AddServices extends AppCompatActivity {
         mAdaptor.setOnItemClickListener(new AddServicesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                changeItem(position, "Added!");
+
                 //This is when the thing is clicked, here add the position of that service and add the equivalent serivce to the branch.
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services").child(String.valueOf(position));
 //                String branchServiceKey = branchReference.push().getKey();
                 branchReference.setValue(serviceList.get(position));
-
+                changeItem(position, "Added!");
             }
         });
 
