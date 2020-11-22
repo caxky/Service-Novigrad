@@ -71,7 +71,7 @@ public class AddServices extends AppCompatActivity {
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services").child(String.valueOf(position));
 //                String branchServiceKey = branchReference.push().getKey();
                 branchReference.setValue(serviceList.get(position));
-                
+
             }
         });
 
