@@ -41,10 +41,10 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/employeeEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="EMPLOYEE_EMAIL" />
+                            android:id="@+id/employeeEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="BRANCH_EMAIL" />
 
                     <Space
                         android:layout_width="10dp"
@@ -52,11 +52,11 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/employeePhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:phoneNumber="true"
-                        android:text="EMPLOYEE_PHONE" />
+                            android:id="@+id/employeePhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:phoneNumber="true"
+                            android:text="BRANCH_PHONE" />
                 </LinearLayout>
 
                 <TextView
