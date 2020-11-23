@@ -55,7 +55,7 @@ public class RemoveServices extends AppCompatActivity {
             }
 
             @Override
-            public void onDeleteClick(int position) {
+            public void onDeleteClick(final int position) {
                 currentPosition = position;
                 //Remove service from branch database here, or inside the above function.
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services");
@@ -68,6 +68,7 @@ public class RemoveServices extends AppCompatActivity {
                             if (branchServiceList.get(currentPosition).getServiceID().equals(temp.getServiceID())){
                                 child.getRef().removeValue();
                                 removeItem(currentPosition);
+                                mAdaptor.notifyItemRemoved(position);
                             }
 
                         }

@@ -72,6 +72,9 @@ public class AddServices extends AppCompatActivity {
 //                String branchServiceKey = branchReference.push().getKey();
                 branchReference.setValue(serviceList.get(position));
                 changeItem(position, "Added!");
+                serviceList.remove(position);
+                mAdaptor.notifyItemRemoved(position);
+
             }
         });
 
