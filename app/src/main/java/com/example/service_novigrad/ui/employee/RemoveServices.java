@@ -65,8 +65,7 @@ public class RemoveServices extends AppCompatActivity {
                             ServiceItem temp = child.getValue(ServiceItem.class);
                             if (branchServiceList.get(currentPosition).getServiceID().equals(temp.getServiceID())){
                                 child.getRef().removeValue();
-                                removeItem(currentPosition);
-                                mAdaptor.notifyItemRemoved(position);
+                                removeItem(position);
                                 break;
                             }
 
