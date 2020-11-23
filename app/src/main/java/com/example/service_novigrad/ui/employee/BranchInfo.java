@@ -50,6 +50,8 @@ public class BranchInfo extends AppCompatActivity {
     private EditText editEmailAddress;
 
     private String branchKey;
+    private DatabaseReference branchReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,28 +78,38 @@ public class BranchInfo extends AppCompatActivity {
 
         final Button submitButton = findViewById(R.id.submitButton);
 
-
+        int branchIDInt = getIntent().getIntExtra("branchID", -1);
         //Get the branch info from the intent
         branchKey = getIntent().getStringExtra("branchKey");//grab the branch key sent by the employee panel
-        branchID.setText(getIntent().getStringExtra("branchID"));//set the branch id
-
+        branchID.setText(Integer.toString(branchIDInt));//set the branch id
+        branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey);
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 finish();
             }
         });
 
-        
+
         //Show the pre-existing value if any
-        saturdayClosingHours.setText(getIntent().getStringExtra("saturdayClosingHours"));
-        saturdayOpeningHours.setText(getIntent().getStringExtra("saturdayOpeningHours"));
+        branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Branch currentBranch = snapshot.getValue(Branch.class);
+                saturdayClosingHours.setText(currentBranch.getSaturdayClosingHours());
+                saturdayOpeningHours.setText(currentBranch.getSaturdayOpeningHours());
 
-        sundayClosingHours.setText(getIntent().getStringExtra("sundayClosingHours"));
-        sundayOpeningHours.setText(getIntent().getStringExtra("sundayOpeningHours"));
+                sundayClosingHours.setText(currentBranch.getSundayClosingHours());
+                sundayOpeningHours.setText(currentBranch.getSundayOpeningHours());
 
-        weekdayClosingHours.setText(getIntent().getStringExtra("weekdayClosingHours"));
-        weekdayOpeningHours.setText(getIntent().getStringExtra("weekdayOpeningHours"));
+                weekdayClosingHours.setText(currentBranch.getWeekdayClosingHours());
+                weekdayOpeningHours.setText(currentBranch.getWeekdayOpeningHours());
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
@@ -122,6 +134,7 @@ public class BranchInfo extends AppCompatActivity {
                     }
                 }, hours, mins, false);
                 timePickerDialog.show();
+
             }
         });
 
@@ -146,6 +159,7 @@ public class BranchInfo extends AppCompatActivity {
                     }
                 }, hours, mins, false);
                 timePickerDialog.show();
+
             }
         });
 
@@ -170,6 +184,7 @@ public class BranchInfo extends AppCompatActivity {
                     }
                 }, hours, mins, false);
                 timePickerDialog.show();
+
             }
         });
 
@@ -194,6 +209,7 @@ public class BranchInfo extends AppCompatActivity {
                     }
                 }, hours, mins, false);
                 timePickerDialog.show();
+
             }
         });
 
@@ -215,9 +231,11 @@ public class BranchInfo extends AppCompatActivity {
                         SimpleDateFormat format = new SimpleDateFormat("k:mm");
                         String time = format.format(c.getTime());
                         sundayOpeningHours.setText(time);
+
                     }
                 }, hours, mins, false);
                 timePickerDialog.show();
+
             }
         });
 
@@ -242,30 +260,33 @@ public class BranchInfo extends AppCompatActivity {
                     }
                 }, hours, mins, false);
                 timePickerDialog.show();
+
             }
         });
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //adds the new time values and branch infos into the firebase database
-                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey);
-
-                branchReference.child("emailAddress").setValue(editEmailAddress.getText().toString());
-                branchReference.child("phoneNumber").setValue(editPhoneNumber.getText().toString());
-
-                branchReference.child("saturdayClosingHours").setValue(saturdayClosingHours.getText().toString());
-                branchReference.child("saturdayOpeningHours").setValue(saturdayOpeningHours.getText().toString());
-
-                branchReference.child("sundayClosingHours").setValue(sundayClosingHours.getText().toString());
-                branchReference.child("sundayOpeningHours").setValue(sundayOpeningHours.getText().toString());
-
-                branchReference.child("weekdayClosingHours").setValue(weekdayClosingHours.getText().toString());
-                branchReference.child("weekdayOpeningHours").setValue(weekdayOpeningHours.getText().toString());
+                setReference(branchReference);
 
                 finish();
 
             }
         });
 
+    }
+
+    public void setReference(DatabaseReference branchReference) {
+        branchReference.child("emailAddress").setValue(editEmailAddress.getText().toString());
+        branchReference.child("phoneNumber").setValue(editPhoneNumber.getText().toString());
+
+        branchReference.child("saturdayClosingHours").setValue(saturdayClosingHours.getText().toString());
+        branchReference.child("saturdayOpeningHours").setValue(saturdayOpeningHours.getText().toString());
+
+        branchReference.child("sundayClosingHours").setValue(sundayClosingHours.getText().toString());
+        branchReference.child("sundayOpeningHours").setValue(sundayOpeningHours.getText().toString());
+
+        branchReference.child("weekdayClosingHours").setValue(weekdayClosingHours.getText().toString());
+        branchReference.child("weekdayOpeningHours").setValue(weekdayOpeningHours.getText().toString());
     }
 }

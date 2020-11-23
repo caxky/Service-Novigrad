@@ -176,21 +176,13 @@ public class EmployeePanel extends AppCompatActivity {
                 newIntent = new Intent(view.getContext(), BranchInfo.class);
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches").child(branchKey);
                 //Sends the preexisting info of the branch info for convenience and start activity
-                branchReference.addValueEventListener(new ValueEventListener() {
+                branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Branch currentBranch = snapshot.getValue(Branch.class);
                         newIntent.putExtra("branchKey", branchKey);
                         newIntent.putExtra("branchID", branchID);
-
-                        newIntent.putExtra("saturdayClosingHours", currentBranch.getSaturdayClosingHours());
-                        newIntent.putExtra("saturdayOpeningHours", currentBranch.getSaturdayOpeningHours());
-
-                        newIntent.putExtra("sundayClosingHours", currentBranch.getSundayClosingHours());
-                        newIntent.putExtra("sundayOpeningHours", currentBranch.getSundayOpeningHours());
-
-                        newIntent.putExtra("weekdayClosingHours", currentBranch.getWeekdayClosingHours());
-                        newIntent.putExtra("weekdayOpeningHours", currentBranch.getSundayOpeningHours());
+                        
                         startActivity(newIntent);
                     }
 
