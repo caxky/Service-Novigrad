@@ -76,13 +76,16 @@ public class BranchInfo extends AppCompatActivity {
 
         final Button submitButton = findViewById(R.id.submitButton);
 
+
+        //Get the branch info from the intent
         branchKey = getIntent().getStringExtra("branchKey");//grab the branch key sent by the employee panel
+        branchID.setText(getIntent().getStringExtra("branchID"));//set the branch id
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 finish();
             }
         });
-        branchID.setText(getIntent().getStringExtra("branchID"));//set the branch id
 
         
         //Show the pre-existing value if any
@@ -244,6 +247,7 @@ public class BranchInfo extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //adds the new time values and branch infos into the firebase database
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey);
 
                 branchReference.child("emailAddress").setValue(editEmailAddress.getText().toString());
@@ -259,6 +263,7 @@ public class BranchInfo extends AppCompatActivity {
                 branchReference.child("weekdayOpeningHours").setValue(weekdayOpeningHours.getText().toString());
 
                 finish();
+
             }
         });
 

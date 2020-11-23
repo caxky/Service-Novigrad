@@ -29,10 +29,12 @@ public class AddServices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employee_add_services);
 
+        //Retrieve info stored in intent
         branchServiceList = (ArrayList<ServiceItem>) this.getIntent().getSerializableExtra("branchServiceList");
         serviceList = (ArrayList<ServiceItem>) this.getIntent().getSerializableExtra("serviceList");
         branchKey = this.getIntent().getStringExtra("branchKey");
 
+        //checks if the available service item exists already in teh branch if so remove it and not have it displayed
         for(int i = 0 ; i < serviceList.size() ; i++){
             for(ServiceItem item : branchServiceList){
                 try{
@@ -59,13 +61,13 @@ public class AddServices extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
 
-                //This is when the thing is clicked, here add the position of that service and add the equivalent serivce to the branch.
+                //This is when the thing is clicked, here add the position of that service and add the equivalent service to the branch.
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services");
                 String branchServiceKey = branchReference.push().getKey();
                 branchReference.child(branchServiceKey).setValue(serviceList.get(position));
-//                branchReference.setValue(serviceList.get(position));
-                changeItem(position, "Added!");
-                removeItem(position);
+
+                changeItem(position, "Added!");//change text to added
+                removeItem(position);//remove item in the recycle view
 
             }
         });

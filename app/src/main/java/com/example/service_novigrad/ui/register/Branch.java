@@ -1,5 +1,6 @@
 package com.example.service_novigrad.ui.register;
 
+//This class is used to store an info of the branch
 public class Branch {
     private String weekdayOpeningHours, weekdayClosingHours, saturdayOpeningHours, saturdayClosingHours,
             sundayOpeningHours, sundayClosingHours, phoneNumber, emailAddress, branchFirebaseKey;

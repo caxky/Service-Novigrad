@@ -130,6 +130,7 @@ public class RegisterActivity extends AppCompatActivity{
                                         Branch temp = child.getValue(Branch.class);
                                         if (branchID == temp.getBranchID()){
                                             hasBranch = true;
+                                            break;
                                         }
                                     }
                                     if(!hasBranch){

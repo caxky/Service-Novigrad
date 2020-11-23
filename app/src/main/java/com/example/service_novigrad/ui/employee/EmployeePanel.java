@@ -86,12 +86,17 @@ public class EmployeePanel extends AppCompatActivity {
 
         addServicesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View view) {
+                //set intent to AddServices
                 newIntent = new Intent(view.getContext(), AddServices.class);
+
+                //initialize arraylist to be passed into intent
                 serviceList = new ArrayList<>();
-                // This is used to get the list of services that a branch can choose that is created by admin
-                // In addition after this the new activity is started
+
+                // this block of code finds the service type available (created by admin an the services
+                // already in the branch, put it in intent to be retrievable in AddServices and starts the activity
                 servicesReference = FirebaseDatabase.getInstance().getReference("Services");
-                serviceListener = new ValueEventListener() {
+
+                serviceListener = new ValueEventListener() { // first layer to find the available services
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
@@ -100,7 +105,7 @@ public class EmployeePanel extends AppCompatActivity {
                             serviceList.add(new ServiceItem( temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments()));
                         }
                         DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services");
-                        branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        branchReference.addListenerForSingleValueEvent(new ValueEventListener() { //second layer to find the branch services, put them in intent and startActivity
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
@@ -109,6 +114,7 @@ public class EmployeePanel extends AppCompatActivity {
                                     ServiceItem temp = child.getValue(ServiceItem.class);
                                     branchServiceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments()));
                                 }
+                                //puts values in intent to be retrieved and worked on in the new activity
                                 newIntent.putExtra("serviceList", serviceList);
                                 newIntent.putExtra("branchServiceList", branchServiceList);
                                 newIntent.putExtra("branchKey", branchKey);
@@ -135,17 +141,22 @@ public class EmployeePanel extends AppCompatActivity {
 
         removeServicesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                //Set the intent to the next activity removeService
                 newIntent = new Intent(view.getContext(), RemoveServices.class);
-                serviceList = new ArrayList<>();
+                serviceList = new ArrayList<>(); //resets the arraylist
+
+                //Reads for the list of service IN the branch already put it in the intent and start activity
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services");
                 branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Iterable<DataSnapshot>children = snapshot.getChildren();
-                        for(DataSnapshot child: children){
+                        for(DataSnapshot child: children){ //iterate and add to the arraylist all the services in branch
                             ServiceItem temp = child.getValue(ServiceItem.class);
                             serviceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments()));
                         }
+
+                        //puts values in intent to be retrieved and worked on in the new activity
                         newIntent.putExtra("branchKey", branchKey);
                         newIntent.putExtra("branchServiceList", serviceList);
                         startActivity(newIntent);
@@ -161,8 +172,10 @@ public class EmployeePanel extends AppCompatActivity {
 
         branchInfoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                //set intent to the branchInfo class
                 newIntent = new Intent(view.getContext(), BranchInfo.class);
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches").child(branchKey);
+                //Sends the preexisting info of the branch info for convenience and start activity
                 branchReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -178,10 +191,7 @@ public class EmployeePanel extends AppCompatActivity {
 
                         newIntent.putExtra("weekdayClosingHours", currentBranch.getWeekdayClosingHours());
                         newIntent.putExtra("weekdayOpeningHours", currentBranch.getSundayOpeningHours());
-
-
                         startActivity(newIntent);
-
                     }
 
                     @Override

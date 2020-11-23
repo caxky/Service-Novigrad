@@ -31,11 +31,9 @@ public class RemoveServices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employee_remove_services);
 
+        //Retrieve info stored in the intent
         branchServiceList =  (ArrayList<ServiceItem>) this.getIntent().getSerializableExtra("branchServiceList");
-        //What you'll want to do here is access the database, itereate through it and fill up the array list.
-//        branchServiceList.add(new ServiceItem(R.drawable.gear, "Service Name" , "Service Type", "22ff"));
         branchKey = this.getIntent().getStringExtra("branchKey");
-        DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference("Branches").child(branchKey);
 
 
         mRecyclerView = findViewById(R.id.employeeRemoveRecyclerView);
@@ -57,7 +55,7 @@ public class RemoveServices extends AppCompatActivity {
             @Override
             public void onDeleteClick(final int position) {
                 currentPosition = position;
-                //Remove service from branch database here, or inside the above function.
+                //Remove service from branch database and the recycle view
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services/");
                 branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
