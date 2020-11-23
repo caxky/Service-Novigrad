@@ -22,14 +22,14 @@ public class AddServices extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private AddServicesAdapter mAdaptor;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<ServiceItem> serviceList;
+    private ArrayList<ServiceItem> serviceList, branchServiceList;
     private String branchKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employee_add_services);
 
-
+        branchServiceList = (ArrayList<ServiceItem>) this.getIntent().getSerializableExtra("branchServiceList");
         serviceList = (ArrayList<ServiceItem>) this.getIntent().getSerializableExtra("serviceList");
         branchKey = this.getIntent().getStringExtra("branchKey");
 //        What you'll want to do here is access the database, itereate through it and fill up the array list.
@@ -68,9 +68,10 @@ public class AddServices extends AppCompatActivity {
             public void onItemClick(int position) {
 
                 //This is when the thing is clicked, here add the position of that service and add the equivalent serivce to the branch.
-                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services").child(String.valueOf(position));
-//                String branchServiceKey = branchReference.push().getKey();
-                branchReference.setValue(serviceList.get(position));
+                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services");
+                String branchServiceKey = branchReference.push().getKey();
+                branchReference.child(branchServiceKey).setValue(serviceList.get(position));
+//                branchReference.setValue(serviceList.get(position));
                 changeItem(position, "Added!");
                 serviceList.remove(position);
                 mAdaptor.notifyItemRemoved(position);

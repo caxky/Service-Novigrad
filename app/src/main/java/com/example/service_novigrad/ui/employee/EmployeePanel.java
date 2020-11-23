@@ -56,7 +56,7 @@ public class EmployeePanel extends AppCompatActivity {
         long accountID = getIntent().getLongExtra("employeeAccountID", -1);
         final int branchID = getIntent().getIntExtra("branchID", -1);
         branchKey = getIntent().getStringExtra("branchKey");
-        // branch email and branch phone when changed 
+        // branch email and branch phone when changed
 
         String nameText, accountIDText, branchIDString;
         nameText = "Employee Name: " + firstName + " " + lastName;
@@ -84,9 +84,28 @@ public class EmployeePanel extends AppCompatActivity {
                             ServiceItem temp = child.getValue(ServiceItem.class);
                             serviceList.add(new ServiceItem( temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments()));
                         }
-                        newIntent.putExtra("serviceList", serviceList);
-                        newIntent.putExtra("branchKey", branchKey);
-                        startActivity(newIntent);
+                        DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services");
+                        branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
+                                ArrayList<ServiceItem> branchServiceList = new ArrayList<>();
+                                for(DataSnapshot child: children){
+                                    ServiceItem temp = child.getValue(ServiceItem.class);
+                                    branchServiceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments()));
+                                }
+                                newIntent.putExtra("serviceList", serviceList);
+                                newIntent.putExtra("branchServiceList", branchServiceList);
+                                newIntent.putExtra("branchKey", branchKey);
+                                startActivity(newIntent);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }
 
                     @Override
