@@ -57,7 +57,22 @@ public class EmployeePanel extends AppCompatActivity {
         final int branchID = getIntent().getIntExtra("branchID", -1);
         branchKey = getIntent().getStringExtra("branchKey");
         // branch email and branch phone when changed
+        DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches").child(branchKey);
+        branchReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Branch currentBranch = snapshot.getValue(Branch.class);
 
+                branchEmailText.setText("Branch Email: "+currentBranch.getEmailAddress());
+                branchPhoneText.setText("Branch Phone: "+currentBranch.getPhoneNumber());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         String nameText, accountIDText, branchIDString;
         nameText = "Employee Name: " + firstName + " " + lastName;
         accountIDText = "Employee Account ID: " + accountID;

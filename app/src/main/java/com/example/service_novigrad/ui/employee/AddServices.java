@@ -46,28 +46,6 @@ public class AddServices extends AppCompatActivity {
         }
 
 
-//        What you'll want to do here is access the database, itereate through it and fill up the array list.
-//        serviceList.add(new ServiceItem(R.drawable.gear, "Service Name" , "Service Type", "22ff"));
-
-//        DatabaseReference servicesReference = FirebaseDatabase.getInstance().getReference("Services");
-//        ValueEventListener serviceListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
-//                for (DataSnapshot child: children){
-//                    ServiceItem temp = child.getValue(ServiceItem.class);
-//                    serviceList.add(new ServiceItem(R.drawable.gear, temp.getServiceName(), temp.getServiceType(), temp.getServiceID()));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        };
-//
-//        servicesReference.addValueEventListener(serviceListener);
-
 
         mRecyclerView = findViewById(R.id.employeeAddRecyclerView);
         mRecyclerView.setHasFixedSize(true);
