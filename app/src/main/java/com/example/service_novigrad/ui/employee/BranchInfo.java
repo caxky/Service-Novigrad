@@ -84,6 +84,20 @@ public class BranchInfo extends AppCompatActivity {
         });
         branchID.setText(getIntent().getStringExtra("branchID"));//set the branch id
 
+        
+        //Show the pre-existing value if any
+        saturdayClosingHours.setText(getIntent().getStringExtra("saturdayClosingHours"));
+        saturdayOpeningHours.setText(getIntent().getStringExtra("saturdayOpeningHours"));
+
+        sundayClosingHours.setText(getIntent().getStringExtra("sundayClosingHours"));
+        sundayOpeningHours.setText(getIntent().getStringExtra("sundayOpeningHours"));
+
+        weekdayClosingHours.setText(getIntent().getStringExtra("weekdayClosingHours"));
+        weekdayOpeningHours.setText(getIntent().getStringExtra("weekdayOpeningHours"));
+
+
+
+
         weekdayOpeningButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

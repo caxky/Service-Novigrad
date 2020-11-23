@@ -162,9 +162,34 @@ public class EmployeePanel extends AppCompatActivity {
         branchInfoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 newIntent = new Intent(view.getContext(), BranchInfo.class);
-                newIntent.putExtra("branchKey", branchKey);
-                newIntent.putExtra("branchID", branchID);
-                startActivity(newIntent);
+                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches").child(branchKey);
+                branchReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Branch currentBranch = snapshot.getValue(Branch.class);
+                        newIntent.putExtra("branchKey", branchKey);
+                        newIntent.putExtra("branchID", branchID);
+
+                        newIntent.putExtra("saturdayClosingHours", currentBranch.getSaturdayClosingHours());
+                        newIntent.putExtra("saturdayOpeningHours", currentBranch.getSaturdayOpeningHours());
+
+                        newIntent.putExtra("sundayClosingHours", currentBranch.getSundayClosingHours());
+                        newIntent.putExtra("sundayOpeningHours", currentBranch.getSundayOpeningHours());
+
+                        newIntent.putExtra("weekdayClosingHours", currentBranch.getWeekdayClosingHours());
+                        newIntent.putExtra("weekdayOpeningHours", currentBranch.getSundayOpeningHours());
+
+
+                        startActivity(newIntent);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
             }
         });
