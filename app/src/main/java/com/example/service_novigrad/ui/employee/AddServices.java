@@ -32,6 +32,20 @@ public class AddServices extends AppCompatActivity {
         branchServiceList = (ArrayList<ServiceItem>) this.getIntent().getSerializableExtra("branchServiceList");
         serviceList = (ArrayList<ServiceItem>) this.getIntent().getSerializableExtra("serviceList");
         branchKey = this.getIntent().getStringExtra("branchKey");
+
+        for(int i = 0 ; i < serviceList.size() ; i++){
+            for(ServiceItem item : branchServiceList){
+                try{
+                    if(serviceList.get(i).getServiceID().equals(item.getServiceID())){
+                        removeItem(i);
+                    }
+                }
+                catch(Exception e){
+                }
+            }
+        }
+
+
 //        What you'll want to do here is access the database, itereate through it and fill up the array list.
 //        serviceList.add(new ServiceItem(R.drawable.gear, "Service Name" , "Service Type", "22ff"));
 
@@ -73,8 +87,7 @@ public class AddServices extends AppCompatActivity {
                 branchReference.child(branchServiceKey).setValue(serviceList.get(position));
 //                branchReference.setValue(serviceList.get(position));
                 changeItem(position, "Added!");
-                serviceList.remove(position);
-                mAdaptor.notifyItemRemoved(position);
+                removeItem(position);
 
             }
         });
@@ -84,5 +97,10 @@ public class AddServices extends AppCompatActivity {
     public void changeItem(int position, String text) {
         serviceList.get(position).changeText1(text);
         mAdaptor.notifyItemChanged(position);
+    }
+
+    public void removeItem(int position){
+        serviceList.remove(position);
+        mAdaptor.notifyItemRemoved(position);
     }
 }
