@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(view.getContext(), WelcomeActivity.class));
                                 userName = usernameEditText.getText().toString();
                                 password = passwordEditText.getText().toString();
-                                break;
+
                             }
 
                         }
@@ -186,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                                             if (temp2.getBranchID() == temp.getBranchID()){
                                                 Intent intent = new Intent(view.getContext(), EmployeePanel.class);
                                                 intent.putExtra("employeeFirstName", temp.getFirstName());
-                                                intent.putExtra("employeeLastName", temp.getFirstName());
+                                                intent.putExtra("employeeLastName", temp.getLastName());
                                                 intent.putExtra("employeeAccountID", temp.getAccountID());
                                                 intent.putExtra("branchKey", temp2.getBranchFirebaseKey());
                                                 intent.putExtra("branchID", temp.getBranchID());
