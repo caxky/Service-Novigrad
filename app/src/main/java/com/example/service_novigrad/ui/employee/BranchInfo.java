@@ -244,6 +244,7 @@ public class BranchInfo extends AppCompatActivity {
                 branchReference.child("weekdayClosingHours").setValue(weekdayClosingHours.getText().toString());
                 branchReference.child("weekdayOpeningHours").setValue(weekdayOpeningHours.getText().toString());
 
+                finish();
             }
         });
 
