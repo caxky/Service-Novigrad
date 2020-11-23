@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 public class BranchInfo extends AppCompatActivity {
     private TextView weekdayOpeningHours;
@@ -75,6 +76,9 @@ public class BranchInfo extends AppCompatActivity {
         branchID = findViewById(R.id.branchID);
         editPhoneNumber = findViewById(R.id.branchPhone);
         editEmailAddress = findViewById(R.id.branchEmailAddress);
+
+        editPhoneNumber.addTextChangedListener(branchInfoTextWatcher);
+        editEmailAddress.addTextChangedListener(branchInfoTextWatcher);
 
         final Button submitButton = findViewById(R.id.submitButton);
 
@@ -263,6 +267,7 @@ public class BranchInfo extends AppCompatActivity {
 
             }
         });
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,4 +294,62 @@ public class BranchInfo extends AppCompatActivity {
         branchReference.child("weekdayClosingHours").setValue(weekdayClosingHours.getText().toString());
         branchReference.child("weekdayOpeningHours").setValue(weekdayOpeningHours.getText().toString());
     }
+
+    private Boolean validateEmail(String email){
+        Boolean result = false;
+        if(email.contains("@")){
+            String[] splitUserName = email.split("@");
+            if(splitUserName.length<3 && splitUserName.length>1){
+                String prefix = splitUserName[0];
+                String domain = splitUserName[1];
+                if(domain.contains(".") && !domain.endsWith(".") && prefix.length() != 0 && !domain.startsWith(".")){
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    private Boolean isValidMobile(String phone) {
+        boolean result=false;
+        if(!Pattern.matches("[a-zA-Z]+", phone)) {
+            if(phone.length() < 6 || phone.length() > 13) {
+                result = false;
+            } else {
+                result = true;
+            }
+        } else {
+            result=false;
+        }
+        return result;
+    }
+
+    private TextWatcher branchInfoTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if(!validateEmail(editEmailAddress.getText().toString())){
+                editEmailAddress.setError("Invalid email");
+            }
+            else{
+                editEmailAddress.setError(null);
+            }
+
+            if(!isValidMobile(editPhoneNumber.getText().toString())){
+                editPhoneNumber.setError("Invalid phone");
+            }
+            else{
+                editPhoneNumber.setError(null);
+            }
+        }
+    };
 }
