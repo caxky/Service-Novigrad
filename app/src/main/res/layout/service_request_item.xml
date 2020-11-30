@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     app:cardCornerRadius="4dp"
+    android:layout_marginBottom="4dp"
     tools:context=".ui.employee.ServiceRequestItem">
 
     <RelativeLayout
