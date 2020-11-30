@@ -21,6 +21,10 @@
     <string name="welcome_banner">Welcome</string>
     <string name="TEST_USERNAME">TEST_USERNAME</string>
 
+    <!-- Strings related to customer panel -->
+    <string name="operating_hours">Operating Hours:</string>
+    <string name="dash">-</string>
+
     <!-- Strings related to admin -->
     <string name="admin_panel_welcome">Service Novigrad Admin Panel</string>
     <string name="manage_accounts">Manage Accounts</string>
