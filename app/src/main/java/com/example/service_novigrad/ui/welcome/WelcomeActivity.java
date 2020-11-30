@@ -2,6 +2,7 @@ package com.example.service_novigrad.ui.welcome;
 import com.example.service_novigrad.accounts.Account;
 import com.example.service_novigrad.accounts.CustomerAccount;
 import com.example.service_novigrad.accounts.EmployeeAccount;
+import com.example.service_novigrad.ui.customer.CustomerPanel;
 import com.example.service_novigrad.ui.login.*;
 import android.app.Activity;
 
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -107,10 +109,20 @@ public class WelcomeActivity extends AppCompatActivity {
         DatabaseReference accountsReference = FirebaseDatabase.getInstance().getReference().child("Customer Accounts"); //give the reference(location) to the customer accounts in the db
         searchAndSetUsernameAndAccountID(accountsReference,userName, password,usernameTitleTextView, accountIDTextView);
 
-
-
-
-
+        Thread thread = new Thread(){
+            public void run(){
+                try {
+                    sleep(4000);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                finally {
+                    startActivity(new Intent(WelcomeActivity.this, CustomerPanel.class));
+                }
+            }
+        };
+        thread.start();
 
     }
 
