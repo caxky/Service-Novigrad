@@ -44,6 +44,12 @@ public class CustomerPanel extends AppCompatActivity {
         branchList.add(new BranchItem(R.drawable.branch, "590", "7:15", "15:00"));
         branchList.add(new BranchItem(R.drawable.branch, "690", "8:00", "16:00"));
         branchList.add(new BranchItem(R.drawable.branch, "417", "7:30", "20:30"));
+        branchList.add(new BranchItem(R.drawable.branch, "236", "8:30", "16:00"));
+        branchList.add(new BranchItem(R.drawable.branch, "557", "7:30", "13:00"));
+        branchList.add(new BranchItem(R.drawable.branch, "118", "9:00", "20:30"));
+        branchList.add(new BranchItem(R.drawable.branch, "599", "7:15", "15:00"));
+        branchList.add(new BranchItem(R.drawable.branch, "692", "8:00", "16:00"));
+        branchList.add(new BranchItem(R.drawable.branch, "414", "7:30", "20:30"));
     }
 
     public void buildRecyclerView(){
@@ -57,7 +63,7 @@ public class CustomerPanel extends AppCompatActivity {
         bAdapter.setOnItemClickListener(new BranchesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                Intent intent = new Intent(getBaseContext(), ServiceRequestInformation.class);
+                Intent intent = new Intent(getBaseContext(), CustomerBranchServices.class);
                 startActivity(intent);
             }
         });
