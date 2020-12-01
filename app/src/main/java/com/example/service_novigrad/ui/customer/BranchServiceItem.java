@@ -1,16 +1,20 @@
 package com.example.service_novigrad.ui.customer;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+public class BranchServiceItem{
+    private int bsImageResource;
+    private String bsServiceName;
 
-import com.example.service_novigrad.R;
+    public BranchServiceItem(int imageResource, String serviceName) {
+        bsServiceName = serviceName;
+        bsImageResource = imageResource;
+    }
 
-public class BranchServiceItem extends AppCompatActivity {
+    public int getImageResource() {
+        return bsImageResource;
+    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.branch_service_item);
+    public String getBranchServiceName() {
+        return bsServiceName;
     }
 }

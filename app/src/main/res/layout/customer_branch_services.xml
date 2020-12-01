@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:padding="8dp"
-            android:text="Branch Services"
+            android:text="Available Branch Services"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
