@@ -33,4 +33,12 @@ public class BranchItem {
     public String getBranchClose(){
         return bBranchClose;
     }
+
+    public String[] getServicesOffered() {
+        return bServicesOffered;
+    }
+
+    public int getNumServicesOffered() {
+        return bServicesOffered.length;
+    }
 }

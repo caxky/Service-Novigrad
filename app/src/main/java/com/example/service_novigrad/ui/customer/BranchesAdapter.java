@@ -100,7 +100,15 @@ public class BranchesAdapter extends RecyclerView.Adapter<BranchesAdapter.Branch
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (BranchItem item : bBranchListFull) {
-                    if (item.getBranchID().toLowerCase().contains(filterPattern) || item.getBranchOpen().toLowerCase().contains(filterPattern) || item.getBranchClose().toLowerCase().contains(filterPattern)){
+                    String[] servicesOffered = item.getServicesOffered();
+                    Boolean flag = false;
+
+                    for (int i = 0; i < item.getNumServicesOffered(); i++) {
+                        if (servicesOffered[i].toLowerCase().contains(filterPattern))
+                            flag = true;
+                    }
+
+                    if (item.getBranchID().toLowerCase().contains(filterPattern) || item.getBranchOpen().toLowerCase().contains(filterPattern) || item.getBranchClose().toLowerCase().contains(filterPattern) || flag){
                         filteredList.add(item);
                     }
                 }
