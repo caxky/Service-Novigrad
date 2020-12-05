@@ -33,6 +33,7 @@ import android.content.Intent;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.register.Branch;
+import com.example.service_novigrad.ui.services.ServiceItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -121,6 +122,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
                 finally {
                     final DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/");
+                    //Read the branchlist to be passed into the customerPanel activity
                     branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -130,6 +132,37 @@ public class WelcomeActivity extends AppCompatActivity {
                             }
                             Intent intent = new Intent(WelcomeActivity.this, CustomerPanel.class);
                             intent.putExtra("branchList", branchItemList);
+                            // check if services in branches exist
+                            for (BranchItem branch : branchItemList) {
+                                DatabaseReference branchServiceReference = FirebaseDatabase.getInstance().getReference("Branches").child(branch.getBranchKey()).child("Branch Services");
+                                branchServiceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (final DataSnapshot child: snapshot.getChildren()){
+                                            ServiceItem temp = child.getValue(ServiceItem.class);
+                                            DatabaseReference ogServiceRef = FirebaseDatabase.getInstance().getReference("Services").child(temp.getServiceID());
+                                            ogServiceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (!snapshot.exists()){
+                                                        child.getRef().removeValue();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
                             startActivity(intent);
                         }
 
