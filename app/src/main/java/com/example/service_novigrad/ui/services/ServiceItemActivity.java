@@ -196,8 +196,7 @@ public class ServiceItemActivity extends AppCompatActivity {
                     weight.setChecked(true);
                     newFieldsAndAttachments.setWeight(true);
                 }
-
-                serviceCost.setText(currentFieldOfAttachment.getServiceCost());
+                
             }
 
             @Override

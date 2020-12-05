@@ -238,9 +238,4 @@ public class FieldsAndAttachments {
     public void setProofOfResidence(boolean proofOfResidence) {
         this.proofOfResidence = proofOfResidence;
     }
-    public void setServiceCost(String cost) {this.serviceCost = cost;}
-
-    public String getServiceCost() {return this.serviceCost;}
-
-
 }
