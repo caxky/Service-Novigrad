@@ -4,7 +4,7 @@ package com.example.service_novigrad.ui.services;
 public class FieldsAndAttachments {
 
     private boolean firstName, lastName, maidenName, gender, nationality, POB, expiryDate, issueDate, DOB, signature, address, issuingAuthority, height, weight, bloodType, hairColour, eyeColour, classID, proofOfStatus, birthCertificate, driversLicense, photoOfCustomer, SIN, proofOfResidence;
-
+    private String serviceCost;
     //Default Constructor
     public FieldsAndAttachments(){
 
@@ -19,6 +19,7 @@ public class FieldsAndAttachments {
             address = true;
             driversLicense = true;
             proofOfResidence = true;
+            serviceCost = "54.99";
 
         }else if (serviceType.equals("Photo ID Service")){
             firstName = true;
@@ -27,6 +28,7 @@ public class FieldsAndAttachments {
             address = true;
             proofOfResidence = true;
             proofOfStatus = true;
+            serviceCost = "25.99";
         }else if (serviceType.equals("Driver's License Service")){
             firstName = true;
             lastName = true;
@@ -34,6 +36,7 @@ public class FieldsAndAttachments {
             address = true;
             proofOfResidence = true;
             photoOfCustomer = true;
+            serviceCost = "25.99";
 
         }
     }
@@ -235,6 +238,9 @@ public class FieldsAndAttachments {
     public void setProofOfResidence(boolean proofOfResidence) {
         this.proofOfResidence = proofOfResidence;
     }
+    public void setServiceCost(String cost) {this.serviceCost = cost;}
+
+    public String getServiceCost() {return this.serviceCost;}
 
 
 }

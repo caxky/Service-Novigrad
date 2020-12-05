@@ -99,6 +99,7 @@ public class ServiceItemActivity extends AppCompatActivity {
                 //check all the previous fields and add / apply it to a new FieldsAndAttachment so we can add to it
                 currentService = snapshot.getValue(ServiceItem.class);
                 currentFieldOfAttachment= currentService.getFieldsAndAttachments();
+
                 if (currentFieldOfAttachment.isAddress()){
                     address.setChecked(true);
                     newFieldsAndAttachments.setAddress(true);
@@ -196,8 +197,7 @@ public class ServiceItemActivity extends AppCompatActivity {
                     newFieldsAndAttachments.setWeight(true);
                 }
 
-
-
+                serviceCost.setText(currentFieldOfAttachment.getServiceCost());
             }
 
             @Override
