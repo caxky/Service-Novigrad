@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,18 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <TextView
-            android:id="@+id/textViewServiceType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:visibility="invisible" />
-
         <ImageView
             android:id="@+id/novigradImage"
-            android:layout_width="198dp"
-            android:layout_height="154dp"
+            android:layout_width="189dp"
+            android:layout_height="140dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/novigrad_flag" />
 
@@ -43,6 +35,41 @@
             android:gravity="center"
             android:text="Fields"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textview333"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:text="Service Cost:"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/editTextServiceCost"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                app:srcCompat="@drawable/ic_money" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,24 +144,24 @@
                 android:id="@+id/checkBoxExpiryDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Expiry Date" />
 
             <CheckBox
                 android:id="@+id/checkBoxIssueDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Issue Date" />
 
             <CheckBox
                 android:id="@+id/checkBoxDateOfBirth"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Birth Date" />
 
         </LinearLayout>
@@ -149,16 +176,16 @@
                 android:id="@+id/checkBoxSignature"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Signature" />
 
             <CheckBox
                 android:id="@+id/checkBoxAddress"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Address" />
 
             <CheckBox
@@ -181,24 +208,24 @@
                 android:id="@+id/checkBoxHeight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Height" />
 
             <CheckBox
                 android:id="@+id/checkBoxWeight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Weight" />
 
             <CheckBox
                 android:id="@+id/checkBoxBloodType"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Blood Type" />
 
         </LinearLayout>
@@ -229,8 +256,8 @@
                 android:id="@+id/checkBoxClass"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onFieldCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onFieldCheckBoxClicked"
                 android:text="Class" />
         </LinearLayout>
 
@@ -249,27 +276,27 @@
             android:orientation="horizontal">
 
             <CheckBox
-                    android:id="@+id/checkBoxProofOfStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="onAttachmentCheckBoxClicked"
-                    android:text="Proof of Status" />
+                android:id="@+id/checkBoxProofOfStatus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onAttachmentCheckBoxClicked"
+                android:text="Proof of Status" />
 
             <CheckBox
                 android:id="@+id/checkBoxBirthCertificate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onAttachmentCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onAttachmentCheckBoxClicked"
                 android:text="Birth Certificate" />
 
             <CheckBox
                 android:id="@+id/checkBoxDriversLicense"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onAttachmentCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onAttachmentCheckBoxClicked"
                 android:text="Driver's License" />
 
         </LinearLayout>
@@ -281,28 +308,28 @@
             android:orientation="horizontal">
 
             <CheckBox
-                    android:id="@+id/checkBoxPhotoOfCustomer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="onAttachmentCheckBoxClicked"
-                    android:text="Photo of Customer" />
+                android:id="@+id/checkBoxPhotoOfCustomer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onAttachmentCheckBoxClicked"
+                android:text="Photo of Customer" />
 
             <CheckBox
                 android:id="@+id/checkBoxSocialSecurity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="onAttachmentCheckBoxClicked"
                 android:layout_weight="1"
+                android:onClick="onAttachmentCheckBoxClicked"
                 android:text="SIN" />
 
             <CheckBox
-                    android:id="@+id/checkBoxProofOfResidence"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="onAttachmentCheckBoxClicked"
-                    android:text="Proof of Residence" />
+                android:id="@+id/checkBoxProofOfResidence"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onAttachmentCheckBoxClicked"
+                android:text="Proof of Residence" />
 
         </LinearLayout>
 

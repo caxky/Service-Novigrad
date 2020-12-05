@@ -26,7 +26,8 @@ public class ServiceItemActivity extends AppCompatActivity {
 
 
     private TextView textViewServiceName;
-    private TextView textViewServiceType;
+    private TextView serviceCost;
+
 
     private ServiceItem currentService;
     private FieldsAndAttachments currentFieldOfAttachment;
@@ -44,9 +45,10 @@ public class ServiceItemActivity extends AppCompatActivity {
         final String srType = intent.getStringExtra(AdminServices.EXTRA_TEXT2);
         currentServiceID = intent.getStringExtra("serviceID");
         textViewServiceName = (TextView) findViewById(R.id.textViewServiceName);
-        textViewServiceType = (TextView) findViewById(R.id.textViewServiceType);
+
         textViewServiceName.setText(srName);
-        textViewServiceType.setText(srType);
+        serviceCost = (TextView)findViewById(R.id.editTextServiceCost);
+
 
         firstName = findViewById(R.id.checkBoxFirstName);
         lastName = findViewById(R.id.checkBoxLastName);
