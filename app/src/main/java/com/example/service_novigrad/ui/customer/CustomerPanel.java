@@ -1,9 +1,11 @@
 package com.example.service_novigrad.ui.customer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +19,14 @@ import com.example.service_novigrad.ui.accounts.AccountItem;
 import com.example.service_novigrad.ui.accounts.AccountsAdapter;
 import com.example.service_novigrad.ui.employee.ServiceRequestInformation;
 import com.example.service_novigrad.ui.register.Branch;
+import com.example.service_novigrad.ui.services.ServiceItem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CustomerPanel extends AppCompatActivity {
@@ -36,9 +45,8 @@ public class CustomerPanel extends AppCompatActivity {
         buildRecyclerView();
     }
 
-    public void createList(){
+    public void createList() {
         branchList = this.getIntent().getParcelableArrayListExtra("branchList");
-
 //        branchList.add(new BranchItem(R.drawable.branch, "234", "8:30", "16:00"));
 //        branchList.add(new BranchItem(R.drawable.branch, "555", "7:30", "13:00"));
 //        branchList.add(new BranchItem(R.drawable.branch, "114", "9:00", "20:30"));
@@ -53,7 +61,7 @@ public class CustomerPanel extends AppCompatActivity {
 //        branchList.add(new BranchItem(R.drawable.branch, "414", "7:30", "20:30"));
     }
 
-    public void buildRecyclerView(){
+    public void buildRecyclerView() {
         bRecyclerView = findViewById(R.id.branchRecyclerView);
         bLayoutManager = new LinearLayoutManager(this);
         bAdapter = new BranchesAdapter(branchList);
@@ -64,8 +72,28 @@ public class CustomerPanel extends AppCompatActivity {
         bAdapter.setOnItemClickListener(new BranchesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                Intent intent = new Intent(getBaseContext(), CustomerBranchServices.class);
-                startActivity(intent);
+                String branchKey = branchList.get(pos).getBranchKey();
+                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches").child(branchKey).child("Branch Services");
+                branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<BranchServiceItem> branchServiceItems = new ArrayList<>();
+                        for (DataSnapshot child :
+                                snapshot.getChildren()) {
+                            ServiceItem temp = child.getValue(ServiceItem.class);
+                            branchServiceItems.add(new BranchServiceItem(R.drawable.gear, temp.getServiceName(), temp.getServiceID()));
+                        }
+                        Intent intent = new Intent(getBaseContext(), CustomerBranchServices.class);
+                        intent.putExtra("branchServiceList", branchServiceItems);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
     }

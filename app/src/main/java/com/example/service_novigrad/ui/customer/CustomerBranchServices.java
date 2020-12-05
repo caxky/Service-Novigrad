@@ -59,10 +59,10 @@ public class CustomerBranchServices extends AppCompatActivity {
     }
 
     public void createList(){
-        branchServiceList = new ArrayList<>();
-        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "Health Card"));
-        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "Drivers License"));
-        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "SIN"));
+        branchServiceList = this.getIntent().getParcelableArrayListExtra("branchServiceList");
+//        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "Health Card"));
+//        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "Drivers License"));
+//        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "SIN"));
     }
 
     public void buildRecyclerView(){

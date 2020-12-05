@@ -126,7 +126,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot child : snapshot.getChildren()) {
                                 Branch temp = child.getValue(Branch.class);
-                                branchItemList.add(new BranchItem(R.drawable.gear, Integer.toString(temp.getBranchID()), temp.getSaturdayOpeningHours(), temp.getSaturdayClosingHours(), temp.getBranchFirebaseKey()));
+                                branchItemList.add(new BranchItem(R.drawable.branch, Integer.toString(temp.getBranchID()), temp.getSaturdayOpeningHours(), temp.getSaturdayClosingHours(), temp.getBranchFirebaseKey()));
                             }
                             Intent intent = new Intent(WelcomeActivity.this, CustomerPanel.class);
                             intent.putExtra("branchList", branchItemList);
