@@ -2,6 +2,7 @@ package com.example.service_novigrad.ui.welcome;
 import com.example.service_novigrad.accounts.Account;
 import com.example.service_novigrad.accounts.CustomerAccount;
 import com.example.service_novigrad.accounts.EmployeeAccount;
+import com.example.service_novigrad.ui.customer.BranchItem;
 import com.example.service_novigrad.ui.customer.CustomerPanel;
 import com.example.service_novigrad.ui.login.*;
 import android.app.Activity;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import android.content.Intent;
 
 import com.example.service_novigrad.R;
+import com.example.service_novigrad.ui.register.Branch;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class WelcomeActivity extends AppCompatActivity {
-
+    ArrayList<BranchItem> branchItemList = new ArrayList<>();
     // Searches for the account in the database, finds the account type and set the username and accountID accordingly onto the textview in welcome activity
     public void searchAndSetUsernameAndAccountID(DatabaseReference accountsReference, final String userName, final String password, final TextView usernameTitleTextView, final TextView accountIDTextView){
         accountsReference.addValueEventListener(new ValueEventListener() {
@@ -118,7 +120,24 @@ public class WelcomeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
-                    startActivity(new Intent(WelcomeActivity.this, CustomerPanel.class));
+                                        DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/");
+                    branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
+                                Branch temp = child.getValue(Branch.class);
+                                branchItemList.add(new BranchItem(R.drawable.gear, Integer.toString(temp.getBranchID()), temp.getSaturdayOpeningHours(), temp.getSaturdayClosingHours(), temp.getBranchFirebaseKey()));
+                            }
+                            Intent intent = new Intent(WelcomeActivity.this, CustomerPanel.class);
+                            intent.putExtra("branchList", branchItemList);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
         };

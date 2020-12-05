@@ -37,19 +37,20 @@ public class CustomerPanel extends AppCompatActivity {
     }
 
     public void createList(){
-        branchList = new ArrayList<>();
-        branchList.add(new BranchItem(R.drawable.branch, "234", "8:30", "16:00"));
-        branchList.add(new BranchItem(R.drawable.branch, "555", "7:30", "13:00"));
-        branchList.add(new BranchItem(R.drawable.branch, "114", "9:00", "20:30"));
-        branchList.add(new BranchItem(R.drawable.branch, "590", "7:15", "15:00"));
-        branchList.add(new BranchItem(R.drawable.branch, "690", "8:00", "16:00"));
-        branchList.add(new BranchItem(R.drawable.branch, "417", "7:30", "20:30"));
-        branchList.add(new BranchItem(R.drawable.branch, "236", "8:30", "16:00"));
-        branchList.add(new BranchItem(R.drawable.branch, "557", "7:30", "13:00"));
-        branchList.add(new BranchItem(R.drawable.branch, "118", "9:00", "20:30"));
-        branchList.add(new BranchItem(R.drawable.branch, "599", "7:15", "15:00"));
-        branchList.add(new BranchItem(R.drawable.branch, "692", "8:00", "16:00"));
-        branchList.add(new BranchItem(R.drawable.branch, "414", "7:30", "20:30"));
+        branchList = this.getIntent().getParcelableArrayListExtra("branchList");
+
+//        branchList.add(new BranchItem(R.drawable.branch, "234", "8:30", "16:00"));
+//        branchList.add(new BranchItem(R.drawable.branch, "555", "7:30", "13:00"));
+//        branchList.add(new BranchItem(R.drawable.branch, "114", "9:00", "20:30"));
+//        branchList.add(new BranchItem(R.drawable.branch, "590", "7:15", "15:00"));
+//        branchList.add(new BranchItem(R.drawable.branch, "690", "8:00", "16:00"));
+//        branchList.add(new BranchItem(R.drawable.branch, "417", "7:30", "20:30"));
+//        branchList.add(new BranchItem(R.drawable.branch, "236", "8:30", "16:00"));
+//        branchList.add(new BranchItem(R.drawable.branch, "557", "7:30", "13:00"));
+//        branchList.add(new BranchItem(R.drawable.branch, "118", "9:00", "20:30"));
+//        branchList.add(new BranchItem(R.drawable.branch, "599", "7:15", "15:00"));
+//        branchList.add(new BranchItem(R.drawable.branch, "692", "8:00", "16:00"));
+//        branchList.add(new BranchItem(R.drawable.branch, "414", "7:30", "20:30"));
     }
 
     public void buildRecyclerView(){
