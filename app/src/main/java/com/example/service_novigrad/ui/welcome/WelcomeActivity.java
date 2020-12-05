@@ -120,7 +120,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
-                                        DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/");
+                    final DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/");
                     branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {

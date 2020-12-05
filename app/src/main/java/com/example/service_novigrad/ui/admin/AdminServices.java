@@ -134,7 +134,7 @@ public class AdminServices extends AppCompatActivity {
         currentServiceID = servicesReference.push().getKey();
 
         //prepare the variable to be pushed
-        currentService = new ServiceItem(R.drawable.gear, serviceName.getText().toString(), serviceTypeString, currentServiceID);
+        currentService = new ServiceItem(R.drawable.gear, serviceName.getText().toString(), serviceTypeString, currentServiceID,20);
 
         //write the var
         servicesReference.child(currentServiceID).setValue(currentService);

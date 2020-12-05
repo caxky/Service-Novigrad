@@ -31,10 +31,11 @@ import java.util.ArrayList;
 
 public class CustomerPanel extends AppCompatActivity {
     private ArrayList<BranchItem> branchList;
-
+    private ArrayList<BranchServiceItem> branchServiceItems = new ArrayList<>();
     private RecyclerView bRecyclerView;
     private BranchesAdapter bAdapter;
     private RecyclerView.LayoutManager bLayoutManager;
+    private ServiceItem tempServiceItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class CustomerPanel extends AppCompatActivity {
 
                     }
                 });
+
 
             }
         });

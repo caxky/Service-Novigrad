@@ -21,22 +21,26 @@ public class ServiceItem implements Parcelable {
     private FieldsAndAttachments fieldsAndAttachments = new FieldsAndAttachments();
     private int imageResource;
     private String serviceID;
+    private double  defaultPrice = 0;
 
     public ServiceItem(){
     }
-    public ServiceItem(String serviceName, String serviceType, String serviceID, FieldsAndAttachments fieldsAndAttachments){
+    public ServiceItem(String serviceName, String serviceType, String serviceID, FieldsAndAttachments fieldsAndAttachments,double defaultPrice){
         this.imageResource = R.drawable.gear;
         this.serviceName = serviceName;
         this.serviceType = serviceType;
         this.fieldsAndAttachments = fieldsAndAttachments;
         this.serviceID = serviceID;
+        this.defaultPrice= defaultPrice;
     }
-    public ServiceItem(int imageResource, String serviceName, String serviceType, String serviceID) {
+
+    public ServiceItem(int imageResource, String serviceName, String serviceType, String serviceID, double defaultPrice) {
         this.imageResource = imageResource;
         this.serviceName = serviceName;
         this.serviceType = serviceType;
         fieldsAndAttachments = new FieldsAndAttachments(serviceType);
         this.serviceID = serviceID;
+        this.defaultPrice= defaultPrice;
     }
 
 
@@ -72,6 +76,10 @@ public class ServiceItem implements Parcelable {
     }
 
     public String getServiceID(){ return serviceID;}
+
+    public double getDefaultPrice() {
+        return defaultPrice;
+    }
 
     public void changeText1(String text) {
         serviceName = text;

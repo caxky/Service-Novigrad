@@ -35,6 +35,7 @@ public class ServiceItemActivity extends AppCompatActivity {
     private FieldsAndAttachments newFieldsAndAttachments = new FieldsAndAttachments();
 
     private String currentServiceID;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class ServiceItemActivity extends AppCompatActivity {
         textViewServiceName = (TextView) findViewById(R.id.textViewServiceName);
 
         textViewServiceName.setText(srName);
-        serviceCost = (TextView)findViewById(R.id.editTextServiceCost);
+        serviceCost = (TextView) findViewById(R.id.editTextServiceCost);
 
 
         firstName = findViewById(R.id.checkBoxFirstName);
@@ -84,13 +85,21 @@ public class ServiceItemActivity extends AppCompatActivity {
             public void onClick(final View view) {
                 //when apply is pressed update the service's field and attachment in teh server
                 final DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID).child("fieldsAndAttachments");
-                fieldAndAttachmentReference.setValue(newFieldsAndAttachments);
+                final DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID);
+                try {
+                    fieldAndAttachmentReference.setValue(newFieldsAndAttachments);
+                    serviceReference.child("defaultPrice").setValue(Double.valueOf(serviceCost.getText().toString()));
+                } catch (NumberFormatException numFormatException) {
+                    fieldAndAttachmentReference.setValue(newFieldsAndAttachments);
+                }
+
                 finish();
             }
         });
 
     }
-    public void initializeCheckboxes(){
+
+    public void initializeCheckboxes() {
         //initializes the checkboxes using preiviously filled fields
         DatabaseReference fieldAndAttachmentReference = FirebaseDatabase.getInstance().getReference("Services").child(currentServiceID);
         fieldAndAttachmentReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -98,105 +107,105 @@ public class ServiceItemActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //check all the previous fields and add / apply it to a new FieldsAndAttachment so we can add to it
                 currentService = snapshot.getValue(ServiceItem.class);
-                currentFieldOfAttachment= currentService.getFieldsAndAttachments();
+                currentFieldOfAttachment = currentService.getFieldsAndAttachments();
 
-                if (currentFieldOfAttachment.isAddress()){
+                if (currentFieldOfAttachment.isAddress()) {
                     address.setChecked(true);
                     newFieldsAndAttachments.setAddress(true);
                 }
-                if(currentFieldOfAttachment.isBirthCertificate()){
+                if (currentFieldOfAttachment.isBirthCertificate()) {
                     birthCertificate.setChecked(true);
                     newFieldsAndAttachments.setBirthCertificate(true);
                 }
-                if (currentFieldOfAttachment.isBloodType()){
+                if (currentFieldOfAttachment.isBloodType()) {
                     bloodType.setChecked(true);
                     newFieldsAndAttachments.setBloodType(true);
                 }
-                if (currentFieldOfAttachment.isClassID()){
+                if (currentFieldOfAttachment.isClassID()) {
                     classID.setChecked(true);
                     newFieldsAndAttachments.setClassID(true);
                 }
-                if (currentFieldOfAttachment.isDOB()){
+                if (currentFieldOfAttachment.isDOB()) {
                     DOB.setChecked(true);
                     newFieldsAndAttachments.setDOB(true);
                 }
-                if (currentFieldOfAttachment.isDriversLicense()){
+                if (currentFieldOfAttachment.isDriversLicense()) {
                     driversLicense.setChecked(true);
                     newFieldsAndAttachments.setDriversLicense(true);
                 }
-                if (currentFieldOfAttachment.isExpiryDate()){
+                if (currentFieldOfAttachment.isExpiryDate()) {
                     expiryDate.setChecked(true);
                     newFieldsAndAttachments.setExpiryDate(true);
                 }
-                if (currentFieldOfAttachment.isEyeColour()){
+                if (currentFieldOfAttachment.isEyeColour()) {
                     eyeColour.setChecked(true);
                     newFieldsAndAttachments.setEyeColour(true);
                 }
-                if (currentFieldOfAttachment.isFirstName()){
+                if (currentFieldOfAttachment.isFirstName()) {
                     firstName.setChecked(true);
                     newFieldsAndAttachments.setFirstName(true);
                 }
-                if (currentFieldOfAttachment.isGender()){
+                if (currentFieldOfAttachment.isGender()) {
                     gender.setChecked(true);
                     newFieldsAndAttachments.setGender(true);
                 }
-                if (currentFieldOfAttachment.isHairColour()){
+                if (currentFieldOfAttachment.isHairColour()) {
                     hairColour.setChecked(true);
                     newFieldsAndAttachments.setHairColour(true);
                 }
-                if (currentFieldOfAttachment.isHeight()){
+                if (currentFieldOfAttachment.isHeight()) {
                     height.setChecked(true);
                     newFieldsAndAttachments.setHeight(true);
                 }
-                if (currentFieldOfAttachment.isIssueDate()){
+                if (currentFieldOfAttachment.isIssueDate()) {
                     issueDate.setChecked(true);
                     newFieldsAndAttachments.setIssueDate(true);
                 }
-                if (currentFieldOfAttachment.isIssuingAuthority()){
+                if (currentFieldOfAttachment.isIssuingAuthority()) {
                     issuingAuthority.setChecked(true);
                     newFieldsAndAttachments.setIssuingAuthority(true);
                 }
-                if (currentFieldOfAttachment.isLastName()){
+                if (currentFieldOfAttachment.isLastName()) {
                     lastName.setChecked(true);
                     newFieldsAndAttachments.setLastName(true);
                 }
-                if (currentFieldOfAttachment.isMaidenName()){
+                if (currentFieldOfAttachment.isMaidenName()) {
                     maidenName.setChecked(true);
                     newFieldsAndAttachments.setMaidenName(true);
                 }
-                if (currentFieldOfAttachment.isNationality()){
+                if (currentFieldOfAttachment.isNationality()) {
                     nationality.setChecked(true);
                     newFieldsAndAttachments.setNationality(true);
                 }
-                if (currentFieldOfAttachment.isPhotoOfCustomer()){
+                if (currentFieldOfAttachment.isPhotoOfCustomer()) {
                     photoOfCustomer.setChecked(true);
                     newFieldsAndAttachments.setPhotoOfCustomer(true);
                 }
-                if (currentFieldOfAttachment.isPOB()){
+                if (currentFieldOfAttachment.isPOB()) {
                     POB.setChecked(true);
                     newFieldsAndAttachments.setPOB(true);
                 }
-                if (currentFieldOfAttachment.isProofOfResidence()){
+                if (currentFieldOfAttachment.isProofOfResidence()) {
                     proofOfResidence.setChecked(true);
                     newFieldsAndAttachments.setProofOfResidence(true);
                 }
-                if (currentFieldOfAttachment.isProofOfStatus()){
+                if (currentFieldOfAttachment.isProofOfStatus()) {
                     proofOfStatus.setChecked(true);
                     newFieldsAndAttachments.setProofOfStatus(true);
                 }
-                if (currentFieldOfAttachment.isSignature()){
+                if (currentFieldOfAttachment.isSignature()) {
                     signature.setChecked(true);
                     newFieldsAndAttachments.setSignature(true);
                 }
-                if (currentFieldOfAttachment.isSIN()){
+                if (currentFieldOfAttachment.isSIN()) {
                     SIN.setChecked(true);
                     newFieldsAndAttachments.setSIN(true);
                 }
-                if (currentFieldOfAttachment.isWeight()){
+                if (currentFieldOfAttachment.isWeight()) {
                     weight.setChecked(true);
                     newFieldsAndAttachments.setWeight(true);
                 }
-                
+
             }
 
             @Override
@@ -219,21 +228,19 @@ public class ServiceItemActivity extends AppCompatActivity {
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.checkBoxFirstName:
-                if (checked){
+                if (checked) {
                     newFieldsAndAttachments.setFirstName(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setFirstName(false);
                 }
                 break;
 
             case R.id.checkBoxLastName:
-                if (checked){
+                if (checked) {
                     newFieldsAndAttachments.setLastName(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setLastName(false);
                 }
                 break;
@@ -241,8 +248,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxMaidenName:
                 if (checked) {
                     newFieldsAndAttachments.setMaidenName(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setMaidenName(false);
                 }
                 break;
@@ -250,16 +256,14 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxGender:
                 if (checked) {
                     newFieldsAndAttachments.setGender(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setGender(false);
                 }
                 break;
             case R.id.checkBoxNationality:
                 if (checked) {
                     newFieldsAndAttachments.setNationality(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setNationality(false);
                 }
                 break;
@@ -267,8 +271,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxPlaceOfBirth:
                 if (checked) {
                     newFieldsAndAttachments.setPOB(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setPOB(false);
                 }
                 break;
@@ -276,8 +279,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxExpiryDate:
                 if (checked) {
                     newFieldsAndAttachments.setExpiryDate(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setExpiryDate(false);
                 }
                 break;
@@ -285,8 +287,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxIssueDate:
                 if (checked) {
                     newFieldsAndAttachments.setIssueDate(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setIssueDate(false);
                 }
                 break;
@@ -294,8 +295,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxDateOfBirth:
                 if (checked) {
                     newFieldsAndAttachments.setDOB(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setDOB(false);
                 }
                 break;
@@ -303,8 +303,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxSignature:
                 if (checked) {
                     newFieldsAndAttachments.setSignature(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setSignature(false);
                 }
                 break;
@@ -312,8 +311,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxAddress:
                 if (checked) {
                     newFieldsAndAttachments.setAddress(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setAddress(false);
                 }
                 break;
@@ -321,8 +319,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxIssuingAuthority:
                 if (checked) {
                     newFieldsAndAttachments.setIssuingAuthority(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setIssuingAuthority(false);
                 }
                 break;
@@ -330,8 +327,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxHeight:
                 if (checked) {
                     newFieldsAndAttachments.setHeight(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setHeight(false);
                 }
                 break;
@@ -339,8 +335,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxWeight:
                 if (checked) {
                     newFieldsAndAttachments.setWeight(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setWeight(false);
                 }
                 break;
@@ -348,8 +343,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxBloodType:
                 if (checked) {
                     newFieldsAndAttachments.setBloodType(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setBloodType(false);
                 }
                 break;
@@ -357,8 +351,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxHairColour:
                 if (checked) {
                     newFieldsAndAttachments.setHairColour(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setHairColour(false);
                 }
                 break;
@@ -366,8 +359,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxEyeColour:
                 if (checked) {
                     newFieldsAndAttachments.setEyeColour(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setEyeColour(false);
                 }
                 break;
@@ -375,8 +367,7 @@ public class ServiceItemActivity extends AppCompatActivity {
             case R.id.checkBoxClass:
                 if (checked) {
                     newFieldsAndAttachments.setClassID(true);
-                }
-                else{
+                } else {
                     newFieldsAndAttachments.setClassID(false);
                 }
                 break;

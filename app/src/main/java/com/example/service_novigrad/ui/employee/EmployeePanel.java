@@ -102,7 +102,7 @@ public class EmployeePanel extends AppCompatActivity {
                         Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
                         for (DataSnapshot child : children) {
                             ServiceItem temp = child.getValue(ServiceItem.class);
-                            serviceList.add(new ServiceItem( temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments()));
+                            serviceList.add(new ServiceItem( temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments(),temp.getDefaultPrice()));
                         }
                         DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services");
                         branchReference.addListenerForSingleValueEvent(new ValueEventListener() { //second layer to find the branch services, put them in intent and startActivity
@@ -112,7 +112,7 @@ public class EmployeePanel extends AppCompatActivity {
                                 ArrayList<ServiceItem> branchServiceList = new ArrayList<>();
                                 for(DataSnapshot child: children){
                                     ServiceItem temp = child.getValue(ServiceItem.class);
-                                    branchServiceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments()));
+                                    branchServiceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments(),temp.getDefaultPrice()));
                                 }
                                 //puts values in intent to be retrieved and worked on in the new activity
                                 newIntent.putExtra("serviceList", serviceList);
@@ -153,7 +153,8 @@ public class EmployeePanel extends AppCompatActivity {
                         Iterable<DataSnapshot>children = snapshot.getChildren();
                         for(DataSnapshot child: children){ //iterate and add to the arraylist all the services in branch
                             ServiceItem temp = child.getValue(ServiceItem.class);
-                            serviceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments()));
+                            serviceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments(),temp.getDefaultPrice()
+                            ));
                         }
 
                         //puts values in intent to be retrieved and worked on in the new activity
