@@ -46,12 +46,11 @@
     <string name="branch_information">Branch Information</string>
     <string name="branch_management">Branch Management</string>
     <string name="working_hours">Working Hours</string>
-    <!-- <string name="monday">Monday:</string>
-    <string name="tuesday">Tuesday:</string>
-    <string name="wednesday">Wednesday:</string>
-    <string name="thursday">Thursday:</string>
-    <string name="friday">Friday:</string> -->
-    <string name="monday_to_friday">Monday to Friday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="opening">Opening</string>

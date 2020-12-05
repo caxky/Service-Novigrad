@@ -2,7 +2,7 @@ package com.example.service_novigrad.ui.register;
 
 //This class is used to store an info of the branch
 public class Branch {
-    private String weekdayOpeningHours, weekdayClosingHours, saturdayOpeningHours, saturdayClosingHours,
+    private String mondayOpeningHours, mondayClosingHours, tuesdayOpeningHours, tuesdayClosingHours, wednesdayOpeningHours, wednesdayClosingHours, thursdayOpeningHours, thursdayClosingHours, fridayOpeningHours, fridayClosingHours, saturdayOpeningHours, saturdayClosingHours,
             sundayOpeningHours, sundayClosingHours, phoneNumber, emailAddress, branchFirebaseKey;
     private int branchID;
 
@@ -17,8 +17,16 @@ public class Branch {
         this.phoneNumber = "";
         this.emailAddress = "";
 
-        this.weekdayOpeningHours = "";
-        this.weekdayClosingHours = "";
+        this.mondayOpeningHours = "";
+        this.mondayClosingHours = "";
+        this.tuesdayOpeningHours = "";
+        this.tuesdayClosingHours = "";
+        this.wednesdayOpeningHours = "";
+        this.wednesdayClosingHours = "";
+        this.thursdayOpeningHours = "";
+        this.thursdayClosingHours = "";
+        this.fridayOpeningHours = "";
+        this.fridayClosingHours = "";
         this.saturdayOpeningHours = "";
         this.saturdayClosingHours = "";
         this.sundayOpeningHours = "";
@@ -26,14 +34,22 @@ public class Branch {
 
     }
 
-    public Branch(String branchFirebaseKey, String weekdayOpeningHours, String weekdayClosingHours, String saturdayOpeningHours, String saturdayClosingHours, String sundayOpeningHours, String sundayClosingHours, int branchID, String phoneNumber, String emailAddress) {
+    public Branch(String branchFirebaseKey, String mondayOpeningHours, String mondayClosingHours, String tuesdayOpeningHours, String tuesdayClosingHours, String wednesdayOpeningHours, String wednesdayClosingHours, String thursdayOpeningHours, String thursdayClosingHours, String fridayOpeningHours, String fridayClosingHours, String saturdayOpeningHours, String saturdayClosingHours, String sundayOpeningHours, String sundayClosingHours, int branchID, String phoneNumber, String emailAddress) {
         this.branchID = branchID;
         this.branchFirebaseKey = branchFirebaseKey;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
 
-        this.weekdayOpeningHours = weekdayOpeningHours;
-        this.weekdayClosingHours = weekdayClosingHours;
+        this.mondayOpeningHours = mondayOpeningHours;
+        this.mondayClosingHours = mondayClosingHours;
+        this.tuesdayOpeningHours = tuesdayOpeningHours;
+        this.tuesdayClosingHours = tuesdayClosingHours;
+        this.wednesdayOpeningHours = wednesdayOpeningHours;
+        this.wednesdayClosingHours = wednesdayClosingHours;
+        this.thursdayOpeningHours = thursdayOpeningHours;
+        this.thursdayClosingHours = thursdayClosingHours;
+        this.fridayOpeningHours = fridayOpeningHours;
+        this.fridayClosingHours = fridayClosingHours;
         this.saturdayOpeningHours = saturdayOpeningHours;
         this.saturdayClosingHours = saturdayClosingHours;
         this.sundayOpeningHours = sundayOpeningHours;
@@ -49,12 +65,44 @@ public class Branch {
         return branchFirebaseKey;
     }
 
-    public String getWeekdayOpeningHours() {
-        return weekdayOpeningHours;
+    public String getMondayOpeningHours() {
+        return mondayOpeningHours;
     }
 
-    public String getWeekdayClosingHours() {
-        return weekdayClosingHours;
+    public String getMondayClosingHours() {
+        return mondayClosingHours;
+    }
+
+    public String getTuesdayOpeningHours() {
+        return tuesdayOpeningHours;
+    }
+
+    public String getTuesdayClosingHours() {
+        return tuesdayClosingHours;
+    }
+
+    public String getWednesdayOpeningHours() {
+        return wednesdayOpeningHours;
+    }
+
+    public String getWednesdayClosingHours() {
+        return wednesdayClosingHours;
+    }
+
+    public String getThursdayOpeningHours() {
+        return thursdayOpeningHours;
+    }
+
+    public String getThursdayClosingHours() {
+        return thursdayClosingHours;
+    }
+
+    public String getFridayOpeningHours() {
+        return fridayOpeningHours;
+    }
+
+    public String getFridayClosingHours() {
+        return fridayClosingHours;
     }
 
     public String getSaturdayOpeningHours() {
@@ -81,12 +129,44 @@ public class Branch {
 
 
     //Setter =======================================================================================
-    public void setWeekdayOpeningHours(String weekdayOpeningHours) {
-        this.weekdayOpeningHours = weekdayOpeningHours;
+    public void setMondayOpeningHours(String mondayOpeningHours) {
+        this.mondayOpeningHours = mondayOpeningHours;
     }
 
-    public void setWeekdayClosingHours(String weekdayClosingHours) {
-        this.weekdayClosingHours = weekdayClosingHours;
+    public void setMondayClosingHours(String mondayClosingHours) {
+        this.mondayClosingHours = mondayClosingHours;
+    }
+
+    public void setTuesdayOpeningHours(String tuesdayOpeningHours) {
+        this.tuesdayOpeningHours = tuesdayOpeningHours;
+    }
+
+    public void setTuesdayClosingHours(String tuesdayClosingHours) {
+        this.tuesdayClosingHours = tuesdayClosingHours;
+    }
+
+    public void setWednesdayOpeningHours(String wednesdayOpeningHours) {
+        this.wednesdayOpeningHours = wednesdayOpeningHours;
+    }
+
+    public void setWednesdayClosingHours(String wednesdayClosingHours) {
+        this.wednesdayClosingHours = wednesdayClosingHours;
+    }
+
+    public void setThursdayOpeningHours(String thursdayOpeningHours) {
+        this.thursdayOpeningHours = thursdayOpeningHours;
+    }
+
+    public void setThursdayClosingHours(String thursdayClosingHours) {
+        this.thursdayClosingHours = thursdayClosingHours;
+    }
+
+    public void setFridayOpeningHours(String fridayOpeningHours) {
+        this.fridayOpeningHours = fridayOpeningHours;
+    }
+
+    public void setFridayClosingHours(String fridayClosingHours) {
+        this.fridayClosingHours = fridayClosingHours;
     }
 
     public void setSaturdayOpeningHours(String saturdayOpeningHours) {

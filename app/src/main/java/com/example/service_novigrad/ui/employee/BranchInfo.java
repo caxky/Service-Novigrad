@@ -31,10 +31,30 @@ import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class BranchInfo extends AppCompatActivity {
-    private TextView weekdayOpeningHours;
-    private ImageButton weekdayOpeningButton;
-    private TextView weekdayClosingHours;
-    private ImageButton weekdayClosingButton;
+    private TextView mondayOpeningHours;
+    private ImageButton mondayOpeningButton;
+    private TextView mondayClosingHours;
+    private ImageButton mondayClosingButton;
+
+    private TextView tuesdayOpeningHours;
+    private ImageButton tuesdayOpeningButton;
+    private TextView tuesdayClosingHours;
+    private ImageButton tuesdayClosingButton;
+
+    private TextView wednesdayOpeningHours;
+    private ImageButton wednesdayOpeningButton;
+    private TextView wednesdayClosingHours;
+    private ImageButton wednesdayClosingButton;
+
+    private TextView thursdayOpeningHours;
+    private ImageButton thursdayOpeningButton;
+    private TextView thursdayClosingHours;
+    private ImageButton thursdayClosingButton;
+
+    private TextView fridayOpeningHours;
+    private ImageButton fridayOpeningButton;
+    private TextView fridayClosingHours;
+    private ImageButton fridayClosingButton;
 
     private TextView saturdayOpeningHours;
     private ImageButton saturdayOpeningButton;
@@ -58,10 +78,30 @@ public class BranchInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.employee_branch_info);
 
-        weekdayOpeningButton = findViewById(R.id.weekdayOpeningButton);
-        weekdayOpeningHours = findViewById(R.id.weekdayOpening);
-        weekdayClosingButton = findViewById(R.id.weekdayClosingButton);
-        weekdayClosingHours = findViewById(R.id.weekdayClosing);
+        mondayOpeningButton = findViewById(R.id.mondayOpeningButton);
+        mondayOpeningHours = findViewById(R.id.mondayOpening);
+        mondayClosingButton = findViewById(R.id.mondayClosingButton);
+        mondayClosingHours = findViewById(R.id.mondayClosing);
+
+        tuesdayOpeningButton = findViewById(R.id.tuesdayOpeningButton);
+        tuesdayOpeningHours = findViewById(R.id.tuesdayOpening);
+        tuesdayClosingButton = findViewById(R.id.tuesdayClosingButton);
+        tuesdayClosingHours = findViewById(R.id.tuesdayClosing);
+
+        wednesdayOpeningButton = findViewById(R.id.wednesdayOpeningButton);
+        wednesdayOpeningHours = findViewById(R.id.wednesdayOpening);
+        wednesdayClosingButton = findViewById(R.id.wednesdayClosingButton);
+        wednesdayClosingHours = findViewById(R.id.wednesdayClosing);
+
+        thursdayOpeningButton = findViewById(R.id.thursdayOpeningButton);
+        thursdayOpeningHours = findViewById(R.id.thursdayOpening);
+        thursdayClosingButton = findViewById(R.id.thursdayClosingButton);
+        thursdayClosingHours = findViewById(R.id.thursdayClosing);
+
+        fridayOpeningButton = findViewById(R.id.fridayOpeningButton);
+        fridayOpeningHours = findViewById(R.id.fridayOpening);
+        fridayClosingButton = findViewById(R.id.fridayClosingButton);
+        fridayClosingHours = findViewById(R.id.fridayClosing);
 
         saturdayOpeningButton = findViewById(R.id.saturdayOpeningButton);
         saturdayOpeningHours = findViewById(R.id.saturdayOpening);
@@ -105,8 +145,20 @@ public class BranchInfo extends AppCompatActivity {
                 sundayClosingHours.setText(currentBranch.getSundayClosingHours());
                 sundayOpeningHours.setText(currentBranch.getSundayOpeningHours());
 
-                weekdayClosingHours.setText(currentBranch.getWeekdayClosingHours());
-                weekdayOpeningHours.setText(currentBranch.getWeekdayOpeningHours());
+                mondayClosingHours.setText(currentBranch.getMondayClosingHours());
+                mondayOpeningHours.setText(currentBranch.getMondayOpeningHours());
+
+                tuesdayClosingHours.setText(currentBranch.getTuesdayClosingHours());
+                tuesdayOpeningHours.setText(currentBranch.getTuesdayOpeningHours());
+
+                wednesdayClosingHours.setText(currentBranch.getWednesdayClosingHours());
+                wednesdayOpeningHours.setText(currentBranch.getWednesdayOpeningHours());
+
+                thursdayClosingHours.setText(currentBranch.getThursdayClosingHours());
+                thursdayOpeningHours.setText(currentBranch.getThursdayOpeningHours());
+
+                fridayClosingHours.setText(currentBranch.getFridayClosingHours());
+                fridayOpeningHours.setText(currentBranch.getFridayOpeningHours());
             }
 
             @Override
@@ -117,7 +169,7 @@ public class BranchInfo extends AppCompatActivity {
 
 
 
-        weekdayOpeningButton.setOnClickListener(new View.OnClickListener() {
+        mondayOpeningButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -134,7 +186,7 @@ public class BranchInfo extends AppCompatActivity {
                         c.setTimeZone(TimeZone.getDefault());
                         SimpleDateFormat format = new SimpleDateFormat("k:mm");
                         String time = format.format(c.getTime());
-                        weekdayOpeningHours.setText(time);
+                        mondayOpeningHours.setText(time);
                     }
                 }, hours, mins, false);
                 timePickerDialog.show();
@@ -142,7 +194,7 @@ public class BranchInfo extends AppCompatActivity {
             }
         });
 
-        weekdayClosingButton.setOnClickListener(new View.OnClickListener() {
+        mondayClosingButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -159,7 +211,207 @@ public class BranchInfo extends AppCompatActivity {
                         c.setTimeZone(TimeZone.getDefault());
                         SimpleDateFormat format = new SimpleDateFormat("k:mm");
                         String time = format.format(c.getTime());
-                        weekdayClosingHours.setText(time);
+                        mondayClosingHours.setText(time);
+                    }
+                }, hours, mins, false);
+                timePickerDialog.show();
+
+            }
+        });
+
+        tuesdayOpeningButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int mins = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BranchInfo.this, R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.setTimeZone(TimeZone.getDefault());
+                        SimpleDateFormat format = new SimpleDateFormat("k:mm");
+                        String time = format.format(c.getTime());
+                        tuesdayOpeningHours.setText(time);
+                    }
+                }, hours, mins, false);
+                timePickerDialog.show();
+
+            }
+        });
+
+        tuesdayClosingButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int mins = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BranchInfo.this, R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.setTimeZone(TimeZone.getDefault());
+                        SimpleDateFormat format = new SimpleDateFormat("k:mm");
+                        String time = format.format(c.getTime());
+                        tuesdayClosingHours.setText(time);
+                    }
+                }, hours, mins, false);
+                timePickerDialog.show();
+
+            }
+        });
+
+        wednesdayOpeningButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int mins = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BranchInfo.this, R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.setTimeZone(TimeZone.getDefault());
+                        SimpleDateFormat format = new SimpleDateFormat("k:mm");
+                        String time = format.format(c.getTime());
+                        wednesdayOpeningHours.setText(time);
+                    }
+                }, hours, mins, false);
+                timePickerDialog.show();
+
+            }
+        });
+
+        wednesdayClosingButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int mins = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BranchInfo.this, R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.setTimeZone(TimeZone.getDefault());
+                        SimpleDateFormat format = new SimpleDateFormat("k:mm");
+                        String time = format.format(c.getTime());
+                        wednesdayClosingHours.setText(time);
+                    }
+                }, hours, mins, false);
+                timePickerDialog.show();
+
+            }
+        });
+
+        thursdayOpeningButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int mins = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BranchInfo.this, R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.setTimeZone(TimeZone.getDefault());
+                        SimpleDateFormat format = new SimpleDateFormat("k:mm");
+                        String time = format.format(c.getTime());
+                        thursdayOpeningHours.setText(time);
+                    }
+                }, hours, mins, false);
+                timePickerDialog.show();
+
+            }
+        });
+
+        thursdayClosingButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int mins = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BranchInfo.this, R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.setTimeZone(TimeZone.getDefault());
+                        SimpleDateFormat format = new SimpleDateFormat("k:mm");
+                        String time = format.format(c.getTime());
+                        thursdayClosingHours.setText(time);
+                    }
+                }, hours, mins, false);
+                timePickerDialog.show();
+
+            }
+        });
+
+        fridayOpeningButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int mins = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BranchInfo.this, R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.setTimeZone(TimeZone.getDefault());
+                        SimpleDateFormat format = new SimpleDateFormat("k:mm");
+                        String time = format.format(c.getTime());
+                        fridayOpeningHours.setText(time);
+                    }
+                }, hours, mins, false);
+                timePickerDialog.show();
+
+            }
+        });
+
+        fridayClosingButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hours = calendar.get(Calendar.HOUR_OF_DAY);
+                int mins = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BranchInfo.this, R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.setTimeZone(TimeZone.getDefault());
+                        SimpleDateFormat format = new SimpleDateFormat("k:mm");
+                        String time = format.format(c.getTime());
+                        fridayClosingHours.setText(time);
                     }
                 }, hours, mins, false);
                 timePickerDialog.show();
@@ -291,8 +543,20 @@ public class BranchInfo extends AppCompatActivity {
         branchReference.child("sundayClosingHours").setValue(sundayClosingHours.getText().toString());
         branchReference.child("sundayOpeningHours").setValue(sundayOpeningHours.getText().toString());
 
-        branchReference.child("weekdayClosingHours").setValue(weekdayClosingHours.getText().toString());
-        branchReference.child("weekdayOpeningHours").setValue(weekdayOpeningHours.getText().toString());
+        branchReference.child("mondayClosingHours").setValue(mondayClosingHours.getText().toString());
+        branchReference.child("mondayOpeningHours").setValue(mondayOpeningHours.getText().toString());
+
+        branchReference.child("tuesdayClosingHours").setValue(tuesdayClosingHours.getText().toString());
+        branchReference.child("tuesdayOpeningHours").setValue(tuesdayOpeningHours.getText().toString());
+
+        branchReference.child("wednesdayClosingHours").setValue(wednesdayClosingHours.getText().toString());
+        branchReference.child("wednesdayOpeningHours").setValue(wednesdayOpeningHours.getText().toString());
+
+        branchReference.child("thursdayClosingHours").setValue(thursdayClosingHours.getText().toString());
+        branchReference.child("thursdayOpeningHours").setValue(thursdayOpeningHours.getText().toString());
+
+        branchReference.child("fridayClosingHours").setValue(fridayClosingHours.getText().toString());
+        branchReference.child("fridayOpeningHours").setValue(fridayOpeningHours.getText().toString());
     }
 
     private Boolean validateEmail(String email){
