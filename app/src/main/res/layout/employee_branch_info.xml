@@ -94,418 +94,436 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="220dp"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/mondayText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/monday"
-                    android:textStyle="bold" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/mondayOpening"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/mondayLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/opening" />
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/mondayOpeningButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
+                        <TextView
+                            android:id="@+id/mondayText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/monday"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/mondayOpening"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/opening" />
+
+                            <ImageButton
+                                android:id="@+id/mondayOpeningButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="to" />
+
+                            <TextView
+                                android:id="@+id/mondayClosing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/closing" />
+
+                            <ImageButton
+                                android:id="@+id/mondayClosingButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tuesdayLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="to" />
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/mondayClosing"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/tuesdayText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tuesday"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tuesdayOpening"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/opening" />
+
+                            <ImageButton
+                                android:id="@+id/tuesdayOpeningButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="to" />
+
+                            <TextView
+                                android:id="@+id/tuesdayClosing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/closing" />
+
+                            <ImageButton
+                                android:id="@+id/tuesdayClosingButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/wednesdayLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/closing" />
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/mondayClosingButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
+                        <TextView
+                            android:id="@+id/wednesdayText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wednesday"
+                            android:textStyle="bold" />
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/wednesdayOpening"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/opening" />
+
+                            <ImageButton
+                                android:id="@+id/wednesdayOpeningButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="to" />
+
+                            <TextView
+                                android:id="@+id/wednesdayClosing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/closing" />
+
+                            <ImageButton
+                                android:id="@+id/wednesdayClosingButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/thursdayLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/thursdayText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/thursday"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/thursdayOpening"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/opening" />
+
+                            <ImageButton
+                                android:id="@+id/thursdayOpeningButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="to" />
+
+                            <TextView
+                                android:id="@+id/thursdayClosing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/closing" />
+
+                            <ImageButton
+                                android:id="@+id/thursdayClosingButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/fridayLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/fridayText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/friday"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/fridayOpening"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/opening" />
+
+                            <ImageButton
+                                android:id="@+id/fridayOpeningButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="to" />
+
+                            <TextView
+                                android:id="@+id/fridayClosing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/closing" />
+
+                            <ImageButton
+                                android:id="@+id/fridayClosingButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/saturdayLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/saturday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/saturday"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/saturdayOpening"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/opening" />
+
+                            <ImageButton
+                                android:id="@+id/saturdayOpeningButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="to" />
+
+                            <TextView
+                                android:id="@+id/saturdayClosing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/closing" />
+
+                            <ImageButton
+                                android:id="@+id/saturdayClosingButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sundayLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/sunday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sunday"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/sundayOpening"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/opening" />
+
+                            <ImageButton
+                                android:id="@+id/sundayOpeningButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="to" />
+
+                            <TextView
+                                android:id="@+id/sundayClosing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/closing" />
+
+                            <ImageButton
+                                android:id="@+id/sundayClosingButton"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/edit" />
+
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tuesdayText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tuesday"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tuesdayOpening"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/opening" />
-
-                    <ImageButton
-                        android:id="@+id/tuesdayOpeningButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="to" />
-
-                    <TextView
-                        android:id="@+id/tuesdayClosing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/closing" />
-
-                    <ImageButton
-                        android:id="@+id/tuesdayClosingButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/wednesdayText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/wednesday"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/wednesdayOpening"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/opening" />
-
-                    <ImageButton
-                        android:id="@+id/wednesdayOpeningButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="to" />
-
-                    <TextView
-                        android:id="@+id/wednesdayClosing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/closing" />
-
-                    <ImageButton
-                        android:id="@+id/wednesdayClosingButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/thursdayText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/thursday"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/thursdayOpening"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/opening" />
-
-                    <ImageButton
-                        android:id="@+id/thursdayOpeningButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="to" />
-
-                    <TextView
-                        android:id="@+id/thursdayClosing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/closing" />
-
-                    <ImageButton
-                        android:id="@+id/thursdayClosingButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/fridayText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/friday"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/fridayOpening"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/opening" />
-
-                    <ImageButton
-                        android:id="@+id/fridayOpeningButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="to" />
-
-                    <TextView
-                        android:id="@+id/fridayClosing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/closing" />
-
-                    <ImageButton
-                        android:id="@+id/fridayClosingButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/saturday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/saturday"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/saturdayOpening"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/opening" />
-
-                    <ImageButton
-                        android:id="@+id/saturdayOpeningButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="to" />
-
-                    <TextView
-                        android:id="@+id/saturdayClosing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/closing" />
-
-                    <ImageButton
-                        android:id="@+id/saturdayClosingButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/sunday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sunday"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/sundayOpening"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/opening" />
-
-                    <ImageButton
-                        android:id="@+id/sundayOpeningButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="to" />
-
-                    <TextView
-                        android:id="@+id/sundayClosing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/closing" />
-
-                    <ImageButton
-                        android:id="@+id/sundayClosingButton"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/edit" />
-
-                </LinearLayout>
-            </LinearLayout>
+            </ScrollView>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                android:layout_height="10dp" />
 
             <Button
                 android:id="@+id/submitButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/action_submit" />
-
         </LinearLayout>
 
     </LinearLayout>
