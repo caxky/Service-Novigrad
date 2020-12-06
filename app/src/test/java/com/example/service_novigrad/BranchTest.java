@@ -14,9 +14,10 @@ public class BranchTest {
         assertEquals(123, testBranch1.getBranchID());
         assertEquals("testkey", testBranch1.getBranchFirebaseKey());
 
-        Branch testBranch2 = new Branch("testkey", "1", "2", "3", "4", "5", "6", 123, "1234567890", "test@email.com");
+        Branch testBranch2 = new Branch("testkey", "1", "2", "3", "4", "5", "6", "1", "2", "3", "4", "5", "6", "7", "8", 123, "1234567890", "test@email.com");
 
-        assertEquals("4", testBranch2.getSaturdayClosingHours());
+        assertEquals("6", testBranch2.getSaturdayClosingHours());
+        assertEquals("2", testBranch2.getMondayClosingHours());
         assertEquals("1234567890", testBranch2.getPhoneNumber());
         assertEquals("test@email.com", testBranch2.getEmailAddress());
     }
