@@ -1,7 +1,5 @@
 package com.example.service_novigrad.ui.register;
-
 import com.example.service_novigrad.*;
-
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
@@ -39,7 +37,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity{
     //Declaring Variables
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -53,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
     private DataSnapshot accountSnapshot;
     private long accountID;
     private int branchID;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
         customerAccountTypeRadioButton.addTextChangedListener(registerTextWatcher);
 
 
+
         buttonSubmit.setOnClickListener(new View.OnClickListener() { //this submits the information the user inputs and stores it in the firebase database
             public void onClick(View view) {
 
@@ -88,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        accountID = snapshot.child("Customer Accounts").getChildrenCount() + 1 + snapshot.child("Employee Accounts").getChildrenCount();
+                        accountID = snapshot.child("Customer Accounts").getChildrenCount()+1+ snapshot.child("Employee Accounts").getChildrenCount();
                         //initialize and fill in the values of the data we found from the users
                         String firstName, lastName, username, password;
 
@@ -97,14 +95,14 @@ public class RegisterActivity extends AppCompatActivity {
                         username = editTextUsername.getText().toString();
                         password = editTextPassword.getText().toString();
                         branchID = -1;
-                        if (!editTextBranchID.getText().toString().isEmpty()) {//in case that nothing is entered when filling in customer account info and an error occurs
+                        if (!editTextBranchID.getText().toString().isEmpty()){//in case that nothing is entered when filling in customer account info and an error occurs
                             branchID = Integer.parseInt(editTextBranchID.getText().toString());
                         }
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance(); //creates an instance so you can read and write to it
 
                         // Checks which account type is checked and writes the according account type to the database which is set at different locations
-                        if (employeeAccountTypeRadioButton.isChecked()) {
+                        if (employeeAccountTypeRadioButton.isChecked()){
 
                             //Create references that take the form similar to a json file this is a template basically to show the format and how stuff will be shown
                             DatabaseReference newEmployeeAccount = database.getReference("Employee Accounts/");
@@ -116,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                             String employeeAccountKey = newEmployeeAccount.push().getKey();
 
                             //create an instance of the account with the values that was entered by the user
-                            newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID, accountID, employeeAccountKey);
+                            newEmployee = new EmployeeAccount(username, password, firstName, lastName, branchID, accountID,employeeAccountKey);
 
                             //writes the account into the database
                             newEmployeeAccount.child(employeeAccountKey).setValue(newEmployee);
@@ -128,20 +126,19 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     boolean hasBranch = false;
                                     Iterable<DataSnapshot> children = snapshot.getChildren();
-                                    for (DataSnapshot child : children) {
+                                    for (DataSnapshot child: children) {
                                         Branch temp = child.getValue(Branch.class);
-                                        if (branchID == temp.getBranchID()) {
+                                        if (branchID == temp.getBranchID()){
                                             hasBranch = true;
                                             break;
                                         }
                                     }
-                                    if (!hasBranch) {
+                                    if(!hasBranch){
                                         String newBranchKey = branchReference.push().getKey();
                                         Branch newBranch = new Branch(branchID, newBranchKey);
                                         branchReference.child(newBranchKey).setValue(newBranch);
                                     }
                                 }
-
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
 
@@ -149,14 +146,14 @@ public class RegisterActivity extends AppCompatActivity {
                             });
 
 
-                        } else if (customerAccountTypeRadioButton.isChecked()) {
+                        }else if (customerAccountTypeRadioButton.isChecked()){
                             DatabaseReference newCustomerAccount = database.getReference("Customer Accounts/");
 
                             //get the account key by pushing into database
                             String customerAccountKey = newCustomerAccount.push().getKey();
 
                             //create an instance of the account with the values that was entered by the user
-                            CustomerAccount newCustomer = new CustomerAccount(username, password, firstName, lastName, accountID, customerAccountKey);
+                            CustomerAccount newCustomer = new CustomerAccount(username,password,firstName,lastName, accountID, customerAccountKey);
 
                             //writes the account into the database
                             newCustomerAccount.child(customerAccountKey).setValue(newCustomer);
@@ -164,13 +161,17 @@ public class RegisterActivity extends AppCompatActivity {
                         }
 
 
+
+
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                        }
+                    });
+
+
 
 
                 finish();
@@ -178,7 +179,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 editTextUsername.setEnabled(true);
@@ -189,7 +191,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
     /*
     TextWatcher, it's function is to look at the field in the register layout and only unlock the register button
     after all the appropriate fields are inputted, it also serves as the function to set the error if the text fields inputted are
@@ -211,9 +212,10 @@ public class RegisterActivity extends AppCompatActivity {
             String BranchIDInput = editTextBranchID.getText().toString().trim();
 
             //Enables the button if true
-            if (employeeAccountTypeRadioButton.isChecked()) {
-                buttonSubmit.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty() && !firstNameInput.isEmpty() && !lastNameInput.isEmpty() && BranchIDInput.length() == 3 && passwordInput.length() > 5);
-            } else if (customerAccountTypeRadioButton.isChecked()) {
+            if(employeeAccountTypeRadioButton.isChecked()){
+                buttonSubmit.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty() && !firstNameInput.isEmpty() && !lastNameInput.isEmpty() && BranchIDInput.length()==3 && passwordInput.length() > 5);
+            }
+            else if(customerAccountTypeRadioButton.isChecked()){
                 buttonSubmit.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty() && !firstNameInput.isEmpty() && !lastNameInput.isEmpty() && passwordInput.length() > 5);
             }
         }
@@ -223,33 +225,38 @@ public class RegisterActivity extends AppCompatActivity {
             /*
             Sets an error in the text fields if they haven't been appropriatly addressed.
              */
-            if (editTextFirstName.getText().toString().length() <= 0) {
+            if(editTextFirstName.getText().toString().length() <= 0){
                 editTextFirstName.setError("First name can't be empty.");
-            } else {
+            }
+            else{
                 editTextFirstName.setError(null);
             }
 
-            if (editTextLastName.getText().toString().length() <= 0) {
+            if(editTextLastName.getText().toString().length() <= 0){
                 editTextLastName.setError("Last name can't be empty.");
-            } else {
+            }
+            else{
                 editTextLastName.setError(null);
             }
 
-            if (editTextUsername.getText().toString().length() <= 0) {
+            if(editTextUsername.getText().toString().length() <= 0){
                 editTextUsername.setError("Username can't be empty.");
-            } else {
+            }
+            else{
                 editTextUsername.setError(null);
             }
 
-            if (editTextPassword.getText().toString().length() <= 5) {
+            if(editTextPassword.getText().toString().length() <= 5){
                 editTextPassword.setError("Password needs to be more than five characters.");
-            } else {
+            }
+            else{
                 editTextPassword.setError(null);
             }
 
-            if (editTextBranchID.getText().toString().length() > 999 || editTextBranchID.getText().toString().length() < 100 && !customerAccountTypeRadioButton.isChecked()) {
+            if(editTextBranchID.getText().toString().length() > 999 || editTextBranchID.getText().toString().length() < 100 && !customerAccountTypeRadioButton.isChecked()){
                 editTextBranchID.setError("BranchID needs to be exactly 3 digits.");
-            } else {
+            }
+            else{
                 editTextBranchID.setError(null);
             }
         }
