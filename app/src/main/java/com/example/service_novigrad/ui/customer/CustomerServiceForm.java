@@ -107,7 +107,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
                 finalizeFields();
                 finalizeAttachments();
                 CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments);
-                //uploadFile(); Uplaods file to database storage, check if correct
+                uploadFile();
             }
         });
 
@@ -132,7 +132,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         initializeForm(test);
 
         //Storage
-        storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference("Image");
 
     }
     private TextWatcher textwatcher = new TextWatcher() {
@@ -395,21 +395,27 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
             switch(filePath){
                 case "POS":
                     filePathPOS = data.getData();
+                    Toast.makeText(getApplicationContext(),"File Attached", Toast.LENGTH_LONG).show();
                     break;
                 case "DL":
                     filePathDL = data.getData();
+                    Toast.makeText(getApplicationContext(),"File Attached", Toast.LENGTH_LONG).show();
                     break;
                 case "BC":
                     filePathBC = data.getData();
+                    Toast.makeText(getApplicationContext(),"File Attached", Toast.LENGTH_LONG).show();
                     break;
                 case "Photo":
                     filePathPhoto = data.getData();
+                    Toast.makeText(getApplicationContext(),"File Attached", Toast.LENGTH_LONG).show();
                     break;
                 case "PR":
                     filePathPR = data.getData();
+                    Toast.makeText(getApplicationContext(),"File Attached", Toast.LENGTH_LONG).show();
                     break;
                 case "SIN":
                     filePathSIN = data.getData();
+                    Toast.makeText(getApplicationContext(),"File Attached", Toast.LENGTH_LONG).show();
                     break;
             }
         }
