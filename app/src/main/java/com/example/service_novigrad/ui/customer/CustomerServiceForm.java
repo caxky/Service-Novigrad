@@ -27,6 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+
 public class CustomerServiceForm extends AppCompatActivity implements View.OnClickListener{
 
     private static final int PICK_FILE_REQUEST = 234;
@@ -38,11 +40,16 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
     private Button msubmit, buttonPOS, buttonBC, buttonDL, buttonPhoto, buttonSIN, buttonPR;
 
     //Attachments
-    private Uri filePath;
+    private Uri filePathPOS, filePathBC, filePathDL, filePathPhoto, filePathSIN, filePathPR;
+    private String filePath;
     private StorageReference storageReference;
 
     //Fields and attachments
     private FieldsAndAttachments test;
+
+    //final storage
+    HashMap<String, String> fields;
+    HashMap<String, Uri> attachments;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,16 +102,14 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         msubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //finalize here
-
-
-                //The following function uploads the file onto the database.
-                //uploadFile();
+                fields = new HashMap<>();
+                attachments = new HashMap<>();
+                finalizeFields();
+                finalizeAttachments();
+                CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments);
+                //uploadFile(); Uplaods file to database storage, check if correct
             }
         });
-
-        test = new FieldsAndAttachments("Health Card Service");
-        initializeForm(test);
 
         //Attachments
         buttonBC = (Button) findViewById(R.id.buttonBC);
@@ -114,12 +119,17 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         buttonSIN = (Button)findViewById(R.id.buttonSIN);
         buttonPR = (Button)findViewById(R.id.buttonPR);
 
+
+
         buttonBC.setOnClickListener(this);
         buttonDL.setOnClickListener(this);
         buttonPOS.setOnClickListener(this);
         buttonPhoto.setOnClickListener(this);
         buttonSIN.setOnClickListener(this);
         buttonPR.setOnClickListener(this);
+
+        test = new FieldsAndAttachments("Health Card Service");
+        initializeForm(test);
 
         //Storage
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -349,9 +359,28 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         else{
 
         }
+        if(!list.isProofOfStatus()){
+            buttonPOS.setEnabled(false);
+        }
+        if(!list.isDriversLicense()){
+            buttonDL.setEnabled(false);
+        }
+        if(!list.isBirthCertificate()){
+            buttonBC.setEnabled(false);
+        }
+        if(!list.isPhotoOfCustomer()){
+            buttonPhoto.setEnabled(false);
+        }
+        if(!list.isProofOfResidence()){
+            buttonPR.setEnabled(false);
+        }
+        if(!list.isSIN()){
+            buttonSIN.setEnabled(false);
+        }
     }
 
-    private void showFileChooser(){
+    private void showFileChooser(String text){
+        filePath = text;
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -360,20 +389,40 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            filePath = data.getData();
+            switch(filePath){
+                case "POS":
+                    filePathPOS = data.getData();
+                    break;
+                case "DL":
+                    filePathDL = data.getData();
+                    break;
+                case "BC":
+                    filePathBC = data.getData();
+                    break;
+                case "Photo":
+                    filePathPhoto = data.getData();
+                    break;
+                case "PR":
+                    filePathPR = data.getData();
+                    break;
+                case "SIN":
+                    filePathSIN = data.getData();
+                    break;
+            }
         }
     }
 
     private void uploadFile(){
-        if(filePath != null) {
-
+        if(filePathPOS != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            StorageReference riversRef = storageReference.child("images/file.jpg");
-            riversRef.putFile(filePath)
+
+            StorageReference refPOS = storageReference.child("images/filePOS.jpg");
+            refPOS.putFile(filePathPOS)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -389,30 +438,201 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
 
                         }
                     });
-        } else{
-            //display an error toast
+        }
+        if(filePathDL != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference refDL = storageReference.child("images/fileDL.jpg");
+            refDL.putFile(filePathDL)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"File Uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+        }
+        if(filePathBC != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference refBC = storageReference.child("images/fileBC.jpg");
+            refBC.putFile(filePathBC)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"File Uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+        }
+        if(filePathPhoto != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference refPhoto = storageReference.child("images/filePhoto.jpg");
+            refPhoto.putFile(filePathPhoto)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"File Uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+        }
+        if(filePathSIN != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference refSIN = storageReference.child("images/fileSIN.jpg");
+            refSIN.putFile(filePathSIN)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"File Uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+        }
+        if(filePathPR != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference refPR = storageReference.child("images/filePR.jpg");
+            refPR.putFile(filePathPR)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"File Uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
         }
     }
 
     @Override
     public void onClick(View v) {
         if (buttonPOS.equals(v)) {
-            showFileChooser();
+            showFileChooser("POS");
         }
         else if (buttonDL.equals(v)) {
-            showFileChooser();
+            showFileChooser("DL");
         }
         else if (buttonBC.equals(v)) {
-            showFileChooser();
+            showFileChooser("BC");
         }
         else if (buttonPR.equals(v)) {
-            showFileChooser();
+            showFileChooser("PR");
         }
         else if (buttonPhoto.equals(v)) {
-            showFileChooser();
+            showFileChooser("Photo");
         }
         else if (buttonSIN.equals(v)) {
-            showFileChooser();
+            showFileChooser("SIN");
+        }
+    }
+
+    public void finalizeFields(){
+        if(test.isFirstName()){
+            fields.put("First Name", editTextFirstName.getText().toString().trim());
+        }
+        if(test.isLastName()){
+            fields.put("Last Name", editTextLastName.getText().toString().trim());
+        }
+        if(test.isMaidenName()){
+            fields.put("Maiden Name", editTextMaidenName.getText().toString().trim());
+        }
+        if(test.isNationality()){
+            fields.put("Nationality", editTextNationality.getText().toString().trim());
+        }
+        if(test.isDOB()){
+            fields.put("Date of Birth", editTextDOB.getText().toString().trim());
+        }
+        if(test.isPOB()){
+            fields.put("Place of Birth", editTextPOB.getText().toString().trim());
+        }
+        if(test.isAddress()){
+            fields.put("Address", editTextAddress.getText().toString().trim());
+        }
+        if(test.isWeight()){
+            fields.put("Weight", editTextWeight.getText().toString().trim());
+        }
+        if(test.isHeight()){
+            fields.put("Height", editTextHeight.getText().toString().trim());
+        }
+        if(test.isHairColour()){
+            fields.put("Hair Colour", editTextHairColour.getText().toString().trim());
+        }
+        if(test.isEyeColour()){
+            fields.put("Eye Colour", editTextFirstName.getText().toString().trim());
+        }
+    }
+    public void finalizeAttachments(){
+        if(test.isProofOfStatus()){
+            attachments.put("Proof of Status", filePathPOS);
+        }
+        if(test.isDriversLicense()){
+            attachments.put("Drivers License", filePathDL);
+        }
+        if(test.isBirthCertificate()){
+            attachments.put("Birth Certificate", filePathBC);
+        }
+        if(test.isPhotoOfCustomer()){
+            attachments.put("Photo of Customer", filePathPhoto);
+        }
+        if(test.isSIN()){
+            attachments.put("SIN", filePathSIN);
+        }
+        if(test.isProofOfResidence()){
+            attachments.put("Proof of Residence", filePathPR);
         }
     }
 }
+
+
