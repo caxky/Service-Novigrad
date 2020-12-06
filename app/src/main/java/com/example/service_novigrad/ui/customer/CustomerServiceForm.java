@@ -108,8 +108,10 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
                 attachments = new HashMap<>();
                 finalizeFields();
                 finalizeAttachments();
-                CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments);
+                CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments,branchItem.getOriginalServiceKey());
                 uploadFile();
+                Intent intent = new Intent(getBaseContext(), CustomerBranchServices.class);
+                startActivity(intent);
             }
         });
 
@@ -134,7 +136,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         initializeForm(test);
 
         //Storage
-        storageReference = FirebaseStorage.getInstance().getReference("Image");
+        storageReference = FirebaseStorage.getInstance().getReference(branchItem.getBranchServiceName());
 
     }
     private TextWatcher textwatcher = new TextWatcher() {
@@ -429,7 +431,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference refPOS = storageReference.child("images/filePOS.jpg");
+            StorageReference refPOS = storageReference.child(fields.get("First Name")+"/filePOS.jpg");
             refPOS.putFile(filePathPOS)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -452,7 +454,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference refDL = storageReference.child("images/fileDL.jpg");
+            StorageReference refDL = storageReference.child(fields.get("First Name")+"/fileDL.jpg");
             refDL.putFile(filePathDL)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -475,7 +477,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference refBC = storageReference.child("images/fileBC.jpg");
+            StorageReference refBC = storageReference.child(fields.get("First Name")+"/fileBC.jpg");
             refBC.putFile(filePathBC)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -498,7 +500,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference refPhoto = storageReference.child("images/filePhoto.jpg");
+            StorageReference refPhoto = storageReference.child(fields.get("First Name")+"/filePhoto.jpg");
             refPhoto.putFile(filePathPhoto)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -521,7 +523,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference refSIN = storageReference.child("images/fileSIN.jpg");
+            StorageReference refSIN = storageReference.child(fields.get("First Name")+"/fileSIN.jpg");
             refSIN.putFile(filePathSIN)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -544,7 +546,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference refPR = storageReference.child("images/filePR.jpg");
+            StorageReference refPR = storageReference.child(fields.get("First Name")+"/filePR.jpg");
             refPR.putFile(filePathPR)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

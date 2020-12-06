@@ -12,11 +12,13 @@ public class CustomerFormRequest {
     FieldsAndAttachments booleanfields;
     HashMap<String,String> filledfields;
     HashMap<String,Uri> attachments;
+    String serviceKey;
 
-    public CustomerFormRequest(FieldsAndAttachments fields, HashMap<String, String> filledfields, HashMap<String, Uri> attachments){
+    public CustomerFormRequest(FieldsAndAttachments fields, HashMap<String, String> filledfields, HashMap<String, Uri> attachments, String serviceKey){
         this.booleanfields = fields;
         this.filledfields = filledfields;
         this.attachments = attachments;
+        this.serviceKey = serviceKey;
     }
 
     public FieldsAndAttachments getBooleanfields() {
@@ -29,5 +31,9 @@ public class CustomerFormRequest {
 
     public HashMap<String,Uri> getAttachments() {
         return attachments;
+    }
+
+    public String getServicekey() {
+        return serviceKey;
     }
 }
