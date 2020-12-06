@@ -7,11 +7,12 @@ import com.example.service_novigrad.ui.services.FieldsAndAttachments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerFormRequest {
     FieldsAndAttachments booleanfields;
-    HashMap<String,String> filledfields;
-    HashMap<String,Uri> attachments;
+    Map<String,String> filledfields;
+    Map<String,Uri> attachments;
     String serviceKey;
 
     public CustomerFormRequest(FieldsAndAttachments fields, HashMap<String, String> filledfields, HashMap<String, Uri> attachments, String serviceKey){
@@ -25,11 +26,11 @@ public class CustomerFormRequest {
         return booleanfields;
     }
 
-    public HashMap<String,String> getFilledfields() {
+    public Map<String,String> getFilledfields() {
         return filledfields;
     }
 
-    public HashMap<String,Uri> getAttachments() {
+    public Map<String,Uri> getAttachments() {
         return attachments;
     }
 

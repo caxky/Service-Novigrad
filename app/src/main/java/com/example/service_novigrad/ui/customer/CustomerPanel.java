@@ -86,6 +86,7 @@ public class CustomerPanel extends AppCompatActivity {
                         }
                         Intent intent = new Intent(getBaseContext(), CustomerBranchServices.class);
                         intent.putExtra("branchServiceList", branchServiceItems);
+                        intent.putExtra("branchItem", branchList.get(pos));
                         intent.putExtra("branchKey", branchList.get(pos).getBranchKey());
 //                        intent.putExtra("customerKey", );
                         startActivity(intent);

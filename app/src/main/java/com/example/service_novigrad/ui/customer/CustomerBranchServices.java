@@ -40,6 +40,7 @@ public class CustomerBranchServices extends AppCompatActivity {
     private EditText ratingComment;
     private String branchKey;
 
+    private BranchItem currBranchItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,8 @@ public class CustomerBranchServices extends AppCompatActivity {
         submitRatingButton = findViewById(R.id.submitRatingButton);
         ratingBox = findViewById(R.id.ratingBox);
         ratingComment = findViewById(R.id.ratingCommentEditText);
+
+        currBranchItem = this.getIntent().getParcelableExtra("branchItem");
 
         submitRatingButton.setOnClickListener(new View.OnClickListener() {
 
@@ -91,7 +94,8 @@ public class CustomerBranchServices extends AppCompatActivity {
                         ServiceItem temp = snapshot.getValue(ServiceItem.class);
                         Intent intent = new Intent(getBaseContext(), CustomerServiceForm.class);
                         intent.putExtra("fieldsAndAttach", temp.getFieldsAndAttachments());
-                        intent.putExtra("branchItem", branchServiceList.get(pos));
+                        intent.putExtra("branchServiceItem", branchServiceList.get(pos));
+                        intent.putExtra("branchItem", currBranchItem);
                         startActivity(intent);
                     }
 
