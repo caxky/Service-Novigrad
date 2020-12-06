@@ -1,7 +1,10 @@
 package com.example.service_novigrad.ui.services;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 //This class is used to enter all the field and attachment info to a service into the database
-public class FieldsAndAttachments {
+public class FieldsAndAttachments implements Parcelable {
 
     private boolean firstName, lastName, maidenName, gender, nationality, POB, expiryDate, issueDate, DOB, signature, address, issuingAuthority, height, weight, bloodType, hairColour, eyeColour, classID, proofOfStatus, birthCertificate, driversLicense, photoOfCustomer, SIN, proofOfResidence;
     private String serviceCost;
@@ -42,6 +45,80 @@ public class FieldsAndAttachments {
     }
     //getters for the fields and attachments =======================================================
 
+
+    protected FieldsAndAttachments(Parcel in) {
+        firstName = in.readByte() != 0;
+        lastName = in.readByte() != 0;
+        maidenName = in.readByte() != 0;
+        gender = in.readByte() != 0;
+        nationality = in.readByte() != 0;
+        POB = in.readByte() != 0;
+        expiryDate = in.readByte() != 0;
+        issueDate = in.readByte() != 0;
+        DOB = in.readByte() != 0;
+        signature = in.readByte() != 0;
+        address = in.readByte() != 0;
+        issuingAuthority = in.readByte() != 0;
+        height = in.readByte() != 0;
+        weight = in.readByte() != 0;
+        bloodType = in.readByte() != 0;
+        hairColour = in.readByte() != 0;
+        eyeColour = in.readByte() != 0;
+        classID = in.readByte() != 0;
+        proofOfStatus = in.readByte() != 0;
+        birthCertificate = in.readByte() != 0;
+        driversLicense = in.readByte() != 0;
+        photoOfCustomer = in.readByte() != 0;
+        SIN = in.readByte() != 0;
+        proofOfResidence = in.readByte() != 0;
+        serviceCost = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (firstName ? 1 : 0));
+        dest.writeByte((byte) (lastName ? 1 : 0));
+        dest.writeByte((byte) (maidenName ? 1 : 0));
+        dest.writeByte((byte) (gender ? 1 : 0));
+        dest.writeByte((byte) (nationality ? 1 : 0));
+        dest.writeByte((byte) (POB ? 1 : 0));
+        dest.writeByte((byte) (expiryDate ? 1 : 0));
+        dest.writeByte((byte) (issueDate ? 1 : 0));
+        dest.writeByte((byte) (DOB ? 1 : 0));
+        dest.writeByte((byte) (signature ? 1 : 0));
+        dest.writeByte((byte) (address ? 1 : 0));
+        dest.writeByte((byte) (issuingAuthority ? 1 : 0));
+        dest.writeByte((byte) (height ? 1 : 0));
+        dest.writeByte((byte) (weight ? 1 : 0));
+        dest.writeByte((byte) (bloodType ? 1 : 0));
+        dest.writeByte((byte) (hairColour ? 1 : 0));
+        dest.writeByte((byte) (eyeColour ? 1 : 0));
+        dest.writeByte((byte) (classID ? 1 : 0));
+        dest.writeByte((byte) (proofOfStatus ? 1 : 0));
+        dest.writeByte((byte) (birthCertificate ? 1 : 0));
+        dest.writeByte((byte) (driversLicense ? 1 : 0));
+        dest.writeByte((byte) (photoOfCustomer ? 1 : 0));
+        dest.writeByte((byte) (SIN ? 1 : 0));
+        dest.writeByte((byte) (proofOfResidence ? 1 : 0));
+        dest.writeString(serviceCost);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<FieldsAndAttachments> CREATOR = new Creator<FieldsAndAttachments>() {
+        @Override
+        public FieldsAndAttachments createFromParcel(Parcel in) {
+            return new FieldsAndAttachments(in);
+        }
+
+        @Override
+        public FieldsAndAttachments[] newArray(int size) {
+            return new FieldsAndAttachments[size];
+        }
+    };
 
     public boolean isFirstName() {
         return firstName;

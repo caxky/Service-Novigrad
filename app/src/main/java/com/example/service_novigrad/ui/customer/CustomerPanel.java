@@ -72,7 +72,7 @@ public class CustomerPanel extends AppCompatActivity {
 
         bAdapter.setOnItemClickListener(new BranchesAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int pos) {
+            public void onItemClick(final int pos) {
                 String branchKey = branchList.get(pos).getBranchKey();
                 DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches").child(branchKey).child("Branch Services");
                 branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -86,6 +86,8 @@ public class CustomerPanel extends AppCompatActivity {
                         }
                         Intent intent = new Intent(getBaseContext(), CustomerBranchServices.class);
                         intent.putExtra("branchServiceList", branchServiceItems);
+                        intent.putExtra("branchKey", branchList.get(pos).getBranchKey());
+//                        intent.putExtra("customerKey", );
                         startActivity(intent);
                     }
 

@@ -18,6 +18,10 @@ public class BranchServiceItem implements Parcelable {
         return bsImageResource;
     }
 
+    public String getOriginalServiceKey() {
+        return originalServiceKey;
+    }
+
     public String getBranchServiceName() {
         return bsServiceName;
     }

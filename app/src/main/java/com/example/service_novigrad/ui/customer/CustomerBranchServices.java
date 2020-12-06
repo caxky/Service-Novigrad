@@ -1,5 +1,6 @@
 package com.example.service_novigrad.ui.customer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,13 @@ import android.widget.RatingBar;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.employee.ServiceRequestInformation;
+import com.example.service_novigrad.ui.register.Branch;
+import com.example.service_novigrad.ui.services.ServiceItem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -30,6 +38,7 @@ public class CustomerBranchServices extends AppCompatActivity {
     private ImageButton submitRatingButton;
     private LinearLayout ratingBox;
     private EditText ratingComment;
+    private String branchKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +55,6 @@ public class CustomerBranchServices extends AppCompatActivity {
         ratingBox = findViewById(R.id.ratingBox);
         ratingComment = findViewById(R.id.ratingCommentEditText);
 
-
-
         submitRatingButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -58,14 +65,14 @@ public class CustomerBranchServices extends AppCompatActivity {
         });
     }
 
-    public void createList(){
+    public void createList() {
         branchServiceList = this.getIntent().getParcelableArrayListExtra("branchServiceList");
 //        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "Health Card"));
 //        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "Drivers License"));
 //        branchServiceList.add(new BranchServiceItem(R.drawable.gear, "SIN"));
     }
 
-    public void buildRecyclerView(){
+    public void buildRecyclerView() {
         bsRecyclerView = findViewById(R.id.branchServicesRecyclerView);
         bsLayoutManager = new LinearLayoutManager(this);
         bsAdapter = new BranchServiceAdapter(branchServiceList);
@@ -75,9 +82,25 @@ public class CustomerBranchServices extends AppCompatActivity {
 
         bsAdapter.setOnItemClickListener(new BranchServiceAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int pos) {
-                Intent intent = new Intent(getBaseContext(), CustomerServiceForm.class);
-                startActivity(intent);
+            public void onItemClick(final int pos) {
+                BranchServiceItem branchService = branchServiceList.get(pos);
+                DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services").child(branchService.getOriginalServiceKey());
+                serviceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ServiceItem temp = snapshot.getValue(ServiceItem.class);
+                        Intent intent = new Intent(getBaseContext(), CustomerServiceForm.class);
+                        intent.putExtra("fieldsAndAttach", temp.getFieldsAndAttachments());
+                        intent.putExtra("branchItem", branchServiceList.get(pos));
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
     }

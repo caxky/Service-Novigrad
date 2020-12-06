@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class CustomerServiceForm extends AppCompatActivity implements View.OnClickListener{
 
     private static final int PICK_FILE_REQUEST = 234;
-
+    private BranchServiceItem branchItem;
     private TextView firstName, lastName, maidenName, gender, nationality, DOB, POB, address, height, weight, bloodType, hairColour, eyeColour;
     private EditText editTextFirstName, editTextLastName, editTextMaidenName, editTextNationality,editTextPOB, editTextDOB, editTextAddress, editTextHeight, editTextWeight, editTextHairColour, editTextEyeColour;
     private RadioGroup bloodTypeRG, genderRG;
@@ -55,6 +55,8 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_branch_service_form);
+        test = this.getIntent().getParcelableExtra("fieldsAndAttach");
+        branchItem = this.getIntent().getParcelableExtra("branchItem");
 
         bloodTypeRG = findViewById(R.id.bloodTypeRadioGroup);
         genderRG = findViewById(R.id.genderRadioGroup);
@@ -128,7 +130,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         buttonSIN.setOnClickListener(this);
         buttonPR.setOnClickListener(this);
 
-        test = new FieldsAndAttachments("Health Card Service");
+
         initializeForm(test);
 
         //Storage

@@ -153,7 +153,6 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(view.getContext(), WelcomeActivity.class));
                                 userName = usernameEditText.getText().toString();
                                 password = passwordEditText.getText().toString();
-
                             }
 
                         }
