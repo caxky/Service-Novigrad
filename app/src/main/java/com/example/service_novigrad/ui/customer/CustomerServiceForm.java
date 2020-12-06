@@ -24,6 +24,8 @@ import com.example.service_novigrad.ui.services.FieldsAndAttachments;
 import com.example.service_novigrad.ui.welcome.WelcomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,7 +36,9 @@ import java.util.concurrent.TimeUnit;
 public class CustomerServiceForm extends AppCompatActivity implements View.OnClickListener{
 
     private static final int PICK_FILE_REQUEST = 234;
-    private BranchServiceItem branchItem;
+    private BranchServiceItem branchServiceItem;
+    private String originalBranchKey;
+    private BranchItem currBranchItem;
     private TextView firstName, lastName, maidenName, gender, nationality, DOB, POB, address, height, weight, bloodType, hairColour, eyeColour;
     private EditText editTextFirstName, editTextLastName, editTextMaidenName, editTextNationality,editTextPOB, editTextDOB, editTextAddress, editTextHeight, editTextWeight, editTextHairColour, editTextEyeColour;
     private RadioGroup bloodTypeRG, genderRG;
@@ -58,7 +62,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_branch_service_form);
         test = this.getIntent().getParcelableExtra("fieldsAndAttach");
-        branchItem = this.getIntent().getParcelableExtra("branchItem");
+        branchServiceItem = this.getIntent().getParcelableExtra("branchServiceItem");
 
         bloodTypeRG = findViewById(R.id.bloodTypeRadioGroup);
         genderRG = findViewById(R.id.genderRadioGroup);
@@ -101,6 +105,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         editTextHairColour = findViewById(R.id.editTextHairColour);
         editTextEyeColour= findViewById(R.id.editTextEyeColour);
 
+        currBranchItem = this.getIntent().getParcelableExtra("branchItem");
         msubmit = (Button)findViewById(R.id.customerFormSubmit);
         msubmit.setEnabled(false);
         msubmit.setOnClickListener(new View.OnClickListener() {
@@ -110,12 +115,13 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
                 attachments = new HashMap<>();
                 finalizeFields();
                 finalizeAttachments();
-                CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments,branchItem.getOriginalServiceKey());
+                CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments,branchServiceItem.getOriginalServiceKey());
                 uploadFile();
 
                 //go back
-                Intent intent = new Intent(getBaseContext(), WelcomeActivity.class);
-                startActivity(intent);
+                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(currBranchItem.getBranchKey()).child("Branch Requests/");
+                branchReference.push().setValue(req);
+
             }
         });
 
@@ -140,7 +146,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         initializeForm(test);
 
         //Storage
-        storageReference = FirebaseStorage.getInstance().getReference(branchItem.getBranchServiceName());
+        storageReference = FirebaseStorage.getInstance().getReference(branchServiceItem.getBranchServiceName());
 
     }
     private TextWatcher textwatcher = new TextWatcher() {
