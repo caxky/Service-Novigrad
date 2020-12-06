@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.services.FieldsAndAttachments;
+import com.example.service_novigrad.ui.welcome.WelcomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -28,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class CustomerServiceForm extends AppCompatActivity implements View.OnClickListener{
 
@@ -110,7 +112,9 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
                 finalizeAttachments();
                 CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments,branchItem.getOriginalServiceKey());
                 uploadFile();
-                Intent intent = new Intent(getBaseContext(), CustomerBranchServices.class);
+
+                //go back
+                Intent intent = new Intent(getBaseContext(), WelcomeActivity.class);
                 startActivity(intent);
             }
         });
