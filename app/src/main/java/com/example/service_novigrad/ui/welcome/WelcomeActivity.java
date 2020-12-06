@@ -41,6 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WelcomeActivity extends AppCompatActivity {
     ArrayList<BranchItem> branchItemList = new ArrayList<>();
@@ -130,16 +131,29 @@ public class WelcomeActivity extends AppCompatActivity {
                                 Branch temp = child.getValue(Branch.class);
                                 branchItemList.add(new BranchItem(R.drawable.branch, Integer.toString(temp.getBranchID()), temp.getSaturdayOpeningHours(), temp.getSaturdayClosingHours(), temp.getBranchFirebaseKey()));
                             }
+                            for(BranchItem branch : branchItemList){
+                                String key = branch.getBranchKey();
+                                ArrayList<String> branchServices = new ArrayList<>();
+                                for(DataSnapshot child:snapshot.child(key).child("Branch Services").getChildren()){
+                                    ServiceItem temp = child.getValue(ServiceItem.class);
+                                    branchServices.add(temp.getServiceName());
+                                }
+                                Object [] objArr = branchServices.toArray();
+                                branch.setbServicesOffered(Arrays.copyOf(objArr, objArr.length,String[].class ));
+                            }
                             Intent intent = new Intent(WelcomeActivity.this, CustomerPanel.class);
-                            intent.putExtra("branchList", branchItemList);
-                            // check if services in branches exist
-                            for (BranchItem branch : branchItemList) {
+
+
+                            // check if services in branches exist ===================================================================================
+                            for ( BranchItem branch : branchItemList) {
                                 DatabaseReference branchServiceReference = FirebaseDatabase.getInstance().getReference("Branches").child(branch.getBranchKey()).child("Branch Services");
                                 branchServiceReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        ArrayList<String> serviceList = new ArrayList<>();
                                         for (final DataSnapshot child: snapshot.getChildren()){
                                             ServiceItem temp = child.getValue(ServiceItem.class);
+                                            serviceList.add(temp.getServiceName());
                                             DatabaseReference ogServiceRef = FirebaseDatabase.getInstance().getReference("Services").child(temp.getServiceID());
                                             ogServiceRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
@@ -156,13 +170,13 @@ public class WelcomeActivity extends AppCompatActivity {
                                             });
                                         }
                                     }
-
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
 
                                     }
                                 });
                             }
+                            intent.putExtra("branchList", branchItemList);
                             startActivity(intent);
                         }
 
