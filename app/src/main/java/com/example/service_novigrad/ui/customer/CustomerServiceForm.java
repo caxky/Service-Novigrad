@@ -1,6 +1,9 @@
 package com.example.service_novigrad.ui.customer;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.location.Address;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,22 +13,35 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.services.FieldsAndAttachments;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-public class CustomerServiceForm extends AppCompatActivity {
+public class CustomerServiceForm extends AppCompatActivity implements View.OnClickListener{
+
+    private static final int PICK_FILE_REQUEST = 234;
 
     private TextView firstName, lastName, maidenName, gender, nationality, DOB, POB, address, height, weight, bloodType, hairColour, eyeColour;
     private EditText editTextFirstName, editTextLastName, editTextMaidenName, editTextNationality,editTextPOB, editTextDOB, editTextAddress, editTextHeight, editTextWeight, editTextHairColour, editTextEyeColour;
     private RadioGroup bloodTypeRG, genderRG;
     private RadioButton male,female,other, aplus, bplus, oplus, oneg, abneg, abplus, aneg, bneg;
-    private Button msubmit;
+    private Button msubmit, buttonPOS, buttonBC, buttonDL, buttonPhoto, buttonSIN, buttonPR;
 
+    //Attachments
+    private Uri filePath;
+    private StorageReference storageReference;
 
+    //Fields and attachments
     private FieldsAndAttachments test;
 
     @Override
@@ -74,18 +90,39 @@ public class CustomerServiceForm extends AppCompatActivity {
         editTextHairColour = findViewById(R.id.editTextHairColour);
         editTextEyeColour= findViewById(R.id.editTextEyeColour);
 
-        msubmit = findViewById(R.id.customerFormSubmit);
+        msubmit = (Button)findViewById(R.id.customerFormSubmit);
         msubmit.setEnabled(false);
         msubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //finalize here
+
+
+                //The following function uploads the file onto the database.
+                //uploadFile();
             }
         });
 
         test = new FieldsAndAttachments("Health Card Service");
-        test.setGender(true);
         initializeForm(test);
+
+        //Attachments
+        buttonBC = (Button) findViewById(R.id.buttonBC);
+        buttonDL = (Button)findViewById(R.id.buttonDL);
+        buttonPOS = (Button)findViewById(R.id.buttonPOS);
+        buttonPhoto = (Button)findViewById(R.id.buttonPhoto);
+        buttonSIN = (Button)findViewById(R.id.buttonSIN);
+        buttonPR = (Button)findViewById(R.id.buttonPR);
+
+        buttonBC.setOnClickListener(this);
+        buttonDL.setOnClickListener(this);
+        buttonPOS.setOnClickListener(this);
+        buttonPhoto.setOnClickListener(this);
+        buttonSIN.setOnClickListener(this);
+        buttonPR.setOnClickListener(this);
+
+        //Storage
+        storageReference = FirebaseStorage.getInstance().getReference();
 
     }
     private TextWatcher textwatcher = new TextWatcher() {
@@ -311,6 +348,71 @@ public class CustomerServiceForm extends AppCompatActivity {
         }
         else{
 
+        }
+    }
+
+    private void showFileChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Select file"), PICK_FILE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            filePath = data.getData();
+        }
+    }
+
+    private void uploadFile(){
+        if(filePath != null) {
+
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+            StorageReference riversRef = storageReference.child("images/file.jpg");
+            riversRef.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"File Uploaded", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+        } else{
+            //display an error toast
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (buttonPOS.equals(v)) {
+            showFileChooser();
+        }
+        else if (buttonDL.equals(v)) {
+            showFileChooser();
+        }
+        else if (buttonBC.equals(v)) {
+            showFileChooser();
+        }
+        else if (buttonPR.equals(v)) {
+            showFileChooser();
+        }
+        else if (buttonPhoto.equals(v)) {
+            showFileChooser();
+        }
+        else if (buttonSIN.equals(v)) {
+            showFileChooser();
         }
     }
 }
