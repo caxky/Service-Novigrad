@@ -11,8 +11,9 @@ public class ServiceItemTest {
     @Test
     public void createServiceItem(){
         FieldsAndAttachments healthCardFandA = new FieldsAndAttachments("Health Card Service");
-        ServiceItem testServiceItem = new ServiceItem("name", "type", "123", healthCardFandA);
+        ServiceItem testServiceItem = new ServiceItem("name", "type", "123", healthCardFandA, 25.00);
 
         assertEquals("type", testServiceItem.getServiceType());
+        assertEquals(25.00, testServiceItem.getDefaultPrice());
     }
 }
