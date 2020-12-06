@@ -76,7 +76,7 @@ public class CustomerBranchServices extends AppCompatActivity {
         bsAdapter.setOnItemClickListener(new BranchServiceAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                Intent intent = new Intent(getBaseContext(), ServiceRequestInformation.class);
+                Intent intent = new Intent(getBaseContext(), CustomerServiceForm.class);
                 startActivity(intent);
             }
         });

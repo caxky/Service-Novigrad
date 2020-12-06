@@ -14,6 +14,7 @@
         <activity android:name=".ui.customer.CustomerPanel" />
         <activity android:name=".ui.employee.ServiceRequestInformation" />
         <activity android:name=".ui.employee.ServiceRequestItem" />
+        <activity android:name=".ui.customer.CustomerServiceForm"/>
         <activity android:name=".ui.employee.RemoveServices" />
         <activity android:name=".ui.employee.AddServices" />
         <activity android:name=".ui.employee.BranchInfo" />
