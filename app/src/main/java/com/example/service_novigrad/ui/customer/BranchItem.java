@@ -70,6 +70,10 @@ public class BranchItem implements Parcelable {
         return bServicesOffered.length;
     }
 
+    public void setbServicesOffered(String[] bServicesOffered) {
+        this.bServicesOffered = bServicesOffered;
+    }
+
     @Override
     public int describeContents() {
         return 0;
