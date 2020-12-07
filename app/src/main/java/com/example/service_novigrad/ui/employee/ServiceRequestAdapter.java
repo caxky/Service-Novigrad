@@ -34,7 +34,7 @@ public class ServiceRequestAdapter extends RecyclerView.Adapter<ServiceRequestAd
     public static class ServiceRequestViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imageView;
-        //public TextView serviceName;
+        public TextView serviceName;
         public TextView userName;
         public Boolean status;
         public Button acceptButton;
@@ -44,7 +44,7 @@ public class ServiceRequestAdapter extends RecyclerView.Adapter<ServiceRequestAd
             super(itemView);
             imageView = itemView.findViewById(R.id.serviceRequestImageView);
             userName = itemView.findViewById(R.id.requestUserName);
-            //serviceName = itemView.findViewById(R.id.serviceRequestType);
+            serviceName = itemView.findViewById(R.id.serviceRequestType);
 
             acceptButton = itemView.findViewById(R.id.acceptRequestButton);
             denyButton = itemView.findViewById(R.id.denyRequestButton);
@@ -108,7 +108,7 @@ public class ServiceRequestAdapter extends RecyclerView.Adapter<ServiceRequestAd
         ServiceRequestItem currentItem = serviceRequestList.get(position);
 
         holder.imageView.setImageResource(currentItem.getImageResource());
-        //holder.serviceName.setText(currentItem.getServiceName());
+        holder.serviceName.setText(currentItem.getForm().getBranchServiceItem().getBsServiceName());
         holder.userName.setText(currentItem.getUserName());
     }
 

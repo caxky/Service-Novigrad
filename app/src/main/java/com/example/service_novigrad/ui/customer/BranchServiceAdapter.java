@@ -63,7 +63,7 @@ public class BranchServiceAdapter extends RecyclerView.Adapter<BranchServiceAdap
         BranchServiceItem currentItem = bsServicesList.get(position);
 
         holder.bsBranchImage.setImageResource(currentItem.getImageResource());
-        holder.bsServiceName.setText(currentItem.getBranchServiceName());
+        holder.bsServiceName.setText(currentItem.getBsServiceName());
 
     }
 

@@ -41,11 +41,11 @@ public class ServiceRequestInformation extends AppCompatActivity {
         //Associate the imageview with their appropriate imageviewIDS
 
         //Replace with real customerFormRequest object
-        FieldsAndAttachments fields = new FieldsAndAttachments("Photo ID Service");
+        ServiceRequestItem req = this.getIntent().getParcelableExtra("serviceRequest");
 
         //Initialize the form's value
-        initializeFields(fields);
-        initializeImages();
+//        initializeFields(fields);
+//        initializeImages();
 
     }
     public void initializeFields(FieldsAndAttachments list){

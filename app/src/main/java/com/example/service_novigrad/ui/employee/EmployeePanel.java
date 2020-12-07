@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.service_novigrad.R;
+import com.example.service_novigrad.ui.customer.CustomerFormRequest;
 import com.example.service_novigrad.ui.register.Branch;
 import com.example.service_novigrad.ui.services.ServiceItem;
 import com.google.firebase.database.DataSnapshot;
@@ -63,8 +64,8 @@ public class EmployeePanel extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Branch currentBranch = snapshot.getValue(Branch.class);
 
-                branchEmailText.setText("Branch Email: "+currentBranch.getEmailAddress());
-                branchPhoneText.setText("Branch Phone: "+currentBranch.getPhoneNumber());
+                branchEmailText.setText("Branch Email: " + currentBranch.getEmailAddress());
+                branchPhoneText.setText("Branch Phone: " + currentBranch.getPhoneNumber());
 
             }
 
@@ -80,8 +81,6 @@ public class EmployeePanel extends AppCompatActivity {
         employeeNameText.setText(nameText);
         employeeAccountIDText.setText(accountIDText);
         branchIDText.setText(branchIDString);
-
-
 
 
         addServicesButton.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +101,7 @@ public class EmployeePanel extends AppCompatActivity {
                         Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
                         for (DataSnapshot child : children) {
                             ServiceItem temp = child.getValue(ServiceItem.class);
-                            serviceList.add(new ServiceItem( temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments(),temp.getDefaultPrice()));
+                            serviceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(), temp.getFieldsAndAttachments(), temp.getDefaultPrice()));
                         }
                         DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Branch Services");
                         branchReference.addListenerForSingleValueEvent(new ValueEventListener() { //second layer to find the branch services, put them in intent and startActivity
@@ -110,9 +109,9 @@ public class EmployeePanel extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 Iterable<DataSnapshot> children = snapshot.getChildren(); //gets an iterable of the service
                                 ArrayList<ServiceItem> branchServiceList = new ArrayList<>();
-                                for(DataSnapshot child: children){
+                                for (DataSnapshot child : children) {
                                     ServiceItem temp = child.getValue(ServiceItem.class);
-                                    branchServiceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments(),temp.getDefaultPrice()));
+                                    branchServiceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(), temp.getFieldsAndAttachments(), temp.getDefaultPrice()));
                                 }
                                 //puts values in intent to be retrieved and worked on in the new activity
                                 newIntent.putExtra("serviceList", serviceList);
@@ -150,10 +149,10 @@ public class EmployeePanel extends AppCompatActivity {
                 branchReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Iterable<DataSnapshot>children = snapshot.getChildren();
-                        for(DataSnapshot child: children){ //iterate and add to the arraylist all the services in branch
+                        Iterable<DataSnapshot> children = snapshot.getChildren();
+                        for (DataSnapshot child : children) { //iterate and add to the arraylist all the services in branch
                             ServiceItem temp = child.getValue(ServiceItem.class);
-                            serviceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(),temp.getFieldsAndAttachments(),temp.getDefaultPrice()
+                            serviceList.add(new ServiceItem(temp.getServiceName(), temp.getServiceType(), temp.getServiceID(), temp.getFieldsAndAttachments(), temp.getDefaultPrice()
                             ));
                         }
 
@@ -183,7 +182,7 @@ public class EmployeePanel extends AppCompatActivity {
                         Branch currentBranch = snapshot.getValue(Branch.class);
                         newIntent.putExtra("branchKey", branchKey);
                         newIntent.putExtra("branchID", branchID);
-                        
+
                         startActivity(newIntent);
                     }
 
@@ -199,7 +198,26 @@ public class EmployeePanel extends AppCompatActivity {
 
         serviceRequestsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), ServiceRequests.class));
+                DatabaseReference requestReference = FirebaseDatabase.getInstance().getReference().child("Branches").child(branchKey).child("Branch Requests");
+                newIntent = new Intent(view.getContext(), ServiceRequests.class);
+                requestReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<ServiceRequestItem> inputArrList = new ArrayList<>();
+                        for (DataSnapshot child : snapshot.getChildren()) {
+                            CustomerFormRequest temp = child.getValue(CustomerFormRequest.class);
+                            inputArrList.add(new ServiceRequestItem(R.drawable.user_icon, temp.getBranchServiceItem().getBsServiceName(),temp));
+                        }
+                        newIntent.putExtra("serviceRequestItemList", inputArrList);
+                        startActivity(newIntent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
     }

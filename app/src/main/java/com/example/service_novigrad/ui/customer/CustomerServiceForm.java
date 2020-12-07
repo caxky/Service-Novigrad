@@ -55,7 +55,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
 
     //final storage
     HashMap<String, String> fields;
-    HashMap<String, Uri> attachments;
+    HashMap<String, String> attachments;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,7 +115,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
                 attachments = new HashMap<>();
                 finalizeFields();
                 finalizeAttachments();
-                CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments,branchServiceItem.getOriginalServiceKey());
+                CustomerFormRequest req = new CustomerFormRequest(test,fields,attachments,branchServiceItem);
                 uploadFile();
 
                 //go back
@@ -146,7 +146,7 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         initializeForm(test);
 
         //Storage
-        storageReference = FirebaseStorage.getInstance().getReference(branchServiceItem.getBranchServiceName());
+        storageReference = FirebaseStorage.getInstance().getReference(branchServiceItem.getBsServiceName());
 
     }
     private TextWatcher textwatcher = new TextWatcher() {
@@ -634,23 +634,23 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
         }
     }
     public void finalizeAttachments(){
-        if(test.isProofOfStatus()){
-            attachments.put("Proof of Status", filePathPOS);
+        if(test.isProofOfStatus()&&filePathPOS!=null){
+            attachments.put("Proof of Status", filePathPOS.toString());
         }
-        if(test.isDriversLicense()){
-            attachments.put("Drivers License", filePathDL);
+        if(test.isDriversLicense()&&filePathDL!=null){
+            attachments.put("Drivers License", filePathDL.toString());
         }
-        if(test.isBirthCertificate()){
-            attachments.put("Birth Certificate", filePathBC);
+        if(test.isBirthCertificate()&&filePathBC!=null){
+            attachments.put("Birth Certificate", filePathBC.toString());
         }
-        if(test.isPhotoOfCustomer()){
-            attachments.put("Photo of Customer", filePathPhoto);
+        if(test.isPhotoOfCustomer()&&filePathPhoto!=null){
+            attachments.put("Photo of Customer", filePathPhoto.toString());
         }
-        if(test.isSIN()){
-            attachments.put("SIN", filePathSIN);
+        if(test.isSIN()&&filePathSIN!=null){
+            attachments.put("SIN", filePathSIN.toString());
         }
-        if(test.isProofOfResidence()){
-            attachments.put("Proof of Residence", filePathPR);
+        if(test.isProofOfResidence()&&filePathPR!=null){
+            attachments.put("Proof of Residence", filePathPR.toString());
         }
     }
 }

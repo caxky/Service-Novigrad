@@ -14,7 +14,7 @@ import com.example.service_novigrad.ui.services.ServicesAdapter;
 import java.util.ArrayList;
 
 public class ServiceRequests extends AppCompatActivity {
-    ArrayList<ServiceRequestItem> requestList;
+    private ArrayList<ServiceRequestItem> requestList;
 
     private RecyclerView serviceRequestRecyclerView;
     private ServiceRequestAdapter serviceRequestAdapter;
@@ -43,7 +43,7 @@ public class ServiceRequests extends AppCompatActivity {
     }
 
     public void createServiceRequestList(){
-        requestList = new ArrayList<>();
+        requestList = this.getIntent().getParcelableArrayListExtra("serviceRequestItemList");
         /*requestList.add(new ServiceRequestItem(R.drawable.requests, "Health Card", "Bob Smith"));
         requestList.add(new ServiceRequestItem(R.drawable.requests, "Drivers License", "David James"));
         requestList.add(new ServiceRequestItem(R.drawable.requests, "Health Card", "Nathan Brown"));
@@ -62,6 +62,7 @@ public class ServiceRequests extends AppCompatActivity {
             @Override
             public void onItemClick(int pos) {
                 Intent intent = new Intent(getBaseContext(), ServiceRequestInformation.class);
+                intent.putExtra("serviceRequest", requestList.get(pos));
                 startActivity(intent);
             }
 

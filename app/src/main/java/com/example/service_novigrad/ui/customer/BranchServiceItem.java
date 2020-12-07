@@ -9,6 +9,9 @@ public class BranchServiceItem implements Parcelable {
     private String bsServiceName;
     private String originalServiceKey;
 
+    public BranchServiceItem(){
+
+    }
     public BranchServiceItem(int imageResource, String serviceName, String originalServiceKey) {
         bsServiceName = serviceName;
         bsImageResource = imageResource;
@@ -22,7 +25,7 @@ public class BranchServiceItem implements Parcelable {
         return originalServiceKey;
     }
 
-    public String getBranchServiceName() {
+    public String getBsServiceName() {
         return bsServiceName;
     }
 
@@ -31,6 +34,11 @@ public class BranchServiceItem implements Parcelable {
         bsServiceName = in.readString();
         originalServiceKey = in.readString();
     }
+
+    public int getBsImageResource() {
+        return bsImageResource;
+    }
+
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
