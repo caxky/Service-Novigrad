@@ -16,7 +16,7 @@ public class ServiceRequestItem {
     private Boolean status;
     private CustomerFormRequest form;
 
-    public ServiceRequestItem(int imageResource, String serviceName, String userName, CustomerFormRequest form){
+    public ServiceRequestItem(int imageResource, String serviceName, CustomerFormRequest form){
         this.imageResource = imageResource;
         //this.serviceName = serviceName;
         this.status = false;
