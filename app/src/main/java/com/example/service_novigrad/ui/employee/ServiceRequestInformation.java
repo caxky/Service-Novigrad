@@ -163,7 +163,7 @@ public class ServiceRequestInformation extends AppCompatActivity {
     }
 
     public void initializeImages(Map<String, String> list){
-        if(req.getForm().getAttachments().containsKey("Proof of Status")){
+        /*if(req.getForm().getAttachments().containsKey("Proof of Status")){
             StorageReference refPOS = storageReference.child(req.getForm().getAttachments().get("First Name")+"/filePOS.jpg");
             POS = Uri.parse(list.get("Proof of Status"));
             refPOS.getFile(POS)
@@ -229,13 +229,6 @@ public class ServiceRequestInformation extends AppCompatActivity {
         if(req.getForm().getAttachments().containsKey("Photo of Customer")){
             Photo = Uri.parse(list.get("Photo of Customer"));
             StorageReference refPOS = storageReference.child(req.getForm().getAttachments().get("First Name")+"/filePhoto.jpg");
-            /*Bitmap bitmap = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Photo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            imagePhoto.setImageBitmap(bitmap);*/
             refPOS.getFile(Photo)
                     .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
@@ -295,6 +288,6 @@ public class ServiceRequestInformation extends AppCompatActivity {
 
                 }
             });
-        }
+        }*/
     }
 }
