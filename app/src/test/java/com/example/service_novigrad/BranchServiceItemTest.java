@@ -11,6 +11,6 @@ public class BranchServiceItemTest {
     public void createBranchServiceItem() {
         BranchServiceItem testBSItem = new BranchServiceItem(555, "Test Service Name", "453453g");
 
-        assertEquals("Test Service Name", testBSItem.getBranchServiceName());
+        assertEquals("Test Service Name", testBSItem.getBsServiceName());
     }
 }
