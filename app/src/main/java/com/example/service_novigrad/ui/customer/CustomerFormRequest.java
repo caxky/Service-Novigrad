@@ -46,6 +46,8 @@ public class CustomerFormRequest implements Parcelable {
     protected CustomerFormRequest(Parcel in) {
         booleanFields = in.readParcelable(FieldsAndAttachments.class.getClassLoader());
         branchServiceItem = in.readParcelable(BranchServiceItem.class.getClassLoader());
+        filledFields = in.readHashMap(HashMap.class.getClassLoader());
+        attachments = in.readHashMap(HashMap.class.getClassLoader());
     }
 
     public static final Creator<CustomerFormRequest> CREATOR = new Creator<CustomerFormRequest>() {
@@ -69,5 +71,7 @@ public class CustomerFormRequest implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeParcelable(booleanFields, i);
         parcel.writeParcelable(branchServiceItem,i);
+        parcel.writeMap(filledFields);
+        parcel.writeMap(attachments);
     }
 }

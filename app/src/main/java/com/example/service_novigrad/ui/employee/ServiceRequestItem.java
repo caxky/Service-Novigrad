@@ -23,7 +23,7 @@ public class ServiceRequestItem implements Parcelable {
         this.serviceName = serviceName;
         this.status = false;
         this.form = form;
-        this.userName = form.getFilledfields().get("First Name");
+        this.userName = form.getFilledFields().get("First Name")+" "+form.getFilledFields().get("Last Name");
     }
 
     protected ServiceRequestItem(Parcel in) {
@@ -32,6 +32,7 @@ public class ServiceRequestItem implements Parcelable {
         byte tmpStatus = in.readByte();
         status = tmpStatus == 0 ? null : tmpStatus == 1;
         form = in.readParcelable(CustomerFormRequest.class.getClassLoader());
+        serviceName = in.readString();
     }
 
     @Override
@@ -40,6 +41,7 @@ public class ServiceRequestItem implements Parcelable {
         dest.writeString(userName);
         dest.writeByte((byte) (status == null ? 0 : status ? 1 : 2));
         dest.writeParcelable(form, flags);
+        dest.writeString(serviceName);
     }
 
     @Override

@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class CustomerServiceForm extends AppCompatActivity implements View.OnClickListener{
@@ -54,8 +55,8 @@ public class CustomerServiceForm extends AppCompatActivity implements View.OnCli
     private FieldsAndAttachments test;
 
     //final storage
-    HashMap<String, String> fields;
-    HashMap<String, String> attachments;
+    Map<String, String> fields;
+    Map<String, String> attachments;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

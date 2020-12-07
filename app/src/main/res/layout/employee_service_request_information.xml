@@ -556,7 +556,7 @@
                 android:background="#00FFFFFF" />
 
             <TextView
-                android:id="@+id/empFormReviewImagePR"
+                android:id="@+id/textview2312"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Proof of Residence"
@@ -565,7 +565,7 @@
                 android:textColor="#575757" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/empFormReviewImagePR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
