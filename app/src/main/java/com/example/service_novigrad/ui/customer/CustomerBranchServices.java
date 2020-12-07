@@ -40,6 +40,7 @@ public class CustomerBranchServices extends AppCompatActivity {
     private EditText ratingComment;
     private String branchKey;
 
+    private float ratedValue;
     private BranchItem currBranchItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class CustomerBranchServices extends AppCompatActivity {
         createList();
         buildRecyclerView();
 
+        branchKey = this.getIntent().getStringExtra("branchKey");
         ratingBar = findViewById(R.id.branchRatingBar);
         ratingBar.setNumStars(5);
 
@@ -63,7 +65,10 @@ public class CustomerBranchServices extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ratingBox.setVisibility(View.GONE);
-                float ratedValue = ratingBar.getRating();
+                ratedValue = ratingBar.getRating();
+                final RatingClass rating = new RatingClass(ratingComment.getText().toString(), ratedValue);
+                DatabaseReference branchReference = FirebaseDatabase.getInstance().getReference().child("Branches/").child(branchKey).child("Ratings");
+                branchReference.push().setValue(rating);
             }
         });
     }
