@@ -12,31 +12,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerFormRequest implements Parcelable {
-    FieldsAndAttachments booleanfields;
-    Map<String, String> filledfields;
+    FieldsAndAttachments booleanFields;
+    Map<String, String> filledFields;
     Map<String, String> attachments;
     BranchServiceItem branchServiceItem;
     public CustomerFormRequest(){
 
     }
-    public CustomerFormRequest(FieldsAndAttachments fields, HashMap<String, String> filledfields, HashMap<String, String> attachments, BranchServiceItem branchServiceItem) {
-        this.booleanfields = fields;
-        this.filledfields = filledfields;
+    public CustomerFormRequest(FieldsAndAttachments booleanFields, Map<String, String> filledFields, Map<String, String> attachments, BranchServiceItem branchServiceItem) {
+        this.booleanFields = booleanFields;
+        this.filledFields = filledFields;
         this.attachments = attachments;
         this.branchServiceItem = branchServiceItem;
     }
 
-
-    public FieldsAndAttachments getBooleanfields() {
-        return booleanfields;
-    }
-
-    public Map<String, String> getFilledfields() {
-        return filledfields;
-    }
-
     public Map<String, String> getAttachments() {
         return attachments;
+    }
+
+    public FieldsAndAttachments getBooleanFields() {
+        return booleanFields;
+    }
+
+    public Map<String, String> getFilledFields() {
+        return filledFields;
     }
 
     public BranchServiceItem getBranchServiceItem() {
@@ -45,7 +44,7 @@ public class CustomerFormRequest implements Parcelable {
 
 
     protected CustomerFormRequest(Parcel in) {
-        booleanfields = in.readParcelable(FieldsAndAttachments.class.getClassLoader());
+        booleanFields = in.readParcelable(FieldsAndAttachments.class.getClassLoader());
         branchServiceItem = in.readParcelable(BranchServiceItem.class.getClassLoader());
     }
 
@@ -68,7 +67,7 @@ public class CustomerFormRequest implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeParcelable(booleanfields, i);
+        parcel.writeParcelable(booleanFields, i);
         parcel.writeParcelable(branchServiceItem,i);
     }
 }
