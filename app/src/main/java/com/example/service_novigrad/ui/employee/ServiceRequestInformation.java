@@ -2,6 +2,7 @@ package com.example.service_novigrad.ui.employee;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,10 +11,13 @@ import com.example.service_novigrad.R;
 import com.example.service_novigrad.ui.customer.CustomerFormRequest;
 import com.example.service_novigrad.ui.services.FieldsAndAttachments;
 
+import java.util.Map;
+
 public class ServiceRequestInformation extends AppCompatActivity {
 
     TextView firstName, lastName, maidenName, gender, nationality, POB, DOB, address, height, weight, hairColour, eyeColour;
     ImageView imagePOS, imageDL, imageBC, imagePhoto, imageSIN, imagePR;
+    Uri POS, DL, BC, Photo, SIN, PR;
     CustomerFormRequest customer;
     ServiceRequestItem req;
 
@@ -42,14 +46,14 @@ public class ServiceRequestInformation extends AppCompatActivity {
         imageDL = findViewById(R.id.empFormReviewImageDL);
         imagePhoto = findViewById(R.id.empFormReviewImagePhoto);
         imageSIN = findViewById(R.id.empFormReviewImageSIN);
-        imagePR = findViewById(R.id.textview2312);
+        imagePR = findViewById(R.id.empFormReviewImagePR);
 
         //Replace with real customerFormRequest object
         req = this.getIntent().getParcelableExtra("serviceRequest");
 
         //Initialize the form's value
         initializeFields(req.getForm().getBooleanFields());
-        initializeImages();
+        initializeImages(req.getForm().getAttachments());
 
     }
     public void initializeFields(FieldsAndAttachments list){
@@ -139,7 +143,6 @@ public class ServiceRequestInformation extends AppCompatActivity {
         }
     }
 
-    public void initializeImages(){
-
+    public void initializeImages(Map<String, String> list){
     }
 }
