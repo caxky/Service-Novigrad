@@ -14,7 +14,7 @@ public class ServiceItemTest {
         ServiceItem testServiceItem = new ServiceItem("name", "type", "123", healthCardFandA, 25.00);
 
         assertEquals("type", testServiceItem.getServiceType());
-        assertEquals(25.00, testServiceItem.getDefaultPrice());
+        assertEquals(25.00, testServiceItem.getDefaultPrice(), 0.0f);
         assertEquals("name", testServiceItem.getServiceName());
     }
 }
