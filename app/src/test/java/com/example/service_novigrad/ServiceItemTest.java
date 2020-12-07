@@ -15,5 +15,6 @@ public class ServiceItemTest {
 
         assertEquals("type", testServiceItem.getServiceType());
         assertEquals(25.00, testServiceItem.getDefaultPrice());
+        assertEquals("name", testServiceItem.getServiceName());
     }
 }
